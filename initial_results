@@ -1,0 +1,36 @@
+TEST_2
+Sendrecv no delay in TEST_2 :  397.228
+Sendrecv wt delay in TEST_2 :  240.711
+Isend-recv no delay in TEST_2 :  233.931
+Isend-recv wt delay in TEST_2 :  258.499
+Isend-Irecv no delay in TEST_2 :  260.024
+Isend-Irecv wt delay in TEST_2 :  267.666
+12 at a time no delay in TEST_2 :  207.652
+12 at a time wt delay in TEST_2 :  213.762
+TEST_4
+Sendrecv no delay in TEST_4 :  466.255
+Sendrecv wt delay in TEST_4 :  271.773
+Isend-recv no delay in TEST_4 :  303.957
+Isend-recv wt delay in TEST_4 :  328.532
+Isend-Irecv no delay in TEST_4 :  321.949
+Isend-Irecv wt delay in TEST_4 :  321.22
+12 at a time no delay in TEST_4 :  219.367
+12 at a time wt delay in TEST_4 :  226.791
+TEST_8
+Sendrecv no delay in TEST_8 :  516.537
+Sendrecv wt delay in TEST_8 :  333.823
+Isend-recv no delay in TEST_8 :  372.378
+Isend-recv wt delay in TEST_8 :  402.014
+Isend-Irecv no delay in TEST_8 :  386.656
+Isend-Irecv wt delay in TEST_8 :  357.679
+12 at a time no delay in TEST_8 :  235.48
+12 at a time wt delay in TEST_8 :  236.701
+TEST_16
+Sendrecv no delay in TEST_16 :  456.817
+Sendrecv wt delay in TEST_16 :  262.794
+Isend-recv no delay in TEST_16 :  322.494
+Isend-recv wt delay in TEST_16 :  325.252
+Isend-Irecv no delay in TEST_16 :  329.692
+Isend-Irecv wt delay in TEST_16 :  292.975
+12 at a time no delay in TEST_16 :  244.955
+12 at a time wt delay in TEST_16 :  226.665
