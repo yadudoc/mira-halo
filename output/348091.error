@@ -1,0 +1,21 @@
+2014-10-19 23:29:23.998 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-19 23:29:23.999 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-19 23:29:23.999 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-19 23:29:24.001 (INFO ) [0x40001aebde0] 23107:tatu.runjob.client: scheduler job id is 348091
+2014-10-19 23:29:24.005 (INFO ) [0x400016334e0] 23107:tatu.runjob.monitor: monitor started
+2014-10-19 23:29:28.678 (INFO ) [0x400016334e0] 23107:tatu.runjob.monitor: task record 519061 created
+2014-10-19 23:29:28.679 (INFO ) [0x40001aebde0] MIR-00CC0-33FF1-512:23107:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-19 23:29:31.140 (INFO ) [0x40001aebde0] MIR-00CC0-33FF1-512:753496:ibm.runjob.client.Job: job 753496 started
+Delay time: 143686988 pclks, 169043.515294117649 microseconds
+Sendrecv no delay for   1024 doubles: 408918 pclks,   481.080000000000 microseconds
+Sendrecv wt delay time for   1024 doubles: 227738 pclks,   267.927058823529 microseconds
+Isend-recv no delay for   1024 doubles: 262512 pclks,   308.837647058824 microseconds
+Isend-recv wt delay for   1024 doubles: 276266 pclks,   325.018823529412 microseconds
+Isend-Irecv no delay for   1024 doubles: 275836 pclks,   324.512941176471 microseconds
+Isend-Irecv wt delay for   1024 doubles: 272616 pclks,   320.724705882353 microseconds
+12 at a time no delay for   1024 doubles: 189952 pclks,   223.472941176471 microseconds
+12 at a time wt delay for   1024 doubles: 194598 pclks,   228.938823529412 microseconds
+2014-10-19 23:29:34.434 (INFO ) [0x40001aebde0] MIR-00CC0-33FF1-512:753496:ibm.runjob.client.Job: exited with status 0
+2014-10-19 23:29:34.434 (INFO ) [0x40001aebde0] tatu.runjob.client: task exited with status 0
+2014-10-19 23:29:34.435 (INFO ) [0x400016334e0] 23107:tatu.runjob.monitor: monitor terminating
+2014-10-19 23:29:34.439 (INFO ) [0x40001aebde0] tatu.runjob.client: monitor completed

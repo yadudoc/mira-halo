@@ -1,0 +1,12 @@
+2014-10-20 06:07:07.467 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-20 06:07:07.473 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-20 06:07:07.473 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-20 06:07:07.474 (INFO ) [0x40001aebde0] 49476:tatu.runjob.client: scheduler job id is 348185
+2014-10-20 06:07:07.477 (INFO ) [0x400016334e0] 49476:tatu.runjob.monitor: monitor started
+2014-10-20 06:07:11.581 (INFO ) [0x400016334e0] 49476:tatu.runjob.monitor: task record 519093 created
+2014-10-20 06:07:11.581 (INFO ) [0x40001aebde0] MIR-08840-3BB71-512:49476:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-20 06:07:11.879 (FATAL) [0x40001aebde0] MIR-08840-3BB71-512:49476:ibm.runjob.client.Job: could not start job: job failed to start
+2014-10-20 06:07:11.880 (FATAL) [0x40001aebde0] MIR-08840-3BB71-512:49476:ibm.runjob.client.Job: T coordinate on line 4 exceeds the T dimension range of 1 for the job
+2014-10-20 06:07:11.880 (INFO ) [0x40001aebde0] tatu.runjob.client: task exited with status 1
+2014-10-20 06:07:11.880 (INFO ) [0x400016334e0] 49476:tatu.runjob.monitor: monitor terminating
+2014-10-20 06:07:11.885 (INFO ) [0x40001aebde0] tatu.runjob.client: monitor completed

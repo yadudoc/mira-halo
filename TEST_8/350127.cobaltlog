@@ -1,0 +1,55 @@
+Jobid: 350127
+qsub -n 8 -t 30 /home/yadunand/mira-halo/mmps
+Thu Oct 23 04:01:50 2014 +0000 (UTC) submitted with cwd set to: /gpfs/mira-home/yadunand/mira-halo/TEST_8
+Thu Oct 23 11:53:17 2014 +0000 (UTC) yadunand/350127: Initiating boot at location MIR-40840-73B71-512.
+Thu Oct 23 11:53:56 2014 +0000 (UTC) 
+Thu Oct 23 11:53:56 2014 +0000 (UTC) Command: '/usr/bin/runjob' '--np' '8' '--ranks-per-node' '1' '--cwd' '/gpfs/mira-home/yadunand/mira-halo/TEST_8' '--block' 'MIR-40840-73B71-512' '--envs' 'COBALT_JOBID=350127' '--envs' 'COBALT_STARTTIME=1414065161' '--envs' 'COBALT_ENDTIME=1414066961' '--verbose' '4' ':' '/home/yadunand/mira-halo/mmps'
+Thu Oct 23 11:53:56 2014 +0000 (UTC) 
+Thu Oct 23 11:53:56 2014 +0000 (UTC) Environment:
+Thu Oct 23 11:53:56 2014 +0000 (UTC) LESSOPEN=|/usr/bin/lesspipe.sh %s
+Thu Oct 23 11:53:56 2014 +0000 (UTC) CVS_RSH=ssh
+Thu Oct 23 11:53:56 2014 +0000 (UTC) LOGNAME=root
+Thu Oct 23 11:53:56 2014 +0000 (UTC) USER=root
+Thu Oct 23 11:53:56 2014 +0000 (UTC) HOME=/root
+Thu Oct 23 11:53:56 2014 +0000 (UTC) QTDIR=/usr/lib64/qt-3.3
+Thu Oct 23 11:53:56 2014 +0000 (UTC) ARCH=linux-rhel_6-ppc64
+Thu Oct 23 11:53:56 2014 +0000 (UTC) LD_LIBRARY_PATH=/bgsys/drivers/ppcfloor/lib64:/sn1/dbhome/bgqsysdb/sqllib/lib64:/sn1/dbhome/bgqsysdb/sqllib/lib32:/sn1/dbhome/db2cat/sqllib/lib64:/sn1/dbhome/db2cat/sqllib/lib32
+Thu Oct 23 11:53:56 2014 +0000 (UTC) LANG=en_US
+Thu Oct 23 11:53:56 2014 +0000 (UTC) IBM_DB_DIR=/sn1/dbhome/db2cat/sqllib
+Thu Oct 23 11:53:56 2014 +0000 (UTC) TERM=screen-bce
+Thu Oct 23 11:53:56 2014 +0000 (UTC) SHELL=/bin/bash
+Thu Oct 23 11:53:56 2014 +0000 (UTC) SHLVL=2
+Thu Oct 23 11:53:56 2014 +0000 (UTC) IBM_DB_LIB=/sn1/dbhome/db2cat/sqllib/lib
+Thu Oct 23 11:53:56 2014 +0000 (UTC) DB2INSTANCE=db2cat
+Thu Oct 23 11:53:56 2014 +0000 (UTC) G_BROKEN_FILENAMES=1
+Thu Oct 23 11:53:56 2014 +0000 (UTC) WHATAMI=linux-rhel_6-ppc64
+Thu Oct 23 11:53:56 2014 +0000 (UTC) HISTSIZE=1000
+Thu Oct 23 11:53:56 2014 +0000 (UTC) PLATFORM=linux-rhel_6-ppc64
+Thu Oct 23 11:53:56 2014 +0000 (UTC) MPIRUN_VERBOSE=1
+Thu Oct 23 11:53:56 2014 +0000 (UTC) COBALT_ENDTIME=1414066961
+Thu Oct 23 11:53:56 2014 +0000 (UTC) SUDO_USER=ascovel
+Thu Oct 23 11:53:56 2014 +0000 (UTC) USERNAME=root
+Thu Oct 23 11:53:56 2014 +0000 (UTC) SUDO_COMMAND=/bin/bash
+Thu Oct 23 11:53:56 2014 +0000 (UTC) SUDO_UID=5151
+Thu Oct 23 11:53:56 2014 +0000 (UTC) DB2LIB=/sn1/dbhome/db2cat/sqllib/lib
+Thu Oct 23 11:53:56 2014 +0000 (UTC) CLASSPATH=/sn1/dbhome/bgqsysdb/sqllib/java/db2java.zip:/sn1/dbhome/bgqsysdb/sqllib/java/sqlj.zip:/sn1/dbhome/bgqsysdb/sqllib/function:/sn1/dbhome/bgqsysdb/sqllib/java/db2jcc_license_cu.jar:/sn1/dbhome/bgqsysdb/sqllib/tools/clpplus.jar:/sn1/dbhome/bgqsysdb/sqllib/tools/antlr-3.2.jar:/sn1/dbhome/bgqsysdb/sqllib/tools/jline-0.9.93.jar:/sn1/dbhome/bgqsysdb/sqllib/java/db2jcc.jar:/sn1/dbhome/db2cat/sqllib/java/db2java.zip:/sn1/dbhome/db2cat/sqllib/java/sqlj.zip:/sn1/dbhome/db2cat/sqllib/function:/sn1/dbhome/db2cat/sqllib/java/db2jcc_license_cu.jar:/sn1/dbhome/db2cat/sqllib/tools/clpplus.jar:/sn1/dbhome/db2cat/sqllib/tools/antlr-3.2.jar:/sn1/dbhome/db2cat/sqllib/tools/jline-0.9.93.jar:/sn1/dbhome/db2cat/sqllib/java/db2jcc.jar:.
+Thu Oct 23 11:53:56 2014 +0000 (UTC) PATH=/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/opt/xcat/bin:/opt/xcat/sbin:/bgsys/drivers/ppcfloor/bin:/bgsys/drivers/ppcfloor/sbin:/usr/lpp/mmfs/bin:/root/bin:/sn1/dbhome/bgqsysdb/sqllib/bin:/sn1/dbhome/bgqsysdb/sqllib/adm:/sn1/dbhome/bgqsysdb/sqllib/misc:/sn1/dbhome/db2cat/sqllib/bin:/sn1/dbhome/db2cat/sqllib/adm:/sn1/dbhome/db2cat/sqllib/misc
+Thu Oct 23 11:53:56 2014 +0000 (UTC) DB2_HOME=/sn1/dbhome/db2cat/sqllib
+Thu Oct 23 11:53:56 2014 +0000 (UTC) _=/usr/bin/nohup
+Thu Oct 23 11:53:56 2014 +0000 (UTC) IBM_DB_INCLUDE=/sn1/dbhome/db2cat/sqllib/include
+Thu Oct 23 11:53:56 2014 +0000 (UTC) SUDO_GID=100
+Thu Oct 23 11:53:56 2014 +0000 (UTC) COBALT_STARTTIME=1414065161
+Thu Oct 23 11:53:56 2014 +0000 (UTC) DISPLAY=localhost:10.0
+Thu Oct 23 11:53:56 2014 +0000 (UTC) HOSTNAME=mirasn2
+Thu Oct 23 11:53:56 2014 +0000 (UTC) HISTCONTROL=ignoredups
+Thu Oct 23 11:53:56 2014 +0000 (UTC) PWD=/root
+Thu Oct 23 11:53:56 2014 +0000 (UTC) MAIL=/var/spool/mail/root
+Thu Oct 23 11:53:56 2014 +0000 (UTC) LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=01;05;37;41:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.tbz=01;31:*.tbz2=01;31:*.bz=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=01;36:*.au=01;36:*.flac=01;36:*.mid=01;36:*.midi=01;36:*.mka=01;36:*.mp3=01;36:*.mpc=01;36:*.ogg=01;36:*.ra=01;36:*.wav=01;36:*.axa=01;36:*.oga=01;36:*.spx=01;36:*.xspf=01;36:
+Thu Oct 23 11:53:56 2014 +0000 (UTC) COBALT_JOBID=350127
+Thu Oct 23 11:53:56 2014 +0000 (UTC) 
+Thu Oct 23 11:53:56 2014 +0000 (UTC) Info: stdin received from /dev/null
+Thu Oct 23 11:53:56 2014 +0000 (UTC) Info: stdout sent to /gpfs/mira-home/yadunand/mira-halo/TEST_8/350127.output
+Thu Oct 23 11:53:56 2014 +0000 (UTC) Info: stderr sent to /gpfs/mira-home/yadunand/mira-halo/TEST_8/350127.error
+Thu Oct 23 11:53:56 2014 +0000 (UTC) 
+Thu Oct 23 11:53:58 2014 +0000 (UTC) yadunand/350127: Block MIR-40840-73B71-512 for location MIR-40840-73B71-512 successfully booted (Initiating). 
+Thu Oct 23 11:54:26 2014 +0000 (UTC) Info: task completed normally with an exit code of 0; initiating job cleanup and removal

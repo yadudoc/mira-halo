@@ -1,0 +1,25 @@
+2014-10-19 23:39:33.218 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-19 23:39:33.220 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-19 23:39:33.220 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-19 23:39:33.222 (INFO ) [0x40001aebde0] 51760:tatu.runjob.client: scheduler job id is 348095
+2014-10-19 23:39:33.226 (INFO ) [0x400016334e0] 51760:tatu.runjob.monitor: monitor started
+2014-10-19 23:39:37.998 (INFO ) [0x400016334e0] 51760:tatu.runjob.monitor: task record 519063 created
+2014-10-19 23:39:37.999 (INFO ) [0x40001aebde0] MIR-08800-3BB31-512:51760:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-19 23:39:40.324 (INFO ) [0x40001aebde0] MIR-08800-3BB31-512:753498:ibm.runjob.client.Job: job 753498 started
+Hello from rank 3 of 4 tasks: delay 89791 microseconds
+Hello from rank 0 of 4 tasks: delay 41599 microseconds
+Hello from rank 1 of 4 tasks: delay 41599 microseconds
+Hello from rank 2 of 4 tasks: delay 34229 microseconds
+Delay time: 143685570 pclks, 169041.847058823536 microseconds
+Sendrecv no delay for   1024 doubles: 395780 pclks,   465.623529411765 microseconds
+Sendrecv wt delay time for   1024 doubles: 232178 pclks,   273.150588235294 microseconds
+Isend-recv no delay for   1024 doubles: 259192 pclks,   304.931764705882 microseconds
+Isend-recv wt delay for   1024 doubles: 278010 pclks,   327.070588235294 microseconds
+Isend-Irecv no delay for   1024 doubles: 274464 pclks,   322.898823529412 microseconds
+Isend-Irecv wt delay for   1024 doubles: 271202 pclks,   319.061176470588 microseconds
+12 at a time no delay for   1024 doubles: 186484 pclks,   219.392941176471 microseconds
+12 at a time wt delay for   1024 doubles: 190688 pclks,   224.338823529412 microseconds
+2014-10-19 23:39:43.597 (INFO ) [0x40001aebde0] MIR-08800-3BB31-512:753498:ibm.runjob.client.Job: exited with status 0
+2014-10-19 23:39:43.597 (INFO ) [0x40001aebde0] tatu.runjob.client: task exited with status 0
+2014-10-19 23:39:43.597 (INFO ) [0x400016334e0] 51760:tatu.runjob.monitor: monitor terminating
+2014-10-19 23:39:43.604 (INFO ) [0x40001aebde0] tatu.runjob.client: monitor completed
