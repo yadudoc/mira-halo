@@ -1,3 +1,4 @@
 Jobid: 351808
 qsub -n 512 -t 30 /home/yadunand/mira-halo/mmps
 Sun Oct 26 00:24:55 2014 +0000 (UTC) submitted with cwd set to: /gpfs/mira-home/yadunand/mira-halo/TEST_512
+Sun Oct 26 00:35:05 2014 +0000 (UTC) yadunand/351808: Initiating boot at location MIR-48000-7B331-512.
