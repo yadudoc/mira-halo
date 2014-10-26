@@ -23,3 +23,4 @@ Sun Oct 26 18:59:40 2014 +0000 (UTC) Info: stdin received from /dev/null
 Sun Oct 26 18:59:40 2014 +0000 (UTC) Info: stdout sent to /gpfs/mira-home/yadunand/mira-halo/TEST_MAPPING_512_DATA/352041.output
 Sun Oct 26 18:59:40 2014 +0000 (UTC) Info: stderr sent to /gpfs/mira-home/yadunand/mira-halo/TEST_MAPPING_512_DATA/352041.error
 Sun Oct 26 18:59:40 2014 +0000 (UTC) 
+Sun Oct 26 19:09:19 2014 +0000 (UTC) Info: task completed normally with an exit code of 0; initiating job cleanup and removal
