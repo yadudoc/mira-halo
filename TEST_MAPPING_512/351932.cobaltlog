@@ -1,0 +1,25 @@
+Jobid: 351932
+qsub --mode script -n 512 -t 00:30:00 -A ExM -q prod-short --mode script cobalt_script.sh
+Sun Oct 26 06:03:52 2014 +0000 (UTC) submitted with cwd set to: /gpfs/mira-home/yadunand/mira-halo/TEST_MAPPING_512
+Sun Oct 26 06:04:47 2014 +0000 (UTC) yadunand/351932: Initiating boot at location MIR-48040-7B371-512.
+Sun Oct 26 06:05:39 2014 +0000 (UTC) yadunand/351932: Block MIR-48040-7B371-512 for location MIR-48040-7B371-512 successfully booted (Initiating). 
+Sun Oct 26 06:05:43 2014 +0000 (UTC) 
+Sun Oct 26 06:05:43 2014 +0000 (UTC) Command: '/gpfs/mira-home/yadunand/mira-halo/TEST_MAPPING_512/cobalt_script.sh'
+Sun Oct 26 06:05:43 2014 +0000 (UTC) 
+Sun Oct 26 06:05:43 2014 +0000 (UTC) Environment:
+Sun Oct 26 06:05:43 2014 +0000 (UTC) SHELL=/bin/bash
+Sun Oct 26 06:05:43 2014 +0000 (UTC) COBALT_NODEFILE=/tmp/tmpVOAo8w
+Sun Oct 26 06:05:43 2014 +0000 (UTC) COBALT_PARTNAME=MIR-48040-7B371-512
+Sun Oct 26 06:05:43 2014 +0000 (UTC) COBALT_JOBID=351932
+Sun Oct 26 06:05:43 2014 +0000 (UTC) COBALT_STARTTIME=1414303453
+Sun Oct 26 06:05:43 2014 +0000 (UTC) LOGNAME=yadunand
+Sun Oct 26 06:05:43 2014 +0000 (UTC) USER=yadunand
+Sun Oct 26 06:05:43 2014 +0000 (UTC) COBALT_ENDTIME=1414305253
+Sun Oct 26 06:05:43 2014 +0000 (UTC) COBALT_PARTSIZE=512
+Sun Oct 26 06:05:43 2014 +0000 (UTC) HOME=/home/yadunand
+Sun Oct 26 06:05:43 2014 +0000 (UTC) COBALT_JOBSIZE=512
+Sun Oct 26 06:05:43 2014 +0000 (UTC) 
+Sun Oct 26 06:05:43 2014 +0000 (UTC) Info: stdin received from /dev/null
+Sun Oct 26 06:05:43 2014 +0000 (UTC) Info: stdout sent to /gpfs/mira-home/yadunand/mira-halo/TEST_MAPPING_512/351932.output
+Sun Oct 26 06:05:43 2014 +0000 (UTC) Info: stderr sent to /gpfs/mira-home/yadunand/mira-halo/TEST_MAPPING_512/351932.error
+Sun Oct 26 06:05:43 2014 +0000 (UTC) 

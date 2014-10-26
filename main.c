@@ -16,7 +16,7 @@
 #define N 6             // number of simumtaneous communications (available links)
 #define NDIMS 3         // Cartesian mesh dimension
 #define Hz 1600.e6      // CPU clock rate, in Hz
-#define LENGTH 1024      // message size, in doubles
+#define LENGTH 4 // Original 1024      // message size, in doubles
 #define L3CACHE 32     // last level cache in MB, used to flash the cache before each test
 
 
@@ -73,7 +73,7 @@ main( int argc, char *argv[] )
     /////////////////////////////////////////////////////
 
     tdelay = t2 - t1;
-    fprintf( stderr, "Hello from rank %d of %d tasks: delay %ld microseconds\n", taskid, ntasks, udelay );
+    //fprintf( stderr, "Hello from rank %d of %d tasks: delay %ld microseconds\n", taskid, ntasks, udelay );
     if ( taskid == 0 ) fprintf( stderr, "Delay time: %lld pclks, %18.12lf microseconds\n", 
         tdelay, (double)tdelay / Hz * 1e6 );
     
