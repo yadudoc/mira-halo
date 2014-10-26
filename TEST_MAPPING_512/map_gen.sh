@@ -7,22 +7,61 @@ DIM_D=4
 DIM_E=4
 DIM_T=1
 
-for T in $(seq 0 1 $(($DIM_T-1)) )
+
+ODD_SEQ_FOR_4=(0 2 1 3)
+
+
+for i in ${ODD_SEQ_FOR_4[*]}
 do
-    for E in $(seq 0 1 $(($DIM_E-1)) )
+    echo $i
+done
+exit
+
+regular()
+{
+    for T in $(seq 0 1 $(($DIM_T-1)) )
     do
-	for D in $(seq 0 1 $(($DIM_D-1)) )
+	for E in $(seq 0 1 $(($DIM_E-1)) )
 	do
-	    for C in $(seq 0 1 $(($DIM_C-1)) )
+	    for D in $(seq 0 1 $(($DIM_D-1)) )
 	    do
-		for B in $(seq 0 1 $(($DIM_B-1)) )
+		for C in $(seq 0 1 $(($DIM_C-1)) )
 		do
-		    for A in $(seq 0 1 $(($DIM_A-1)) )
+		    for B in $(seq 0 1 $(($DIM_B-1)) )
 		    do
-			echo "$A $B $C $D $E $T"
+			for A in $(seq 0 1 $(($DIM_A-1)) )
+			do
+			    echo "$A $B $C $D $E $T"
+			done
 		    done
 		done
 	    done
 	done
     done
-done
+}
+
+
+odd()
+{
+    for T in ${ODD_SEQ_FOR_4[*]}
+    do
+	for E in ${ODD_SEQ_FOR_4[*]}
+	do
+	    for D in ${ODD_SEQ_FOR_4[*]}
+	    do
+		for C in ${ODD_SEQ_FOR_4[*]}
+		do
+		    for B in ${ODD_SEQ_FOR_4[*]}
+		    do
+			for A in ${ODD_SEQ_FOR_4[*]}
+			do
+			    echo "$A $B $C $D $E $T"
+			done
+		    done
+		done
+	    done
+	done
+    done
+}
+
+odd()
