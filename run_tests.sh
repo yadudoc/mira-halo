@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NCORES=4
+NCORES=1
 TIME=30
 EXEC=$PWD/mmps
 MAP_FILE=./map_file.txt
