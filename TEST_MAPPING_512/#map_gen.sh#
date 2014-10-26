@@ -17,9 +17,10 @@ regular()
     do
 	for E in ${ODD_SEQ_FOR_2[*]}
 	do
-	    for D in ${ODD_SEQ_FOR_4[*]}
+	    for D in $(seq 0 1 3)
 	    do
-		for C in ${ODD_SEQ_FOR_4[*]}
+		for C in
+		$(seq 0 1 3)
 		do
 		    for B in ${ODD_SEQ_FOR_4[*]}
 		    do
