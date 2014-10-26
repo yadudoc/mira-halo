@@ -16,7 +16,7 @@
 #define N 6             // number of simumtaneous communications (available links)
 #define NDIMS 3         // Cartesian mesh dimension
 #define Hz 1600.e6      // CPU clock rate, in Hz
-#define LENGTH 64        // Original 1024      // message size, in doubles
+#define LENGTH 512        // Original 1024      // message size, in doubles
 #define L3CACHE 32     // last level cache in MB, used to flash the cache before each test
 
 
