@@ -6,8 +6,9 @@
 
 MPI_RANKS=512
 RANKS_PER_NODE=1
+CWD=/home/yadunand/mira-halo/TEST_MAPPING_512
 
-runjob --cwd --block $COBALT_PARTNAME --np $MPI_RANKS -p $RANKS_PER_NODE --mapping /home/yadunand/mira-halo/TEST_MAPPING_512/regular_map.txt : mmps
+runjob --cwd $CWD --block $COBALT_PARTNAME --np $MPI_RANKS -p $RANKS_PER_NODE --mapping /home/yadunand/mira-halo/TEST_MAPPING_512/regular_map.txt : mmps
 echo "done regular ====================================================================="
-runjob --cwd --block $COBALT_PARTNAME --np $MPI_RANKS -p $RANKS_PER_NODE --mapping /home/yadunand/mira-halo/TEST_MAPPING_512/odd_map.txt : mmps
+runjob --cwd $CWD --block $COBALT_PARTNAME --np $MPI_RANKS -p $RANKS_PER_NODE --mapping /home/yadunand/mira-halo/TEST_MAPPING_512/odd_map.txt : mmps
 echo "done odd     ====================================================================="
