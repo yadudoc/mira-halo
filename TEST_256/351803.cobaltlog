@@ -52,3 +52,4 @@ Sun Oct 26 00:40:09 2014 +0000 (UTC) Info: stdout sent to /gpfs/mira-home/yaduna
 Sun Oct 26 00:40:09 2014 +0000 (UTC) Info: stderr sent to /gpfs/mira-home/yadunand/mira-halo/TEST_256/351803.error
 Sun Oct 26 00:40:09 2014 +0000 (UTC) 
 Sun Oct 26 00:40:12 2014 +0000 (UTC) yadunand/351803: Block MIR-48000-7B331-512 for location MIR-48000-7B331-512 successfully booted (Initiating). 
+Sun Oct 26 00:41:10 2014 +0000 (UTC) Info: task completed normally with an exit code of 0; initiating job cleanup and removal
