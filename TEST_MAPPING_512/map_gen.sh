@@ -10,13 +10,6 @@ DIM_T=1
 
 ODD_SEQ_FOR_4=(0 2 1 3)
 
-
-for i in ${ODD_SEQ_FOR_4[*]}
-do
-    echo $i
-done
-exit
-
 regular()
 {
     for T in $(seq 0 1 $(($DIM_T-1)) )
@@ -39,7 +32,6 @@ regular()
 	done
     done
 }
-
 
 odd()
 {
@@ -64,4 +56,5 @@ odd()
     done
 }
 
-odd()
+odd
+
