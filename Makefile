@@ -9,7 +9,7 @@ FFLAGS = -g
 LDFLAGS = $(CFLAGS)
 LIB    = -L$(HOME)/lib -ltimebase
 
-TARGET = mmps
+TARGET = mmps_4
 OBJS =  main.o durand.o
 
 all: grid
