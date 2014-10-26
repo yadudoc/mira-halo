@@ -4,11 +4,12 @@ DIM_A=4
 DIM_B=4
 DIM_C=4
 DIM_D=4
-DIM_E=4
+DIM_E=2
 DIM_T=1
 
 
 ODD_SEQ_FOR_4=(0 2 1 3)
+ODD_SEQ_FOR_2=(0 1)
 
 regular()
 {
@@ -37,7 +38,7 @@ odd()
 {
     for T in ${ODD_SEQ_FOR_4[*]}
     do
-	for E in ${ODD_SEQ_FOR_4[*]}
+	for E in ${ODD_SEQ_FOR_2[*]}
 	do
 	    for D in ${ODD_SEQ_FOR_4[*]}
 	    do
@@ -56,5 +57,6 @@ odd()
     done
 }
 
-odd
+regular &> regular_map.txt
+odd &> odd_map.txt
 
