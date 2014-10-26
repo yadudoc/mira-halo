@@ -1,0 +1,13 @@
+[master c5ceaa5] Committing all
+ 9 files changed, 457 insertions(+), 1051 deletions(-)
+ delete mode 100644 TEST_MAPPING_512_DATA/#352012.error#
+ delete mode 120000 TEST_MAPPING_512_DATA/.#352012.error
+ delete mode 100644 TEST_MAPPING_512_DATA/352012.error
+ create mode 100755 TEST_MAPPING_512_DATA/aggregate_results.sh
+ create mode 100755 TEST_MAPPING_512_DATA/aggregate_results.sh~
+ create mode 100644 TEST_MAPPING_512_DATA/odd_1024.error
+ create mode 100644 TEST_MAPPING_512_DATA/odd_10240.error
+ create mode 100644 TEST_MAPPING_512_DATA/regular_1024.error
+ create mode 100644 TEST_MAPPING_512_DATA/regular_10240.error
+Permission denied (publickey).
+fatal: The remote end hung up unexpectedly
