@@ -1,0 +1,3 @@
+Jobid: 351924
+qsub --mode script -n 512 -t 00:30:00 -A ExM -q prod-short -t 30 -n 512 --mode script cobalt_script.sh
+Sun Oct 26 05:36:14 2014 +0000 (UTC) submitted with cwd set to: /gpfs/mira-home/yadunand/mira-halo/TEST_MAPPING_512
