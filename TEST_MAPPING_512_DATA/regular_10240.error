@@ -1,0 +1,105 @@
+2014-10-26 16:51:57.547 (INFO ) [0xfff78bbbde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-26 16:51:57.550 (INFO ) [0xfff78bbbde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-26 16:51:57.550 (INFO ) [0xfff78bbbde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-26 16:51:57.551 (INFO ) [0xfff78bbbde0] 42792:tatu.runjob.client: scheduler job id is 352012
+2014-10-26 16:51:57.554 (INFO ) [0xfff7ed634e0] 42792:tatu.runjob.monitor: monitor started
+2014-10-26 16:52:01.533 (INFO ) [0xfff7ed634e0] 42792:tatu.runjob.monitor: task record 525291 created
+2014-10-26 16:52:01.534 (INFO ) [0xfff78bbbde0] MIR-48080-7B3B1-512:42792:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-26 16:52:03.497 (INFO ) [0xfff78bbbde0] MIR-48080-7B3B1-512:759717:ibm.runjob.client.Job: job 759717 started
+Delay time: 159860763 pclks, 99912.976875000008 microseconds
+Sendrecv no delay for  10240 doubles: 897548 pclks,   560.967500000000 microseconds
+Sendrecv wt delay time for  10240 doubles: 713107 pclks,   445.691875000000 microseconds
+Isend-recv no delay for  10240 doubles: 816310 pclks,   510.193750000000 microseconds
+Isend-recv wt delay for  10240 doubles: 811207 pclks,   507.004375000000 microseconds
+Isend-Irecv no delay for  10240 doubles: 776392 pclks,   485.245000000000 microseconds
+Isend-Irecv wt delay for  10240 doubles: 747351 pclks,   467.094375000000 microseconds
+12 at a time no delay for  10240 doubles: 400468 pclks,   250.292500000000 microseconds
+12 at a time wt delay for  10240 doubles: 262399 pclks,   163.999375000000 microseconds
+2014-10-26 16:52:05.962 (INFO ) [0xfff78bbbde0] MIR-48080-7B3B1-512:759717:ibm.runjob.client.Job: exited with status 0
+2014-10-26 16:52:05.963 (INFO ) [0xfff78bbbde0] tatu.runjob.client: task exited with status 0
+2014-10-26 16:52:05.963 (INFO ) [0xfff7ed634e0] 42792:tatu.runjob.monitor: monitor terminating
+2014-10-26 16:52:05.972 (INFO ) [0xfff78bbbde0] tatu.runjob.client: monitor completed
+2014-10-26 16:52:06.024 (INFO ) [0xfff9abfbde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-26 16:52:06.026 (INFO ) [0xfff9abfbde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-26 16:52:06.027 (INFO ) [0xfff9abfbde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-26 16:52:06.028 (INFO ) [0xfff9abfbde0] 42859:tatu.runjob.client: scheduler job id is 352012
+2014-10-26 16:52:06.030 (INFO ) [0xfff7a1834e0] 42859:tatu.runjob.monitor: monitor started
+2014-10-26 16:52:09.794 (INFO ) [0xfff7a1834e0] 42859:tatu.runjob.monitor: task record 525295 created
+2014-10-26 16:52:09.795 (INFO ) [0xfff9abfbde0] MIR-48080-7B3B1-512:42859:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-26 16:52:11.560 (INFO ) [0xfff9abfbde0] MIR-48080-7B3B1-512:759721:ibm.runjob.client.Job: job 759721 started
+Delay time: 159859705 pclks, 99912.315625000003 microseconds
+Sendrecv no delay for  10240 doubles: 888750 pclks,   555.468750000000 microseconds
+Sendrecv wt delay time for  10240 doubles: 709977 pclks,   443.735625000000 microseconds
+Isend-recv no delay for  10240 doubles: 815522 pclks,   509.701250000000 microseconds
+Isend-recv wt delay for  10240 doubles: 812437 pclks,   507.773125000000 microseconds
+Isend-Irecv no delay for  10240 doubles: 775282 pclks,   484.551250000000 microseconds
+Isend-Irecv wt delay for  10240 doubles: 747839 pclks,   467.399375000000 microseconds
+12 at a time no delay for  10240 doubles: 401734 pclks,   251.083750000000 microseconds
+12 at a time wt delay for  10240 doubles: 263695 pclks,   164.809375000000 microseconds
+2014-10-26 16:52:14.024 (INFO ) [0xfff9abfbde0] MIR-48080-7B3B1-512:759721:ibm.runjob.client.Job: exited with status 0
+2014-10-26 16:52:14.025 (INFO ) [0xfff9abfbde0] tatu.runjob.client: task exited with status 0
+2014-10-26 16:52:14.025 (INFO ) [0xfff7a1834e0] 42859:tatu.runjob.monitor: monitor terminating
+2014-10-26 16:52:14.029 (INFO ) [0xfff9abfbde0] tatu.runjob.client: monitor completed
+2014-10-26 16:52:14.079 (INFO ) [0xfff95e9bde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-26 16:52:14.081 (INFO ) [0xfff95e9bde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-26 16:52:14.081 (INFO ) [0xfff95e9bde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-26 16:52:14.082 (INFO ) [0xfff95e9bde0] 43083:tatu.runjob.client: scheduler job id is 352012
+2014-10-26 16:52:14.085 (INFO ) [0xfffb0ce34e0] 43083:tatu.runjob.monitor: monitor started
+2014-10-26 16:52:18.083 (INFO ) [0xfffb0ce34e0] 43083:tatu.runjob.monitor: task record 525299 created
+2014-10-26 16:52:18.084 (INFO ) [0xfff95e9bde0] MIR-48080-7B3B1-512:43083:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-26 16:52:19.845 (INFO ) [0xfff95e9bde0] MIR-48080-7B3B1-512:759725:ibm.runjob.client.Job: job 759725 started
+Delay time: 159861049 pclks, 99913.155624999999 microseconds
+Sendrecv no delay for  10240 doubles: 889586 pclks,   555.991250000000 microseconds
+Sendrecv wt delay time for  10240 doubles: 712225 pclks,   445.140625000000 microseconds
+Isend-recv no delay for  10240 doubles: 815910 pclks,   509.943750000000 microseconds
+Isend-recv wt delay for  10240 doubles: 810547 pclks,   506.591875000000 microseconds
+Isend-Irecv no delay for  10240 doubles: 778882 pclks,   486.801250000000 microseconds
+Isend-Irecv wt delay for  10240 doubles: 748379 pclks,   467.736875000000 microseconds
+12 at a time no delay for  10240 doubles: 406130 pclks,   253.831250000000 microseconds
+12 at a time wt delay for  10240 doubles: 263445 pclks,   164.653125000000 microseconds
+2014-10-26 16:52:22.311 (INFO ) [0xfff95e9bde0] MIR-48080-7B3B1-512:759725:ibm.runjob.client.Job: exited with status 0
+2014-10-26 16:52:22.312 (INFO ) [0xfff95e9bde0] tatu.runjob.client: task exited with status 0
+2014-10-26 16:52:22.312 (INFO ) [0xfffb0ce34e0] 43083:tatu.runjob.monitor: monitor terminating
+2014-10-26 16:52:22.329 (INFO ) [0xfff95e9bde0] tatu.runjob.client: monitor completed
+2014-10-26 16:52:22.379 (INFO ) [0xfff874dbde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-26 16:52:22.381 (INFO ) [0xfff874dbde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-26 16:52:22.381 (INFO ) [0xfff874dbde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-26 16:52:22.383 (INFO ) [0xfff874dbde0] 43143:tatu.runjob.client: scheduler job id is 352012
+2014-10-26 16:52:22.385 (INFO ) [0xfffa8b234e0] 43143:tatu.runjob.monitor: monitor started
+2014-10-26 16:52:23.029 (INFO ) [0xfffa8b234e0] 43143:tatu.runjob.monitor: task record 525302 created
+2014-10-26 16:52:23.030 (INFO ) [0xfff874dbde0] MIR-48080-7B3B1-512:43143:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-26 16:52:24.762 (INFO ) [0xfff874dbde0] MIR-48080-7B3B1-512:759728:ibm.runjob.client.Job: job 759728 started
+Delay time: 159860397 pclks, 99912.748125000013 microseconds
+Sendrecv no delay for  10240 doubles: 899896 pclks,   562.435000000000 microseconds
+Sendrecv wt delay time for  10240 doubles: 709689 pclks,   443.555625000000 microseconds
+Isend-recv no delay for  10240 doubles: 817442 pclks,   510.901250000000 microseconds
+Isend-recv wt delay for  10240 doubles: 814601 pclks,   509.125625000000 microseconds
+Isend-Irecv no delay for  10240 doubles: 775938 pclks,   484.961250000000 microseconds
+Isend-Irecv wt delay for  10240 doubles: 748719 pclks,   467.949375000000 microseconds
+12 at a time no delay for  10240 doubles: 401400 pclks,   250.875000000000 microseconds
+12 at a time wt delay for  10240 doubles: 264245 pclks,   165.153125000000 microseconds
+2014-10-26 16:52:27.278 (INFO ) [0xfff874dbde0] MIR-48080-7B3B1-512:759728:ibm.runjob.client.Job: exited with status 0
+2014-10-26 16:52:27.279 (INFO ) [0xfff874dbde0] tatu.runjob.client: task exited with status 0
+2014-10-26 16:52:27.279 (INFO ) [0xfffa8b234e0] 43143:tatu.runjob.monitor: monitor terminating
+2014-10-26 16:52:27.292 (INFO ) [0xfff874dbde0] tatu.runjob.client: monitor completed
+2014-10-26 16:52:27.345 (INFO ) [0xfff7c97bde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-26 16:52:27.348 (INFO ) [0xfff7c97bde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-26 16:52:27.348 (INFO ) [0xfff7c97bde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-26 16:52:27.349 (INFO ) [0xfff7c97bde0] 43173:tatu.runjob.client: scheduler job id is 352012
+2014-10-26 16:52:27.351 (INFO ) [0xfff76d634e0] 43173:tatu.runjob.monitor: monitor started
+2014-10-26 16:52:31.279 (INFO ) [0xfff76d634e0] 43173:tatu.runjob.monitor: task record 525303 created
+2014-10-26 16:52:31.280 (INFO ) [0xfff7c97bde0] MIR-48080-7B3B1-512:43173:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-26 16:52:33.102 (INFO ) [0xfff7c97bde0] MIR-48080-7B3B1-512:759729:ibm.runjob.client.Job: job 759729 started
+Delay time: 159860733 pclks, 99912.958125000005 microseconds
+Sendrecv no delay for  10240 doubles: 907008 pclks,   566.880000000000 microseconds
+Sendrecv wt delay time for  10240 doubles: 712003 pclks,   445.001875000000 microseconds
+Isend-recv no delay for  10240 doubles: 816194 pclks,   510.121250000000 microseconds
+Isend-recv wt delay for  10240 doubles: 812947 pclks,   508.091875000000 microseconds
+Isend-Irecv no delay for  10240 doubles: 778896 pclks,   486.810000000000 microseconds
+Isend-Irecv wt delay for  10240 doubles: 747121 pclks,   466.950625000000 microseconds
+12 at a time no delay for  10240 doubles: 401652 pclks,   251.032500000000 microseconds
+12 at a time wt delay for  10240 doubles: 262793 pclks,   164.245625000000 microseconds
+2014-10-26 16:52:35.543 (INFO ) [0xfff7c97bde0] MIR-48080-7B3B1-512:759729:ibm.runjob.client.Job: exited with status 0
+2014-10-26 16:52:35.544 (INFO ) [0xfff7c97bde0] tatu.runjob.client: task exited with status 0
+2014-10-26 16:52:35.544 (INFO ) [0xfff76d634e0] 43173:tatu.runjob.monitor: monitor terminating
+2014-10-26 16:52:35.547 (INFO ) [0xfff7c97bde0] tatu.runjob.client: monitor completed
