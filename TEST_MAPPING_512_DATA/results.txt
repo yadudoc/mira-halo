@@ -1,0 +1,54 @@
+regular_4B.error
+Sendrecv no delay in regular_4B.error :  95.3986
+Sendrecv wt delay in regular_4B.error :  94.083
+Isend-recv no delay in regular_4B.error :  119.252
+Isend-recv wt delay in regular_4B.error :  115.633
+Isend-Irecv no delay in regular_4B.error :  125.26
+Isend-Irecv wt delay in regular_4B.error :  123.724
+12 at a time no delay in regular_4B.error :  94.9045
+12 at a time wt delay in regular_4B.error :  95.8
+odd_4.error
+Sendrecv no delay in odd_4.error :  96.1906
+Sendrecv wt delay in odd_4.error :  94.1959
+Isend-recv no delay in odd_4.error :  123.039
+Isend-recv wt delay in odd_4.error :  116.581
+Isend-Irecv no delay in odd_4.error :  125.684
+Isend-Irecv wt delay in odd_4.error :  123.508
+12 at a time no delay in odd_4.error :  94.6255
+12 at a time wt delay in odd_4.error :  95.3456
+regular_1024.error
+Sendrecv no delay in regular_1024.error :  276.578
+Sendrecv wt delay in regular_1024.error :  173.479
+Isend-recv no delay in regular_1024.error :  211.346
+Isend-recv wt delay in regular_1024.error :  221.172
+Isend-Irecv no delay in regular_1024.error :  209.317
+Isend-Irecv wt delay in regular_1024.error :  207.123
+12 at a time no delay in regular_1024.error :  160.918
+12 at a time wt delay in regular_1024.error :  138.877
+odd_1024.error
+Sendrecv no delay in odd_1024.error :  277.659
+Sendrecv wt delay in odd_1024.error :  172.099
+Isend-recv no delay in odd_1024.error :  211.845
+Isend-recv wt delay in odd_1024.error :  228.802
+Isend-Irecv no delay in odd_1024.error :  209.736
+Isend-Irecv wt delay in odd_1024.error :  205.219
+12 at a time no delay in odd_1024.error :  160.699
+12 at a time wt delay in odd_1024.error :  137.116
+regular_10240.error
+Sendrecv no delay in regular_10240.error :  560.349
+Sendrecv wt delay in regular_10240.error :  444.625
+Isend-recv no delay in regular_10240.error :  510.172
+Isend-recv wt delay in regular_10240.error :  507.717
+Isend-Irecv no delay in regular_10240.error :  485.674
+Isend-Irecv wt delay in regular_10240.error :  467.426
+12 at a time no delay in regular_10240.error :  251.423
+12 at a time wt delay in regular_10240.error :  164.572
+odd_10240.error
+Sendrecv no delay in odd_10240.error :  560.184
+Sendrecv wt delay in odd_10240.error :  443.763
+Isend-recv no delay in odd_10240.error :  509.995
+Isend-recv wt delay in odd_10240.error :  509.502
+Isend-Irecv no delay in odd_10240.error :  484.433
+Isend-Irecv wt delay in odd_10240.error :  468.163
+12 at a time no delay in odd_10240.error :  251.316
+12 at a time wt delay in odd_10240.error :  162.844
