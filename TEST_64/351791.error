@@ -1,0 +1,88 @@
+2014-10-26 00:24:37.892 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-26 00:24:37.893 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-26 00:24:37.894 (INFO ) [0x40001aebde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-26 00:24:37.895 (INFO ) [0x40001aebde0] 14377:tatu.runjob.client: scheduler job id is 351791
+2014-10-26 00:24:37.910 (INFO ) [0x400016334e0] 14377:tatu.runjob.monitor: monitor started
+2014-10-26 00:24:42.156 (INFO ) [0x400016334e0] 14377:tatu.runjob.monitor: task record 524554 created
+2014-10-26 00:24:42.157 (INFO ) [0x40001aebde0] MIR-48000-7B331-512:14377:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-26 00:24:44.883 (INFO ) [0x40001aebde0] MIR-48000-7B331-512:758980:ibm.runjob.client.Job: job 758980 started
+Hello from rank 45 of 64 tasks: delay 71179 microseconds
+Hello from rank 0 of 64 tasks: delay 41599 microseconds
+Hello from rank 21 of 64 tasks: delay 5172 microseconds
+Hello from rank 57 of 64 tasks: delay 97061 microseconds
+Hello from rank 5 of 64 tasks: delay 17286 microseconds
+Hello from rank 1 of 64 tasks: delay 41599 microseconds
+Hello from rank 15 of 64 tasks: delay 69250 microseconds
+Hello from rank 41 of 64 tasks: delay 85115 microseconds
+Hello from rank 60 of 64 tasks: delay 1012 microseconds
+Hello from rank 33 of 64 tasks: delay 70423 microseconds
+Hello from rank 47 of 64 tasks: delay 59584 microseconds
+Hello from rank 43 of 64 tasks: delay 33102 microseconds
+Hello from rank 23 of 64 tasks: delay 4013 microseconds
+Hello from rank 49 of 64 tasks: delay 45140 microseconds
+Hello from rank 37 of 64 tasks: delay 42615 microseconds
+Hello from rank 25 of 64 tasks: delay 20585 microseconds
+Hello from rank 29 of 64 tasks: delay 10709 microseconds
+Hello from rank 24 of 64 tasks: delay 71280 microseconds
+Hello from rank 7 of 64 tasks: delay 12283 microseconds
+Hello from rank 10 of 64 tasks: delay 66842 microseconds
+Hello from rank 61 of 64 tasks: delay 52957 microseconds
+Hello from rank 19 of 64 tasks: delay 75916 microseconds
+Hello from rank 13 of 64 tasks: delay 72494 microseconds
+Hello from rank 17 of 64 tasks: delay 80689 microseconds
+Hello from rank 55 of 64 tasks: delay 60257 microseconds
+Hello from rank 11 of 64 tasks: delay 1872 microseconds
+Hello from rank 22 of 64 tasks: delay 80282 microseconds
+Hello from rank 27 of 64 tasks: delay 43606 microseconds
+Hello from rank 63 of 64 tasks: delay 1633 microseconds
+Hello from rank 35 of 64 tasks: delay 87115 microseconds
+Hello from rank 53 of 64 tasks: delay 4796 microseconds
+Hello from rank 48 of 64 tasks: delay 27087 microseconds
+Hello from rank 31 of 64 tasks: delay 73690 microseconds
+Hello from rank 32 of 64 tasks: delay 24634 microseconds
+Hello from rank 39 of 64 tasks: delay 23566 microseconds
+Hello from rank 51 of 64 tasks: delay 40895 microseconds
+Hello from rank 14 of 64 tasks: delay 85693 microseconds
+Hello from rank 59 of 64 tasks: delay 74962 microseconds
+Hello from rank 44 of 64 tasks: delay 28206 microseconds
+Hello from rank 6 of 64 tasks: delay 28478 microseconds
+Hello from rank 30 of 64 tasks: delay 4078 microseconds
+Hello from rank 18 of 64 tasks: delay 36190 microseconds
+Hello from rank 12 of 64 tasks: delay 84702 microseconds
+Hello from rank 58 of 64 tasks: delay 75294 microseconds
+Hello from rank 38 of 64 tasks: delay 73782 microseconds
+Hello from rank 34 of 64 tasks: delay 12680 microseconds
+Hello from rank 28 of 64 tasks: delay 34868 microseconds
+Hello from rank 8 of 64 tasks: delay 6801 microseconds
+Hello from rank 20 of 64 tasks: delay 20641 microseconds
+Hello from rank 2 of 64 tasks: delay 34229 microseconds
+Hello from rank 36 of 64 tasks: delay 81643 microseconds
+Hello from rank 16 of 64 tasks: delay 29544 microseconds
+Hello from rank 54 of 64 tasks: delay 24206 microseconds
+Hello from rank 42 of 64 tasks: delay 47197 microseconds
+Hello from rank 46 of 64 tasks: delay 45923 microseconds
+Hello from rank 40 of 64 tasks: delay 69943 microseconds
+Hello from rank 4 of 64 tasks: delay 10771 microseconds
+Hello from rank 26 of 64 tasks: delay 33 microseconds
+Hello from rank 52 of 64 tasks: delay 32341 microseconds
+Hello from rank 56 of 64 tasks: delay 50801 microseconds
+Hello from rank 62 of 64 tasks: delay 14421 microseconds
+Hello from rank 50 of 64 tasks: delay 10990 microseconds
+Hello from rank 3 of 64 tasks: delay 89791 microseconds
+Hello from rank 9 of 64 tasks: delay 19288 microseconds
+Delay time: 155312665 pclks, 182720.782352941169 microseconds
+Sendrecv no delay for   1024 doubles: 442778 pclks,   520.915294117647 microseconds
+Sendrecv wt delay time for   1024 doubles: 304953 pclks,   358.768235294118 microseconds
+Isend-recv no delay for   1024 doubles: 352366 pclks,   414.548235294118 microseconds
+Isend-recv wt delay for   1024 doubles: 365887 pclks,   430.455294117647 microseconds
+Isend-Irecv no delay for   1024 doubles: 339318 pclks,   399.197647058824 microseconds
+Isend-Irecv wt delay for   1024 doubles: 330685 pclks,   389.041176470588 microseconds
+12 at a time no delay for   1024 doubles: 262616 pclks,   308.960000000000 microseconds
+12 at a time wt delay for   1024 doubles: 231779 pclks,   272.681176470588 microseconds
+2014-10-26 00:24:48.259 (INFO ) [0x40001aebde0] MIR-48000-7B331-512:758980:ibm.runjob.client.Job: exited with status 0
+2014-10-26 00:24:48.259 (WARN ) [0x40001aebde0] MIR-48000-7B331-512:758980:ibm.runjob.client.Job: 1 INFO RAS event
+2014-10-26 00:24:48.259 (WARN ) [0x40001aebde0] MIR-48000-7B331-512:758980:ibm.runjob.client.Job: most recent RAS event text: DDR Correctable Error Summary : count=316 MCFIR error status:  [MEMORY_CE] This bit is set when a memory CE is detected on a non-maintenance memory read op;
+2014-10-26 00:24:48.259 (WARN ) [0x40001aebde0] MIR-48000-7B331-512:758980:ibm.runjob.client.Job: with severity INFO
+2014-10-26 00:24:48.260 (INFO ) [0x40001aebde0] tatu.runjob.client: task exited with status 0
+2014-10-26 00:24:48.260 (INFO ) [0x400016334e0] 14377:tatu.runjob.monitor: monitor terminating
+2014-10-26 00:24:48.266 (INFO ) [0x40001aebde0] tatu.runjob.client: monitor completed
