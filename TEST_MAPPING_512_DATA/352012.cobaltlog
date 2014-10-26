@@ -1,0 +1,4 @@
+Jobid: 352012
+qsub --mode script -n 512 -t 00:30:00 -A ExM -q prod-short --mode script cobalt_script.sh
+Sun Oct 26 16:46:39 2014 +0000 (UTC) submitted with cwd set to: /gpfs/mira-home/yadunand/mira-halo/TEST_MAPPING_512_DATA
+Sun Oct 26 16:48:26 2014 +0000 (UTC) yadunand/352012: Initiating boot at location MIR-48080-7B3B1-512.
