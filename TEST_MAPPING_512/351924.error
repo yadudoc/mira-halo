@@ -1,4 +1,0 @@
-2014-10-26 05:38:00.451 (INFO ) [0xfff8913bde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
-too many positional options: check that an option name was not misspelled.
-2014-10-26 05:38:00.504 (INFO ) [0xfff9717bde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
-too many positional options: check that an option name was not misspelled.
