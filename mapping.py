@@ -2,11 +2,16 @@
 
 import sys
 
-TORUS_DIMS = 5
+BGQ_NET_DIMS = 5
+# TODO: should load somehow
+net_dim_is_torus = [ True ] * (BGQ_NET_DIMS + 1)
+# TODO: right
+BGQ_NET_DIM_SAME_NODE = [ False, False, False, False, False, True ]
 
 def load_mapping_file(mapping_file):
   """
   Load and do some validation of mapping
+  return (rank to coordinate mapping, dimensions of network)
   """
   print >> sys.stderr, "Loading mapping file: %s" % mapping_file
 
@@ -15,13 +20,13 @@ def load_mapping_file(mapping_file):
   rank2net = {}
   mapped_coords = set()
 
-  max_coords = [0] * (TORUS_DIMS + 1)
+  max_coords = [0] * (BGQ_NET_DIMS + 1)
 
   rank = 0
   with open(mapping_file, "r") as mf:
     for map_line in mf:
       net_coords = map_line.split()
-      if (len(net_coords) != TORUS_DIMS + 1):
+      if (len(net_coords) != BGQ_NET_DIMS + 1):
         print >> sys.stderr, "Invalid number of dimensions in: %s" % \
                              str(net_coords)
         continue
@@ -69,7 +74,11 @@ def load_mapping_file(mapping_file):
       print >> sys.stderr, ("Mapping file load fail b/c of previous errors")
       sys.exit(1)
 
-  return rank2net
+  net_dims = []
+  for max_coord in max_coords:
+    net_dims.append(max_coord + 1)
+
+  return rank2net, net_dims
 
 def compute_logical_mapping(logical_dims, nranks):
   rank2log = {}
@@ -135,6 +144,32 @@ def neighbours(coords, dims, wrap_dims):
 
   return result
 
+def coord_dist(coord1, coord2, dims, wrap_dims, ignore_dims):
+  """
+  Compute manhattan distance between coordinates
+  wrap_dims: whether dims wrap
+  ignore_dims: if true, don't count towards distance
+  """
+  dist = 0.0
+  assert len(coord1) == len(dims)
+  assert len(coord2) == len(dims)
+
+  assert len(dims) == len(dims)
+  assert len(wrap_dims) == len(dims)
+  assert len(ignore_dims) == len(dims)
+
+  # Ignore last dimension (core)
+  for dim in range(len(dims)):
+    if not ignore_dims[dim]:
+      dim_dist = abs(coord1[dim] - coord2[dim])
+
+      if wrap_dims[dim]:
+        # TODO: compute other direction, take minimum
+        pass
+
+      dist += dim_dist
+
+  return dist
 
 def usage():
   print >> sys.stderr, "Usage: mapping.py <nranks> <mapping file> <dims>\n"
@@ -154,7 +189,7 @@ except ValueError, e:
 
 print >> sys.stderr, "nranks: %d" % nranks
 
-rank2net = load_mapping_file(sys.argv[2])
+rank2net, net_dims = load_mapping_file(sys.argv[2])
 
 if len(rank2net) != nranks:
   print >> sys.stderr, ("Number of mapped ranks from mapping file %d " + \
@@ -183,8 +218,19 @@ print >> sys.stderr, "Rank2Net: %s" % str(rank2net)
 print >> sys.stderr, "Rank2Log: %s" % str(rank2log)
 print >> sys.stderr, "Log2Rank: %s" % str(log2rank)
 
-for log in log2rank:
-  ns = neighbours(log, logical_dims, [True] * len(logical_dims))
-  print >> sys.stderr, "%s neighbours: %s" % (str(log), str(ns))
+for rank in range(nranks):
+  n_coords = neighbours(rank2log[rank], logical_dims, [True] * len(logical_dims))
+  ns = []
+  for c in n_coords:
+    n_rank = log2rank[c]
+    dist = coord_dist(rank2net[rank], rank2net[n_rank], net_dims,
+                    net_dim_is_torus, BGQ_NET_DIM_SAME_NODE)
+    ns.append((n_rank, dist))
+  print >> sys.stderr, "%d neighbours: %s" % (rank, str(ns))
 
+for rank1 in range(nranks):
+  for rank2 in range(nranks):
+    dist = coord_dist(rank2net[rank1], rank2net[rank2], net_dims,
+                    net_dim_is_torus, BGQ_NET_DIM_SAME_NODE)
+    print >> sys.stderr, "%d <-> %d distance: %f" % (rank1, rank2, dist)
 logical_map = {}
