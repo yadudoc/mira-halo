@@ -5,15 +5,19 @@ import sys
 BGQ_NET_DIMS = 5
 # TODO: should load somehow
 net_dim_is_torus = [ True ] * (BGQ_NET_DIMS + 1)
-# TODO: right
+# TODO: right?
 BGQ_NET_DIM_SAME_NODE = [ False, False, False, False, False, True ]
+
+DEBUG = False
+
 
 def load_mapping_file(mapping_file):
   """
   Load and do some validation of mapping
   return (rank to coordinate mapping, dimensions of network)
   """
-  print >> sys.stderr, "Loading mapping file: %s" % mapping_file
+  if DEBUG:
+    print >> sys.stderr, "Loading mapping file: %s" % mapping_file
 
   failed = False
 
@@ -187,13 +191,15 @@ except ValueError, e:
   print >> sys.stderr, "Invalid nranks: %s" % sys.argv[1]
   usage()
 
-print >> sys.stderr, "nranks: %d" % nranks
+if DEBUG:
+  print >> sys.stderr, "nranks: %d" % nranks
 
 rank2net, net_dims = load_mapping_file(sys.argv[2])
 
 if len(rank2net) != nranks:
   print >> sys.stderr, ("Number of mapped ranks from mapping file %d " + \
                         "doesn't match nranks %d") % (len(rank2net), nranks)
+  sys.exit(1)
 
 logical_dims = sys.argv[3].split(",")
 logical_size = 1
@@ -205,8 +211,9 @@ for i in range(len(logical_dims)):
     print >> sys.stderr, "Invalid dimension: %s" % logical_dims[i]
     usage()
 
-print >> sys.stderr, "Logical dims: %s size: %d" % (
-        str(tuple(logical_dims)), logical_size)
+if DEBUG:
+  print >> sys.stderr, "Logical dims: %s size: %d" % (
+          str(tuple(logical_dims)), logical_size)
 
 if logical_size != nranks:
   print >> sys.stderr, "Logical size %d doesn't match nranks %d" % (
@@ -214,23 +221,40 @@ if logical_size != nranks:
   sys.exit(1)
 
 rank2log, log2rank = compute_logical_mapping(logical_dims, nranks)
-print >> sys.stderr, "Rank2Net: %s" % str(rank2net)
-print >> sys.stderr, "Rank2Log: %s" % str(rank2log)
-print >> sys.stderr, "Log2Rank: %s" % str(log2rank)
 
-for rank in range(nranks):
-  n_coords = neighbours(rank2log[rank], logical_dims, [True] * len(logical_dims))
-  ns = []
-  for c in n_coords:
-    n_rank = log2rank[c]
-    dist = coord_dist(rank2net[rank], rank2net[n_rank], net_dims,
-                    net_dim_is_torus, BGQ_NET_DIM_SAME_NODE)
-    ns.append((n_rank, dist))
-  print >> sys.stderr, "%d neighbours: %s" % (rank, str(ns))
+if DEBUG:
+  print >> sys.stderr, "Rank2Net: %s" % str(rank2net)
+  print >> sys.stderr, "Rank2Log: %s" % str(rank2log)
+  print >> sys.stderr, "Log2Rank: %s" % str(log2rank)
 
 for rank1 in range(nranks):
   for rank2 in range(nranks):
     dist = coord_dist(rank2net[rank1], rank2net[rank2], net_dims,
                     net_dim_is_torus, BGQ_NET_DIM_SAME_NODE)
-    print >> sys.stderr, "%d <-> %d distance: %f" % (rank1, rank2, dist)
-logical_map = {}
+    if DEBUG:
+      print >> sys.stderr, "%d <-> %d distance: %f" % (rank1, rank2, dist)
+
+max_neighbour_dist = 0.0
+sum_neighbour_dist = 0.0
+total_neighbours = 0
+
+for rank in range(nranks):
+  ns = []
+  for ncs in neighbours(rank2log[rank], logical_dims,
+                        [True] * len(logical_dims)):
+    n_rank = log2rank[ncs]
+    dist = coord_dist(rank2net[rank], rank2net[n_rank], net_dims,
+                    net_dim_is_torus, BGQ_NET_DIM_SAME_NODE)
+    ns.append((n_rank, dist))
+
+    max_neighbour_dist = max(max_neighbour_dist, dist)
+    sum_neighbour_dist += dist
+    total_neighbours += 1
+  if DEBUG:
+    print >> sys.stderr, "%d neighbours: %s" % (rank, str(ns))
+
+print "Max Neighbour Distance: %f" % max_neighbour_dist
+print "Sum of Neighbour Distances: %f" % (sum_neighbour_dist)
+print "Average Neighbour Distance: %f" % (
+      sum_neighbour_dist / total_neighbours)
+print "Total Neighbours: %d" % total_neighbours
