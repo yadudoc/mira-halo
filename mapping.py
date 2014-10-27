@@ -52,7 +52,7 @@ def load_mapping_file(mapping_file):
         continue
       mapped_coords.add(tuple(net_coords))
 
-      rank2net[rank] = net_coords
+      rank2net[rank] = tuple(net_coords)
       rank += 1
 
   if not failed:
@@ -70,6 +70,29 @@ def load_mapping_file(mapping_file):
       sys.exit(1)
 
   return rank2net
+
+def compute_logical_mapping(logical_dims, nranks):
+  rank2log = {}
+  log2rank = {}
+  
+  
+  for rank in range(nranks):
+    if rank == 0:
+      coords = [0] * len(logical_dims)
+    else:
+      # TODO: what order is used for dimensions
+      # For now, increment last first
+      dim = len(coords) - 1
+
+      while dim >= 0:
+        coords[dim] = (coords[dim] + 1) % logical_dims[dim]
+        if coords[dim] != 0:
+          break
+        dim -= 1
+    rank2log[rank] = tuple(coords)
+    log2rank[tuple(coords)] = rank
+
+  return rank2log, log2rank
 
 def usage():
   print >> sys.stderr, "Usage: mapping.py <nranks> <mapping file> <dims>\n"
@@ -95,8 +118,6 @@ if len(rank2net) != nranks:
   print >> sys.stderr, ("Number of mapped ranks from mapping file %d " + \
                         "doesn't match nranks %d") % (len(rank2net), nranks)
 
-print >> sys.stderr, "Rank2Net: %s" % str(rank2net)
-
 logical_dims = sys.argv[3].split(",")
 logical_size = 1
 for i in range(len(logical_dims)):
@@ -114,5 +135,11 @@ if logical_size != nranks:
   print >> sys.stderr, "Logical size %d doesn't match nranks %d" % (
                         logical_size, nranks)
   sys.exit(1)
+
+rank2log, log2rank = compute_logical_mapping(logical_dims, nranks)
+print >> sys.stderr, "Rank2Net: %s" % str(rank2net)
+print >> sys.stderr, "Rank2Log: %s" % str(rank2log)
+print >> sys.stderr, "Log2Rank: %s" % str(log2rank)
+
 
 logical_map = {}
