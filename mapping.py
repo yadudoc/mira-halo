@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import os
 import sys
 
 BGQ_NET_DIMS = 5
@@ -9,7 +10,13 @@ net_dim_is_torus = [ True ] * (BGQ_NET_DIMS + 1)
 BGQ_NET_DIM_SAME_NODE = [ False, False, False, False, False, True ]
 
 DEBUG = False
+PAIRWISE_DEBUG = False
 
+if os.getenv("DEBUG") is not None:
+  DEBUG = True
+
+if os.getenv("PAIRWISE_DEBUG") is not None:
+  PAIRWISE_DEBUG = True
 
 def load_mapping_file(mapping_file):
   """
@@ -168,8 +175,13 @@ def coord_dist(coord1, coord2, dims, wrap_dims, ignore_dims):
       dim_dist = abs(coord1[dim] - coord2[dim])
 
       if wrap_dims[dim]:
-        # TODO: compute other direction, take minimum
-        pass
+        # compute wraparound distance, take minimum
+        if coord1[dim] > coord2[dim]:
+          wrap_dist = dims[dim] - coord1[dim] + coord2[dim]
+        else:
+          wrap_dist = dims[dim] - coord2[dim] + coord1[dim]
+
+        dim_dist = min(dim_dist, wrap_dist)
 
       dist += dim_dist
 
@@ -223,16 +235,16 @@ if logical_size != nranks:
 rank2log, log2rank = compute_logical_mapping(logical_dims, nranks)
 
 if DEBUG:
-  print >> sys.stderr, "Rank2Net: %s" % str(rank2net)
-  print >> sys.stderr, "Rank2Log: %s" % str(rank2log)
-  print >> sys.stderr, "Log2Rank: %s" % str(log2rank)
+  print "Rank2Net: %s" % str(rank2net)
+  print "Rank2Log: %s" % str(rank2log)
+  print "Log2Rank: %s" % str(log2rank)
 
-for rank1 in range(nranks):
-  for rank2 in range(nranks):
-    dist = coord_dist(rank2net[rank1], rank2net[rank2], net_dims,
-                    net_dim_is_torus, BGQ_NET_DIM_SAME_NODE)
-    if DEBUG:
-      print >> sys.stderr, "%d <-> %d distance: %f" % (rank1, rank2, dist)
+if PAIRWISE_DEBUG:
+  for rank1 in range(nranks):
+    for rank2 in range(nranks):
+      dist = coord_dist(rank2net[rank1], rank2net[rank2], net_dims,
+                      net_dim_is_torus, BGQ_NET_DIM_SAME_NODE)
+      print "%d <-> %d distance: %f" % (rank1, rank2, dist)
 
 max_neighbour_dist = 0.0
 sum_neighbour_dist = 0.0
@@ -240,18 +252,20 @@ total_neighbours = 0
 
 for rank in range(nranks):
   ns = []
-  for ncs in neighbours(rank2log[rank], logical_dims,
-                        [True] * len(logical_dims)):
+  cs = rank2log[rank]
+  for ncs in neighbours(cs, logical_dims, [True] * len(logical_dims)):
     n_rank = log2rank[ncs]
+    assert rank != n_rank
     dist = coord_dist(rank2net[rank], rank2net[n_rank], net_dims,
                     net_dim_is_torus, BGQ_NET_DIM_SAME_NODE)
-    ns.append((n_rank, dist))
+    ns.append((n_rank, ncs, dist))
 
     max_neighbour_dist = max(max_neighbour_dist, dist)
     sum_neighbour_dist += dist
     total_neighbours += 1
+
   if DEBUG:
-    print >> sys.stderr, "%d neighbours: %s" % (rank, str(ns))
+    print "%d %s neighbours: %s" % (rank, str(cs), str(ns))
 
 print "Max Neighbour Distance: %f" % max_neighbour_dist
 print "Sum of Neighbour Distances: %f" % (sum_neighbour_dist)
