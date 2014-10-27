@@ -25,7 +25,7 @@ def load_mapping_file(mapping_file):
         print >> sys.stderr, "Invalid number of dimensions in: %s" % \
                              str(net_coords)
         continue
-      
+
       bad_coord = False
       for i in range(len(net_coords)):
         try:
@@ -35,7 +35,7 @@ def load_mapping_file(mapping_file):
             bad_coord = True
             failed = True
             break
-          
+
           max_coords[i] = max(max_coords[i], net_coords[i])
         except ValueError, e:
           print >> sys.stderr, "Invalid coordinates: %s" % str(net_coords)
@@ -45,7 +45,7 @@ def load_mapping_file(mapping_file):
 
       if bad_coord:
         continue
-      
+
       if tuple(net_coords) in mapped_coords:
         print >> sys.stderr, "Duplicate coordinates: %s" % str(net_coords)
         failed = True
@@ -74,8 +74,8 @@ def load_mapping_file(mapping_file):
 def compute_logical_mapping(logical_dims, nranks):
   rank2log = {}
   log2rank = {}
-  
-  
+
+
   for rank in range(nranks):
     if rank == 0:
       coords = [0] * len(logical_dims)
@@ -93,6 +93,48 @@ def compute_logical_mapping(logical_dims, nranks):
     log2rank[tuple(coords)] = rank
 
   return rank2log, log2rank
+
+def neighbours(coords, dims, wrap_dims):
+  """
+  Compute neighbours of coordinate.  Returns list of coordinates.
+  coords: coordinates of rank
+  dims: dimension sizes
+  wrap_dims: list of which dimensions wrap around
+  """
+  result = []
+  assert len(coords) == len(dims)
+  assert len(dims) == len(wrap_dims)
+
+  for dim in range(len(dims)):
+    coord = coords[dim]
+
+    if (dims[dim] > 2):
+      # Two potential neighbours in this dimension
+      incs = [-1, 1]
+    elif (dims[dim] == 2):
+      # One neighbour in this dimension
+      incs = [1]
+    else:
+      assert dims[dim] == 1
+      # No neighbours in this dimension
+      incs = []
+
+    for inc in incs:
+      neighbour_coord = (coord + inc)
+      if wrap_dims[dim]:
+        neighbour_coord = neighbour_coord % dims[dim]
+        if neighbour_coord == coord:
+          continue
+      elif neighbour_coord < 0 or neighbour_coord >= dims[dim]:
+        # No wrapping
+        continue
+
+      neighbour = list(coords)
+      neighbour[dim] = neighbour_coord
+      result.append(tuple(neighbour))
+
+  return result
+
 
 def usage():
   print >> sys.stderr, "Usage: mapping.py <nranks> <mapping file> <dims>\n"
@@ -141,5 +183,8 @@ print >> sys.stderr, "Rank2Net: %s" % str(rank2net)
 print >> sys.stderr, "Rank2Log: %s" % str(rank2log)
 print >> sys.stderr, "Log2Rank: %s" % str(log2rank)
 
+for log in log2rank:
+  ns = neighbours(log, logical_dims, [True] * len(logical_dims))
+  print >> sys.stderr, "%s neighbours: %s" % (str(log), str(ns))
 
 logical_map = {}
