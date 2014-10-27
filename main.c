@@ -11,6 +11,8 @@
 #include <unistd.h>
 #include <string.h>
 
+#include "q5d.h"
+
 #define MAXN 150000     // repetition rate for a single pair test
 #define MAXSKIP 20      // skip first tests to warm-up
 #define N 6             // number of simumtaneous communications (available links)
