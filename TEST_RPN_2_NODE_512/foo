@@ -1,0 +1,244 @@
+Name                        Queue                                                                                          State                                  Backfill  Geometry    
+==========================================================================================================================================================================================
+MIR-00000-7BFF1-49152       prod-capability:backfill:testing                                                               blocked (MIR-44C40-77F71-512)          -         8x12x16x16x2
+MIR-04000-7BFF1-32768       prod-32768-torus:Q.bc:backfill-32768-torus                                                     blocked (MIR-44CC0-77FF1-512)          -         8x8x16x16x2 
+MIR-04000-7BFF1-4-32768     prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44CC0-77FF1-512)          -         8x8x16x16x2 
+MIR-00000-3BFF1-24576       prod-capability:backfill:testing                                                               blocked (MIR-00840-33B71-512)          -         4x12x16x16x2
+MIR-40000-7BFF1-24576       prod-capability:backfill:testing                                                               blocked (MIR-44000-777F1-4096)         -         4x12x16x16x2
+MIR-00000-37FF1-16384       prod-capability:backfill:testing                                                               blocked (MIR-00C40-33F71-512)          -         4x8x16x16x2 
+MIR-00000-3BFF1-0100-16384  prod-capability:backfill:testing                                                               blocked (MIR-00840-33B71-512)          -         4x8x16x16x2 
+MIR-00000-73FF1-16384       prod-capability:backfill:testing                                                               blocked (MIR-00800-33B31-512)          -         8x4x16x16x2 
+MIR-04000-3BFF1-16384       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-08000-3B7F1-4096)         -         4x8x16x16x2 
+MIR-04000-77FF1-16384       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44000-777F1-4096)         -         8x4x16x16x2 
+MIR-08000-7BFF1-16384       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-08000-3B7F1-4096)         -         8x4x16x16x2 
+MIR-40000-77FF1-16384       prod-capability:backfill:testing                                                               blocked (MIR-44000-777F1-4096)         -         4x8x16x16x2 
+MIR-40000-7BFF1-0100-16384  prod-capability:backfill:testing                                                               blocked (MIR-484C0-7B7F1-512)          -         4x8x16x16x2 
+MIR-44000-7BFF1-16384       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44CC0-77FF1-512)          -         4x8x16x16x2 
+MIR-00000-73BF1-12288       prod-capability:backfill:testing                                                               blocked (MIR-008C0-33BF1-512)          -         8x4x12x16x2 
+MIR-00000-73FF1-0010-12288  prod-capability:backfill:testing                                                               blocked (MIR-00C40-33F71-512)          -         8x4x12x16x2 
+MIR-00000-73FF1-0020-12288  prod-capability:backfill:testing                                                               blocked (MIR-40C00-73FF1-2048)         -         8x4x12x16x2 
+MIR-00400-73FF1-12288       prod-capability:backfill:testing                                                               blocked (MIR-00800-33B31-512)          -         8x4x12x16x2 
+MIR-04000-77BF1-12288       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44880-77BB1-512)          -         8x4x12x16x2 
+MIR-04000-77FF1-0010-12288  prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44CC0-77FF1-512)          -         8x4x12x16x2 
+MIR-04000-77FF1-0020-12288  prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44CC0-77FF1-512)          -         8x4x12x16x2 
+MIR-04400-77FF1-12288       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44000-777F1-4096)         -         8x4x12x16x2 
+MIR-08000-7BBF1-12288       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-48800-7BBF1-2048)         -         8x4x12x16x2 
+MIR-08000-7BFF1-0010-12288  prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-48800-7BBF1-2048)         -         8x4x12x16x2 
+MIR-08000-7BFF1-0020-12288  prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-48480-7B7B1-512)          -         8x4x12x16x2 
+MIR-08400-7BFF1-12288       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-48800-7BBF1-2048)         -         8x4x12x16x2 
+MIR-00000-33FF1-8192        prod-capability:backfill:testing:Q.VibOSpec:CESM_Atmos:CESMAtmos:Q.CESMAtmos:Q.ParBouss_Flows  blocked (MIR-008C0-33BF1-512)          -         4x4x16x16x2 
+MIR-04000-37FF1-8192        prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-04C00-37FF1-2048)         -         4x4x16x16x2 
+MIR-08000-3BFF1-8192        prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-08800-3BBF1-2048)         -         4x4x16x16x2 
+MIR-08000-4BFF1-3-8192      off:Q.geometrytest                                                                             blocked (MIR-008C0-33BF1-512)          -         4x4x16x16x2 
+MIR-40000-73FF1-8192        prod-capability:backfill:testing:CESM_Atmos:Q.CESMAtmos:Q.ParBouss_Flows                       blocked (MIR-40800-73BF1-2048)         -         4x4x16x16x2 
+MIR-44000-77FF1-8192        prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44CC0-77FF1-512)          -         4x4x16x16x2 
+MIR-48000-7BFF1-8192        prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-48800-7BBF1-2048)         -         4x4x16x16x2 
+MIR-00000-337F1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-00000-337F1-4096)         -         4x4x8x16x2  
+MIR-00000-337F1-4096        prod-short:prod-long:backfill:testing:Q.VibOSpec                                               busy                                   -         4x4x8x16x2  
+MIR-00800-33FF1-3-4096      off:Q.geometrytest                                                                             blocked-wiring (MIR-00000-337F1-4096)  -         4x4x8x16x2  
+MIR-00800-73BF1-4096        prod-short:prod-long:backfill:testing                                                          blocked (MIR-008C0-33BF1-512)          -         8x4x4x16x2  
+MIR-00C00-73FF1-4096        prod-short:prod-long:backfill:testing                                                          blocked (MIR-00C00-33F31-512)          -         8x4x4x16x2  
+MIR-04000-377F1-3-4096      off:Q.geometrytest                                                                             idle                                   1:22      4x4x8x16x2  
+MIR-04000-377F1-4096        prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x8x16x2  
+MIR-04800-37FF1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-04C00-37FF1-2048)         -         4x4x8x16x2  
+MIR-04800-77BF1-4096        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44880-77BB1-512)          -         8x4x4x16x2  
+MIR-04C00-77FF1-4096        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-04C00-37FF1-2048)         -         8x4x4x16x2  
+MIR-08000-3B7F1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-08000-3B7F1-4096)         -         4x4x8x16x2  
+MIR-08000-3B7F1-4096        prod-short:backfill:testing:Q.bc                                                               busy                                   -         4x4x8x16x2  
+MIR-08800-3BFF1-3-4096      off:Q.geometrytest                                                                             blocked-wiring (MIR-08000-3B7F1-4096)  -         4x4x8x16x2  
+MIR-08800-7BBF1-4096        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48800-7BBF1-2048)         -         8x4x4x16x2  
+MIR-08C00-7BFF1-4096        prod-short:backfill:testing:Q.bc                                                               busy                                   -         8x4x4x16x2  
+MIR-40000-737F1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-40000-737F1-4096)         -         4x4x8x16x2  
+MIR-40000-737F1-4096        prod-short:prod-long:backfill:testing                                                          busy                                   -         4x4x8x16x2  
+MIR-40800-73FF1-3-4096      off:Q.geometrytest                                                                             blocked-wiring (MIR-40000-737F1-4096)  -         4x4x8x16x2  
+MIR-44000-777F1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-44000-777F1-4096)         -         4x4x8x16x2  
+MIR-44000-777F1-4096        prod-short:backfill:testing:Q.bc                                                               busy                                   -         4x4x8x16x2  
+MIR-44800-77FF1-3-4096      off:Q.geometrytest                                                                             blocked-wiring (MIR-44000-777F1-4096)  -         4x4x8x16x2  
+MIR-48000-7B7F1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-48480-7B7B1-512)          -         4x4x8x16x2  
+MIR-48000-7B7F1-4096        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48480-7B7B1-512)          -         4x4x8x16x2  
+MIR-48800-7BFF1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-48800-7BBF1-2048)         -         4x4x8x16x2  
+MIR-00000-333F1-1-2048      off:Q.geometrytest                                                                             blocked (MIR-00000-337F1-4096)         -         4x4x4x16x2  
+MIR-00000-333F1-2048        prod-short:prod-long:backfill:testing:Q.VibOSpec                                               blocked (MIR-00000-337F1-4096)         -         4x4x4x16x2  
+MIR-00400-337F1-2048        prod-short:prod-long:backfill:testing:Q.VibOSpec                                               blocked (MIR-00000-337F1-4096)         -         4x4x4x16x2  
+MIR-00800-33BF1-2048        prod-short:prod-long:backfill:testing:Q.VibOSpec                                               blocked (MIR-008C0-33BF1-512)          -         4x4x4x16x2  
+MIR-00C00-33FF1-2048        prod-short:prod-long:backfill:testing:Q.VibOSpec                                               blocked (MIR-00C00-33F31-512)          -         4x4x4x16x2  
+MIR-04000-373F1-2048        prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x16x2  
+MIR-04400-377F1-2048        prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x16x2  
+MIR-04800-37BF1-2048        prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x16x2  
+MIR-04C00-37FF1-2048        prod-short:backfill:testing:Q.bc                                                               busy                                   -         4x4x4x16x2  
+MIR-08000-3B3F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x16x2  
+MIR-08400-3B7F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x16x2  
+MIR-08800-3BBF1-2048        prod-short:backfill:testing:Q.bc                                                               busy                                   -         4x4x4x16x2  
+MIR-08C00-3BFF1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x16x2  
+MIR-40000-733F1-2048        prod-short:prod-long:backfill:testing:Q.THModeling                                             blocked (MIR-40000-737F1-4096)         -         4x4x4x16x2  
+MIR-40400-737F1-2048        prod-short:prod-long:backfill:testing                                                          blocked (MIR-40000-737F1-4096)         -         4x4x4x16x2  
+MIR-40800-73BF1-2048        prod-short:prod-long:backfill:testing                                                          busy                                   -         4x4x4x16x2  
+MIR-40C00-73FF1-2048        prod-short:prod-long:backfill:testing                                                          busy                                   -         4x4x4x16x2  
+MIR-44000-773F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x16x2  
+MIR-44400-777F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x16x2  
+MIR-44800-77BF1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44880-77BB1-512)          -         4x4x4x16x2  
+MIR-44C00-77FF1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44C80-77FB1-512)          -         4x4x4x16x2  
+MIR-48000-7B3F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48080-7B3B1-512)          -         4x4x4x16x2  
+MIR-48400-7B7F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-484C0-7B7F1-512)          -         4x4x4x16x2  
+MIR-48800-7BBF1-2048        prod-short:backfill:testing:Q.bc                                                               busy                                   -         4x4x4x16x2  
+MIR-48C00-7BFF1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x16x2  
+MIR-00000-33371-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
+MIR-00000-33371-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
+MIR-00080-333F1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
+MIR-00080-333F1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
+MIR-00400-33771-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
+MIR-00400-33771-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
+MIR-00480-337F1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
+MIR-00480-337F1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
+MIR-00800-33B71-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00800-33B31-512)          -         4x4x4x8x2   
+MIR-00800-33B71-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00800-33B31-512)          -         4x4x4x8x2   
+MIR-00880-33BF1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-008C0-33BF1-512)          -         4x4x4x8x2   
+MIR-00880-33BF1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-008C0-33BF1-512)          -         4x4x4x8x2   
+MIR-00C00-33F71-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00C00-33F31-512)          -         4x4x4x8x2   
+MIR-00C00-33F71-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00C00-33F31-512)          -         4x4x4x8x2   
+MIR-00C80-33FF1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00C80-33FB1-512)          -         4x4x4x8x2   
+MIR-00C80-33FF1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00C80-33FB1-512)          -         4x4x4x8x2   
+MIR-04000-37371-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
+MIR-04080-373F1-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
+MIR-04400-37771-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
+MIR-04480-377F1-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
+MIR-04800-37B71-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
+MIR-04880-37BF1-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
+MIR-04C00-37F71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-04C00-37FF1-2048)         -         4x4x4x8x2   
+MIR-04C80-37FF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-04C00-37FF1-2048)         -         4x4x4x8x2   
+MIR-08000-3B371-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x8x2   
+MIR-08080-3B3F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x8x2   
+MIR-08400-3B771-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x8x2   
+MIR-08480-3B7F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x8x2   
+MIR-08800-3BB71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08800-3BBF1-2048)         -         4x4x4x8x2   
+MIR-08880-3BBF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08800-3BBF1-2048)         -         4x4x4x8x2   
+MIR-08C00-3BF71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x8x2   
+MIR-08C80-3BFF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x8x2   
+MIR-40000-73371-1-1024      prod-short:prod-long:backfill:testing:Q.THModeling                                             blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
+MIR-40000-73371-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
+MIR-40080-733F1-1-1024      prod-short:prod-long:backfill:testing:Q.THModeling                                             blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
+MIR-40080-733F1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
+MIR-40400-73771-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
+MIR-40400-73771-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
+MIR-40480-737F1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
+MIR-40480-737F1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
+MIR-40800-73B71-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40800-73BF1-2048)         -         4x4x4x8x2   
+MIR-40800-73B71-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x8x2   
+MIR-40880-73BF1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40800-73BF1-2048)         -         4x4x4x8x2   
+MIR-40880-73BF1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x8x2   
+MIR-40C00-73F71-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40C00-73FF1-2048)         -         4x4x4x8x2   
+MIR-40C00-73F71-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x8x2   
+MIR-40C80-73FF1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40C00-73FF1-2048)         -         4x4x4x8x2   
+MIR-40C80-73FF1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x8x2   
+MIR-44000-77371-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x8x2   
+MIR-44080-773F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x8x2   
+MIR-44400-77771-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x8x2   
+MIR-44480-777F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x8x2   
+MIR-44800-77B71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44800-77B31-512)          -         4x4x4x8x2   
+MIR-44880-77BF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44880-77BB1-512)          -         4x4x4x8x2   
+MIR-44C00-77F71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44C00-77F31-512)          -         4x4x4x8x2   
+MIR-44C80-77FF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44C80-77FB1-512)          -         4x4x4x8x2   
+MIR-48000-7B371-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48040-7B371-512)          -         4x4x4x8x2   
+MIR-48080-7B3F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-480C0-7B3F1-512)          -         4x4x4x8x2   
+MIR-48400-7B771-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48400-7B731-512)          -         4x4x4x8x2   
+MIR-48480-7B7F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-484C0-7B7F1-512)          -         4x4x4x8x2   
+MIR-48800-7BB71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48800-7BBF1-2048)         -         4x4x4x8x2   
+MIR-48880-7BBF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48800-7BBF1-2048)         -         4x4x4x8x2   
+MIR-48C00-7BF71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x8x2   
+MIR-48C80-7BFF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x8x2   
+MIR-00000-33331-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
+MIR-00040-33371-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
+MIR-00080-333B1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
+MIR-000C0-333F1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
+MIR-00400-33731-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
+MIR-00440-33771-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
+MIR-00480-337B1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
+MIR-004C0-337F1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
+MIR-00800-33B31-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
+MIR-00840-33B71-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
+MIR-00880-33BB1-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
+MIR-008C0-33BF1-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
+MIR-00C00-33F31-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
+MIR-00C40-33F71-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
+MIR-00C80-33FB1-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
+MIR-00CC0-33FF1-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
+MIR-04000-37331-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-04040-37371-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-04080-373B1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-040C0-373F1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-04400-37731-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-04440-37771-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-04480-377B1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-044C0-377F1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-04800-37B31-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-04840-37B71-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-04880-37BB1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-048C0-37BF1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
+MIR-04C00-37F31-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-04C00-37FF1-2048)         -         4x4x4x4x2   
+MIR-04C40-37F71-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-04C00-37FF1-2048)         -         4x4x4x4x2   
+MIR-04C80-37FB1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-04C00-37FF1-2048)         -         4x4x4x4x2   
+MIR-04CC0-37FF1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-04C00-37FF1-2048)         -         4x4x4x4x2   
+MIR-08000-3B331-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
+MIR-08040-3B371-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
+MIR-08080-3B3B1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
+MIR-080C0-3B3F1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
+MIR-08400-3B731-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
+MIR-08440-3B771-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
+MIR-08480-3B7B1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
+MIR-084C0-3B7F1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
+MIR-08800-3BB31-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08800-3BBF1-2048)         -         4x4x4x4x2   
+MIR-08840-3BB71-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08800-3BBF1-2048)         -         4x4x4x4x2   
+MIR-08880-3BBB1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08800-3BBF1-2048)         -         4x4x4x4x2   
+MIR-088C0-3BBF1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08800-3BBF1-2048)         -         4x4x4x4x2   
+MIR-08C00-3BF31-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
+MIR-08C40-3BF71-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
+MIR-08C80-3BFB1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
+MIR-08CC0-3BFF1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
+MIR-40000-73331-512         prod-short:prod-long:backfill:testing:Q.THModeling:diags                                       blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
+MIR-40040-73371-512         prod-short:prod-long:backfill:testing:Q.THModeling:diags                                       blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
+MIR-40080-733B1-512         prod-short:prod-long:backfill:testing:Q.THModeling:diags                                       blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
+MIR-400C0-733F1-512         prod-short:prod-long:backfill:testing:Q.THModeling:diags                                       blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
+MIR-40400-73731-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
+MIR-40440-73771-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
+MIR-40480-737B1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
+MIR-404C0-737F1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
+MIR-40800-73B31-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x4x2   
+MIR-40840-73B71-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x4x2   
+MIR-40880-73BB1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x4x2   
+MIR-408C0-73BF1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x4x2   
+MIR-40C00-73F31-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x4x2   
+MIR-40C40-73F71-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x4x2   
+MIR-40C80-73FB1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x4x2   
+MIR-40CC0-73FF1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x4x2   
+MIR-44000-77331-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
+MIR-44040-77371-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
+MIR-44080-773B1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
+MIR-440C0-773F1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
+MIR-44400-77731-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
+MIR-44440-77771-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
+MIR-44480-777B1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
+MIR-444C0-777F1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
+MIR-44800-77B31-512         prod-short:backfill:testing:Q.bc:diags                                                         allocated                              -         4x4x4x4x2   
+MIR-44840-77B71-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-44880-77BB1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-448C0-77BF1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-44C00-77F31-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-44C40-77F71-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-44C80-77FB1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-44CC0-77FF1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-48000-7B331-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-48040-7B371-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-48080-7B3B1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-480C0-7B3F1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-48400-7B731-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-48440-7B771-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-48480-7B7B1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-484C0-7B7F1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
+MIR-48800-7BB31-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-48800-7BBF1-2048)         -         4x4x4x4x2   
+MIR-48840-7BB71-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-48800-7BBF1-2048)         -         4x4x4x4x2   
+MIR-48880-7BBB1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-48800-7BBF1-2048)         -         4x4x4x4x2   
+MIR-488C0-7BBF1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-48800-7BBF1-2048)         -         4x4x4x4x2   
+MIR-48C00-7BF31-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
+MIR-48C40-7BF71-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
+MIR-48C80-7BFB1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
+MIR-48CC0-7BFF1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   

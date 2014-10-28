@@ -1,0 +1,26 @@
+Jobid: 353003
+qsub --mode script -n 512 -t 00:59:00 -A ExM -q prod-short cobalt_script.sh
+Tue Oct 28 00:19:27 2014 +0000 (UTC) submitted with cwd set to: /gpfs/mira-home/yadunand/mira-halo/TEST_RPN_2_NODE_512
+Tue Oct 28 03:26:09 2014 +0000 (UTC) yadunand/353003: Initiating boot at location MIR-00C00-33F31-512.
+Tue Oct 28 03:26:38 2014 +0000 (UTC) 
+Tue Oct 28 03:26:38 2014 +0000 (UTC) Command: '/gpfs/mira-home/yadunand/mira-halo/TEST_RPN_2_NODE_512/cobalt_script.sh'
+Tue Oct 28 03:26:38 2014 +0000 (UTC) 
+Tue Oct 28 03:26:38 2014 +0000 (UTC) Environment:
+Tue Oct 28 03:26:38 2014 +0000 (UTC) SHELL=/bin/bash
+Tue Oct 28 03:26:38 2014 +0000 (UTC) COBALT_NODEFILE=/tmp/tmpu7JxF5
+Tue Oct 28 03:26:38 2014 +0000 (UTC) COBALT_PARTNAME=MIR-00C00-33F31-512
+Tue Oct 28 03:26:38 2014 +0000 (UTC) COBALT_JOBID=353003
+Tue Oct 28 03:26:38 2014 +0000 (UTC) COBALT_STARTTIME=1414466722
+Tue Oct 28 03:26:38 2014 +0000 (UTC) LOGNAME=yadunand
+Tue Oct 28 03:26:38 2014 +0000 (UTC) USER=yadunand
+Tue Oct 28 03:26:38 2014 +0000 (UTC) COBALT_ENDTIME=1414470262
+Tue Oct 28 03:26:38 2014 +0000 (UTC) COBALT_PARTSIZE=512
+Tue Oct 28 03:26:38 2014 +0000 (UTC) HOME=/home/yadunand
+Tue Oct 28 03:26:38 2014 +0000 (UTC) COBALT_JOBSIZE=512
+Tue Oct 28 03:26:38 2014 +0000 (UTC) 
+Tue Oct 28 03:26:38 2014 +0000 (UTC) Info: stdin received from /dev/null
+Tue Oct 28 03:26:38 2014 +0000 (UTC) Info: stdout sent to /gpfs/mira-home/yadunand/mira-halo/TEST_RPN_2_NODE_512/353003.output
+Tue Oct 28 03:26:38 2014 +0000 (UTC) Info: stderr sent to /gpfs/mira-home/yadunand/mira-halo/TEST_RPN_2_NODE_512/353003.error
+Tue Oct 28 03:26:38 2014 +0000 (UTC) 
+Tue Oct 28 03:26:40 2014 +0000 (UTC) yadunand/353003: Block MIR-00C00-33F31-512 for location MIR-00C00-33F31-512 successfully booted (Initiating). 
+Tue Oct 28 04:18:13 2014 +0000 (UTC) Info: task completed normally with an exit code of 0; initiating job cleanup and removal
