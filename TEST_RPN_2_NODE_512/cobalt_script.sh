@@ -15,7 +15,6 @@ mmps_array=("mmps_5D_1" "mmps_5D_2" "mmps_5D_4" "mmps_5D_8" "mmps_5D_16" "mmps_5
 
 for i in ${mmps_array[*]}
 do
-    
     runjob --cwd $DIR --block $COBALT_PARTNAME --np 1024 -p 2 --mapping $DIR/regular_map.txt : $i
     runjob --cwd $DIR --block $COBALT_PARTNAME --np 1024 -p 2 --mapping $DIR/regular_map.txt : $i
     runjob --cwd $DIR --block $COBALT_PARTNAME --np 1024 -p 2 --mapping $DIR/regular_map.txt : $i

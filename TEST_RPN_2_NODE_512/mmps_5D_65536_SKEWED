@@ -1,0 +1,120 @@
+2014-10-28 04:01:30.949 (INFO ) [0xfffa103bde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-28 04:01:30.953 (INFO ) [0xfffa103bde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-28 04:01:30.953 (INFO ) [0xfffa103bde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-28 04:01:30.954 (INFO ) [0xfffa103bde0] 8660:tatu.runjob.client: scheduler job id is 353003
+2014-10-28 04:01:30.957 (INFO ) [0xfff952034e0] 8660:tatu.runjob.monitor: monitor started
+2014-10-28 04:01:31.591 (INFO ) [0xfff952034e0] 8660:tatu.runjob.monitor: task record 527572 created
+2014-10-28 04:01:31.592 (INFO ) [0xfffa103bde0] MIR-00C00-33F31-512:8660:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-28 04:01:33.301 (INFO ) [0xfffa103bde0] MIR-00C00-33F31-512:761988:ibm.runjob.client.Job: job 761988 started
+Delay time: 159862864 pclks, 99914.290000000008 microseconds
+Sendrecv no delay for  65536 doubles: 5596982 pclks,  3498.113750000000 microseconds
+Sendrecv wt delay time for  65536 doubles: 2890062 pclks,  1806.288750000000 microseconds
+Isend-recv no delay for  65536 doubles: 4989200 pclks,  3118.250000000000 microseconds
+Isend-recv wt delay for  65536 doubles: 4458982 pclks,  2786.863750000000 microseconds
+Isend-Irecv no delay for  65536 doubles: 5328412 pclks,  3330.257500000000 microseconds
+Isend-Irecv wt delay for  65536 doubles: 2817418 pclks,  1760.886250000000 microseconds
+12 at a time no delay for  65536 doubles: 3990190 pclks,  2493.868750000000 microseconds
+12 at a time wt delay for  65536 doubles: 1262874 pclks,   789.296250000000 microseconds
+2014-10-28 04:01:35.383 (INFO ) [0xfffa103bde0] MIR-00C00-33F31-512:761988:ibm.runjob.client.Job: exited with status 0
+2014-10-28 04:01:35.383 (WARN ) [0xfffa103bde0] MIR-00C00-33F31-512:761988:ibm.runjob.client.Job: 3 INFO RAS events
+2014-10-28 04:01:35.383 (WARN ) [0xfffa103bde0] MIR-00C00-33F31-512:761988:ibm.runjob.client.Job: most recent RAS event text: DDR Correctable Error Summary : count=2 MCFIR error status:  [MEMORY_CE] This bit is set when a memory CE is detected on a non-maintenance memory read op;
+2014-10-28 04:01:35.383 (WARN ) [0xfffa103bde0] MIR-00C00-33F31-512:761988:ibm.runjob.client.Job: with severity INFO
+2014-10-28 04:01:35.384 (INFO ) [0xfffa103bde0] tatu.runjob.client: task exited with status 0
+2014-10-28 04:01:35.384 (INFO ) [0xfff952034e0] 8660:tatu.runjob.monitor: monitor terminating
+2014-10-28 04:01:35.389 (INFO ) [0xfffa103bde0] tatu.runjob.client: monitor completed
+2014-10-28 04:01:35.448 (INFO ) [0xfff77f5bde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-28 04:01:35.454 (INFO ) [0xfff77f5bde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-28 04:01:35.454 (INFO ) [0xfff77f5bde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-28 04:01:35.456 (INFO ) [0xfff77f5bde0] 8815:tatu.runjob.client: scheduler job id is 353003
+2014-10-28 04:01:35.459 (INFO ) [0xfff99bc34e0] 8815:tatu.runjob.monitor: monitor started
+2014-10-28 04:01:39.176 (INFO ) [0xfff99bc34e0] 8815:tatu.runjob.monitor: task record 527573 created
+2014-10-28 04:01:39.177 (INFO ) [0xfff77f5bde0] MIR-00C00-33F31-512:8815:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-28 04:01:40.884 (INFO ) [0xfff77f5bde0] MIR-00C00-33F31-512:761989:ibm.runjob.client.Job: job 761989 started
+Delay time: 159862824 pclks, 99914.264999999999 microseconds
+Sendrecv no delay for  65536 doubles: 5598954 pclks,  3499.346250000000 microseconds
+Sendrecv wt delay time for  65536 doubles: 2888180 pclks,  1805.112500000000 microseconds
+Isend-recv no delay for  65536 doubles: 4993558 pclks,  3120.973750000000 microseconds
+Isend-recv wt delay for  65536 doubles: 4458794 pclks,  2786.746250000000 microseconds
+Isend-Irecv no delay for  65536 doubles: 5336602 pclks,  3335.376250000000 microseconds
+Isend-Irecv wt delay for  65536 doubles: 2821070 pclks,  1763.168750000000 microseconds
+12 at a time no delay for  65536 doubles: 3576204 pclks,  2235.127500000000 microseconds
+12 at a time wt delay for  65536 doubles: 1258404 pclks,   786.502500000000 microseconds
+2014-10-28 04:01:42.966 (INFO ) [0xfff77f5bde0] MIR-00C00-33F31-512:761989:ibm.runjob.client.Job: exited with status 0
+2014-10-28 04:01:42.966 (WARN ) [0xfff77f5bde0] MIR-00C00-33F31-512:761989:ibm.runjob.client.Job: 3 INFO RAS events
+2014-10-28 04:01:42.966 (WARN ) [0xfff77f5bde0] MIR-00C00-33F31-512:761989:ibm.runjob.client.Job: most recent RAS event text: DDR Correctable Error Summary : count=2 MCFIR error status:  [MEMORY_CE] This bit is set when a memory CE is detected on a non-maintenance memory read op;
+2014-10-28 04:01:42.966 (WARN ) [0xfff77f5bde0] MIR-00C00-33F31-512:761989:ibm.runjob.client.Job: with severity INFO
+2014-10-28 04:01:42.966 (INFO ) [0xfff77f5bde0] tatu.runjob.client: task exited with status 0
+2014-10-28 04:01:42.966 (INFO ) [0xfff99bc34e0] 8815:tatu.runjob.monitor: monitor terminating
+2014-10-28 04:01:42.973 (INFO ) [0xfff77f5bde0] tatu.runjob.client: monitor completed
+2014-10-28 04:01:43.025 (INFO ) [0xfff9ae7bde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-28 04:01:43.030 (INFO ) [0xfff9ae7bde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-28 04:01:43.030 (INFO ) [0xfff9ae7bde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-28 04:01:43.031 (INFO ) [0xfff9ae7bde0] 8984:tatu.runjob.client: scheduler job id is 353003
+2014-10-28 04:01:43.034 (INFO ) [0xfff953434e0] 8984:tatu.runjob.monitor: monitor started
+2014-10-28 04:01:46.929 (INFO ) [0xfff953434e0] 8984:tatu.runjob.monitor: task record 527574 created
+2014-10-28 04:01:46.929 (INFO ) [0xfff9ae7bde0] MIR-00C00-33F31-512:8984:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-28 04:01:48.652 (INFO ) [0xfff9ae7bde0] MIR-00C00-33F31-512:761990:ibm.runjob.client.Job: job 761990 started
+Delay time: 159861374 pclks, 99913.358749999999 microseconds
+Sendrecv no delay for  65536 doubles: 5597824 pclks,  3498.640000000000 microseconds
+Sendrecv wt delay time for  65536 doubles: 2888478 pclks,  1805.298750000000 microseconds
+Isend-recv no delay for  65536 doubles: 4988874 pclks,  3118.046250000000 microseconds
+Isend-recv wt delay for  65536 doubles: 4459834 pclks,  2787.396250000000 microseconds
+Isend-Irecv no delay for  65536 doubles: 5329678 pclks,  3331.048750000000 microseconds
+Isend-Irecv wt delay for  65536 doubles: 2820684 pclks,  1762.927500000000 microseconds
+12 at a time no delay for  65536 doubles: 3568626 pclks,  2230.391250000000 microseconds
+12 at a time wt delay for  65536 doubles: 1266476 pclks,   791.547500000000 microseconds
+2014-10-28 04:01:50.747 (INFO ) [0xfff9ae7bde0] MIR-00C00-33F31-512:761990:ibm.runjob.client.Job: exited with status 0
+2014-10-28 04:01:50.747 (WARN ) [0xfff9ae7bde0] MIR-00C00-33F31-512:761990:ibm.runjob.client.Job: 3 INFO RAS events
+2014-10-28 04:01:50.747 (WARN ) [0xfff9ae7bde0] MIR-00C00-33F31-512:761990:ibm.runjob.client.Job: most recent RAS event text: DDR Correctable Error Summary : count=2 MCFIR error status:  [MEMORY_CE] This bit is set when a memory CE is detected on a non-maintenance memory read op;
+2014-10-28 04:01:50.747 (WARN ) [0xfff9ae7bde0] MIR-00C00-33F31-512:761990:ibm.runjob.client.Job: with severity INFO
+2014-10-28 04:01:50.748 (INFO ) [0xfff9ae7bde0] tatu.runjob.client: task exited with status 0
+2014-10-28 04:01:50.748 (INFO ) [0xfff953434e0] 8984:tatu.runjob.monitor: monitor terminating
+2014-10-28 04:01:50.752 (INFO ) [0xfff9ae7bde0] tatu.runjob.client: monitor completed
+2014-10-28 04:01:50.806 (INFO ) [0xfff85bdbde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-28 04:01:50.811 (INFO ) [0xfff85bdbde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-28 04:01:50.811 (INFO ) [0xfff85bdbde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-28 04:01:50.812 (INFO ) [0xfff85bdbde0] 9158:tatu.runjob.client: scheduler job id is 353003
+2014-10-28 04:01:50.814 (INFO ) [0xfffad1034e0] 9158:tatu.runjob.monitor: monitor started
+2014-10-28 04:01:54.466 (INFO ) [0xfffad1034e0] 9158:tatu.runjob.monitor: task record 527575 created
+2014-10-28 04:01:54.466 (INFO ) [0xfff85bdbde0] MIR-00C00-33F31-512:9158:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-28 04:01:56.175 (INFO ) [0xfff85bdbde0] MIR-00C00-33F31-512:761991:ibm.runjob.client.Job: job 761991 started
+Delay time: 159862882 pclks, 99914.301250000004 microseconds
+Sendrecv no delay for  65536 doubles: 5595180 pclks,  3496.987500000000 microseconds
+Sendrecv wt delay time for  65536 doubles: 2884998 pclks,  1803.123750000000 microseconds
+Isend-recv no delay for  65536 doubles: 4990348 pclks,  3118.967500000000 microseconds
+Isend-recv wt delay for  65536 doubles: 4458638 pclks,  2786.648750000000 microseconds
+Isend-Irecv no delay for  65536 doubles: 5326190 pclks,  3328.868750000000 microseconds
+Isend-Irecv wt delay for  65536 doubles: 2817896 pclks,  1761.185000000000 microseconds
+12 at a time no delay for  65536 doubles: 3338964 pclks,  2086.852500000000 microseconds
+12 at a time wt delay for  65536 doubles: 1260902 pclks,   788.063750000000 microseconds
+2014-10-28 04:01:58.263 (INFO ) [0xfff85bdbde0] MIR-00C00-33F31-512:761991:ibm.runjob.client.Job: exited with status 0
+2014-10-28 04:01:58.263 (WARN ) [0xfff85bdbde0] MIR-00C00-33F31-512:761991:ibm.runjob.client.Job: 3 INFO RAS events
+2014-10-28 04:01:58.263 (WARN ) [0xfff85bdbde0] MIR-00C00-33F31-512:761991:ibm.runjob.client.Job: most recent RAS event text: DDR Correctable Error Summary : count=2 MCFIR error status:  [MEMORY_CE] This bit is set when a memory CE is detected on a non-maintenance memory read op;
+2014-10-28 04:01:58.263 (WARN ) [0xfff85bdbde0] MIR-00C00-33F31-512:761991:ibm.runjob.client.Job: with severity INFO
+2014-10-28 04:01:58.263 (INFO ) [0xfff85bdbde0] tatu.runjob.client: task exited with status 0
+2014-10-28 04:01:58.264 (INFO ) [0xfffad1034e0] 9158:tatu.runjob.monitor: monitor terminating
+2014-10-28 04:01:58.269 (INFO ) [0xfff85bdbde0] tatu.runjob.client: monitor completed
+2014-10-28 04:01:58.327 (INFO ) [0xfff9257bde0] ibm.runjob.AbstractOptions: using properties file /bgsys/local/etc/bg.properties
+2014-10-28 04:01:58.331 (INFO ) [0xfff9257bde0] ibm.runjob.AbstractOptions: max open file descriptors: 65536
+2014-10-28 04:01:58.331 (INFO ) [0xfff9257bde0] ibm.runjob.AbstractOptions: core file limit: 18446744073709551615
+2014-10-28 04:01:58.333 (INFO ) [0xfff9257bde0] 9327:tatu.runjob.client: scheduler job id is 353003
+2014-10-28 04:01:58.338 (INFO ) [0xfff8ee234e0] 9327:tatu.runjob.monitor: monitor started
+2014-10-28 04:02:02.482 (INFO ) [0xfff8ee234e0] 9327:tatu.runjob.monitor: task record 527576 created
+2014-10-28 04:02:02.482 (INFO ) [0xfff9257bde0] MIR-00C00-33F31-512:9327:ibm.runjob.client.options.Parser: set local socket to runjob_mux from properties file
+2014-10-28 04:02:04.339 (INFO ) [0xfff9257bde0] MIR-00C00-33F31-512:761992:ibm.runjob.client.Job: job 761992 started
+Delay time: 159859546 pclks, 99912.216249999998 microseconds
+Sendrecv no delay for  65536 doubles: 5609524 pclks,  3505.952500000000 microseconds
+Sendrecv wt delay time for  65536 doubles: 2892294 pclks,  1807.683750000000 microseconds
+Isend-recv no delay for  65536 doubles: 4992234 pclks,  3120.146250000000 microseconds
+Isend-recv wt delay for  65536 doubles: 4462874 pclks,  2789.296250000000 microseconds
+Isend-Irecv no delay for  65536 doubles: 5332970 pclks,  3333.106250000000 microseconds
+Isend-Irecv wt delay for  65536 doubles: 2824292 pclks,  1765.182500000000 microseconds
+12 at a time no delay for  65536 doubles: 3333584 pclks,  2083.490000000000 microseconds
+12 at a time wt delay for  65536 doubles: 1268814 pclks,   793.008750000000 microseconds
+2014-10-28 04:02:06.446 (INFO ) [0xfff9257bde0] MIR-00C00-33F31-512:761992:ibm.runjob.client.Job: exited with status 0
+2014-10-28 04:02:06.446 (WARN ) [0xfff9257bde0] MIR-00C00-33F31-512:761992:ibm.runjob.client.Job: 3 INFO RAS events
+2014-10-28 04:02:06.446 (WARN ) [0xfff9257bde0] MIR-00C00-33F31-512:761992:ibm.runjob.client.Job: most recent RAS event text: DDR Correctable Error Summary : count=2 MCFIR error status:  [MEMORY_CE] This bit is set when a memory CE is detected on a non-maintenance memory read op;
+2014-10-28 04:02:06.446 (WARN ) [0xfff9257bde0] MIR-00C00-33F31-512:761992:ibm.runjob.client.Job: with severity INFO
+2014-10-28 04:02:06.446 (INFO ) [0xfff9257bde0] tatu.runjob.client: task exited with status 0
+2014-10-28 04:02:06.446 (INFO ) [0xfff8ee234e0] 9327:tatu.runjob.monitor: monitor terminating
+2014-10-28 04:02:06.451 (INFO ) [0xfff9257bde0] tatu.runjob.client: monitor completed

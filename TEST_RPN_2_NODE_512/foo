@@ -1,244 +1,624 @@
-Name                        Queue                                                                                          State                                  Backfill  Geometry    
-==========================================================================================================================================================================================
-MIR-00000-7BFF1-49152       prod-capability:backfill:testing                                                               blocked (MIR-44C40-77F71-512)          -         8x12x16x16x2
-MIR-04000-7BFF1-32768       prod-32768-torus:Q.bc:backfill-32768-torus                                                     blocked (MIR-44CC0-77FF1-512)          -         8x8x16x16x2 
-MIR-04000-7BFF1-4-32768     prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44CC0-77FF1-512)          -         8x8x16x16x2 
-MIR-00000-3BFF1-24576       prod-capability:backfill:testing                                                               blocked (MIR-00840-33B71-512)          -         4x12x16x16x2
-MIR-40000-7BFF1-24576       prod-capability:backfill:testing                                                               blocked (MIR-44000-777F1-4096)         -         4x12x16x16x2
-MIR-00000-37FF1-16384       prod-capability:backfill:testing                                                               blocked (MIR-00C40-33F71-512)          -         4x8x16x16x2 
-MIR-00000-3BFF1-0100-16384  prod-capability:backfill:testing                                                               blocked (MIR-00840-33B71-512)          -         4x8x16x16x2 
-MIR-00000-73FF1-16384       prod-capability:backfill:testing                                                               blocked (MIR-00800-33B31-512)          -         8x4x16x16x2 
-MIR-04000-3BFF1-16384       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-08000-3B7F1-4096)         -         4x8x16x16x2 
-MIR-04000-77FF1-16384       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44000-777F1-4096)         -         8x4x16x16x2 
-MIR-08000-7BFF1-16384       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-08000-3B7F1-4096)         -         8x4x16x16x2 
-MIR-40000-77FF1-16384       prod-capability:backfill:testing                                                               blocked (MIR-44000-777F1-4096)         -         4x8x16x16x2 
-MIR-40000-7BFF1-0100-16384  prod-capability:backfill:testing                                                               blocked (MIR-484C0-7B7F1-512)          -         4x8x16x16x2 
-MIR-44000-7BFF1-16384       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44CC0-77FF1-512)          -         4x8x16x16x2 
-MIR-00000-73BF1-12288       prod-capability:backfill:testing                                                               blocked (MIR-008C0-33BF1-512)          -         8x4x12x16x2 
-MIR-00000-73FF1-0010-12288  prod-capability:backfill:testing                                                               blocked (MIR-00C40-33F71-512)          -         8x4x12x16x2 
-MIR-00000-73FF1-0020-12288  prod-capability:backfill:testing                                                               blocked (MIR-40C00-73FF1-2048)         -         8x4x12x16x2 
-MIR-00400-73FF1-12288       prod-capability:backfill:testing                                                               blocked (MIR-00800-33B31-512)          -         8x4x12x16x2 
-MIR-04000-77BF1-12288       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44880-77BB1-512)          -         8x4x12x16x2 
-MIR-04000-77FF1-0010-12288  prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44CC0-77FF1-512)          -         8x4x12x16x2 
-MIR-04000-77FF1-0020-12288  prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44CC0-77FF1-512)          -         8x4x12x16x2 
-MIR-04400-77FF1-12288       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44000-777F1-4096)         -         8x4x12x16x2 
-MIR-08000-7BBF1-12288       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-48800-7BBF1-2048)         -         8x4x12x16x2 
-MIR-08000-7BFF1-0010-12288  prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-48800-7BBF1-2048)         -         8x4x12x16x2 
-MIR-08000-7BFF1-0020-12288  prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-48480-7B7B1-512)          -         8x4x12x16x2 
-MIR-08400-7BFF1-12288       prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-48800-7BBF1-2048)         -         8x4x12x16x2 
-MIR-00000-33FF1-8192        prod-capability:backfill:testing:Q.VibOSpec:CESM_Atmos:CESMAtmos:Q.CESMAtmos:Q.ParBouss_Flows  blocked (MIR-008C0-33BF1-512)          -         4x4x16x16x2 
-MIR-04000-37FF1-8192        prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-04C00-37FF1-2048)         -         4x4x16x16x2 
-MIR-08000-3BFF1-8192        prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-08800-3BBF1-2048)         -         4x4x16x16x2 
-MIR-08000-4BFF1-3-8192      off:Q.geometrytest                                                                             blocked (MIR-008C0-33BF1-512)          -         4x4x16x16x2 
-MIR-40000-73FF1-8192        prod-capability:backfill:testing:CESM_Atmos:Q.CESMAtmos:Q.ParBouss_Flows                       blocked (MIR-40800-73BF1-2048)         -         4x4x16x16x2 
-MIR-44000-77FF1-8192        prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-44CC0-77FF1-512)          -         4x4x16x16x2 
-MIR-48000-7BFF1-8192        prod-capability:backfill:testing:Q.bc                                                          blocked (MIR-48800-7BBF1-2048)         -         4x4x16x16x2 
-MIR-00000-337F1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-00000-337F1-4096)         -         4x4x8x16x2  
-MIR-00000-337F1-4096        prod-short:prod-long:backfill:testing:Q.VibOSpec                                               busy                                   -         4x4x8x16x2  
-MIR-00800-33FF1-3-4096      off:Q.geometrytest                                                                             blocked-wiring (MIR-00000-337F1-4096)  -         4x4x8x16x2  
-MIR-00800-73BF1-4096        prod-short:prod-long:backfill:testing                                                          blocked (MIR-008C0-33BF1-512)          -         8x4x4x16x2  
-MIR-00C00-73FF1-4096        prod-short:prod-long:backfill:testing                                                          blocked (MIR-00C00-33F31-512)          -         8x4x4x16x2  
-MIR-04000-377F1-3-4096      off:Q.geometrytest                                                                             idle                                   1:22      4x4x8x16x2  
-MIR-04000-377F1-4096        prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x8x16x2  
-MIR-04800-37FF1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-04C00-37FF1-2048)         -         4x4x8x16x2  
-MIR-04800-77BF1-4096        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44880-77BB1-512)          -         8x4x4x16x2  
-MIR-04C00-77FF1-4096        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-04C00-37FF1-2048)         -         8x4x4x16x2  
-MIR-08000-3B7F1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-08000-3B7F1-4096)         -         4x4x8x16x2  
-MIR-08000-3B7F1-4096        prod-short:backfill:testing:Q.bc                                                               busy                                   -         4x4x8x16x2  
-MIR-08800-3BFF1-3-4096      off:Q.geometrytest                                                                             blocked-wiring (MIR-08000-3B7F1-4096)  -         4x4x8x16x2  
-MIR-08800-7BBF1-4096        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48800-7BBF1-2048)         -         8x4x4x16x2  
-MIR-08C00-7BFF1-4096        prod-short:backfill:testing:Q.bc                                                               busy                                   -         8x4x4x16x2  
-MIR-40000-737F1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-40000-737F1-4096)         -         4x4x8x16x2  
-MIR-40000-737F1-4096        prod-short:prod-long:backfill:testing                                                          busy                                   -         4x4x8x16x2  
-MIR-40800-73FF1-3-4096      off:Q.geometrytest                                                                             blocked-wiring (MIR-40000-737F1-4096)  -         4x4x8x16x2  
-MIR-44000-777F1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-44000-777F1-4096)         -         4x4x8x16x2  
-MIR-44000-777F1-4096        prod-short:backfill:testing:Q.bc                                                               busy                                   -         4x4x8x16x2  
-MIR-44800-77FF1-3-4096      off:Q.geometrytest                                                                             blocked-wiring (MIR-44000-777F1-4096)  -         4x4x8x16x2  
-MIR-48000-7B7F1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-48480-7B7B1-512)          -         4x4x8x16x2  
-MIR-48000-7B7F1-4096        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48480-7B7B1-512)          -         4x4x8x16x2  
-MIR-48800-7BFF1-3-4096      off:Q.geometrytest                                                                             blocked (MIR-48800-7BBF1-2048)         -         4x4x8x16x2  
-MIR-00000-333F1-1-2048      off:Q.geometrytest                                                                             blocked (MIR-00000-337F1-4096)         -         4x4x4x16x2  
-MIR-00000-333F1-2048        prod-short:prod-long:backfill:testing:Q.VibOSpec                                               blocked (MIR-00000-337F1-4096)         -         4x4x4x16x2  
-MIR-00400-337F1-2048        prod-short:prod-long:backfill:testing:Q.VibOSpec                                               blocked (MIR-00000-337F1-4096)         -         4x4x4x16x2  
-MIR-00800-33BF1-2048        prod-short:prod-long:backfill:testing:Q.VibOSpec                                               blocked (MIR-008C0-33BF1-512)          -         4x4x4x16x2  
-MIR-00C00-33FF1-2048        prod-short:prod-long:backfill:testing:Q.VibOSpec                                               blocked (MIR-00C00-33F31-512)          -         4x4x4x16x2  
-MIR-04000-373F1-2048        prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x16x2  
-MIR-04400-377F1-2048        prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x16x2  
-MIR-04800-37BF1-2048        prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x16x2  
-MIR-04C00-37FF1-2048        prod-short:backfill:testing:Q.bc                                                               busy                                   -         4x4x4x16x2  
-MIR-08000-3B3F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x16x2  
-MIR-08400-3B7F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x16x2  
-MIR-08800-3BBF1-2048        prod-short:backfill:testing:Q.bc                                                               busy                                   -         4x4x4x16x2  
-MIR-08C00-3BFF1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x16x2  
-MIR-40000-733F1-2048        prod-short:prod-long:backfill:testing:Q.THModeling                                             blocked (MIR-40000-737F1-4096)         -         4x4x4x16x2  
-MIR-40400-737F1-2048        prod-short:prod-long:backfill:testing                                                          blocked (MIR-40000-737F1-4096)         -         4x4x4x16x2  
-MIR-40800-73BF1-2048        prod-short:prod-long:backfill:testing                                                          busy                                   -         4x4x4x16x2  
-MIR-40C00-73FF1-2048        prod-short:prod-long:backfill:testing                                                          busy                                   -         4x4x4x16x2  
-MIR-44000-773F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x16x2  
-MIR-44400-777F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x16x2  
-MIR-44800-77BF1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44880-77BB1-512)          -         4x4x4x16x2  
-MIR-44C00-77FF1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44C80-77FB1-512)          -         4x4x4x16x2  
-MIR-48000-7B3F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48080-7B3B1-512)          -         4x4x4x16x2  
-MIR-48400-7B7F1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-484C0-7B7F1-512)          -         4x4x4x16x2  
-MIR-48800-7BBF1-2048        prod-short:backfill:testing:Q.bc                                                               busy                                   -         4x4x4x16x2  
-MIR-48C00-7BFF1-2048        prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x16x2  
-MIR-00000-33371-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
-MIR-00000-33371-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
-MIR-00080-333F1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
-MIR-00080-333F1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
-MIR-00400-33771-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
-MIR-00400-33771-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
-MIR-00480-337F1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
-MIR-00480-337F1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x8x2   
-MIR-00800-33B71-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00800-33B31-512)          -         4x4x4x8x2   
-MIR-00800-33B71-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00800-33B31-512)          -         4x4x4x8x2   
-MIR-00880-33BF1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-008C0-33BF1-512)          -         4x4x4x8x2   
-MIR-00880-33BF1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-008C0-33BF1-512)          -         4x4x4x8x2   
-MIR-00C00-33F71-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00C00-33F31-512)          -         4x4x4x8x2   
-MIR-00C00-33F71-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00C00-33F31-512)          -         4x4x4x8x2   
-MIR-00C80-33FF1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-00C80-33FB1-512)          -         4x4x4x8x2   
-MIR-00C80-33FF1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-00C80-33FB1-512)          -         4x4x4x8x2   
-MIR-04000-37371-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
-MIR-04080-373F1-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
-MIR-04400-37771-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
-MIR-04480-377F1-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
-MIR-04800-37B71-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
-MIR-04880-37BF1-1-1024      prod-short:backfill:testing:Q.bc                                                               idle                                   1:22      4x4x4x8x2   
-MIR-04C00-37F71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-04C00-37FF1-2048)         -         4x4x4x8x2   
-MIR-04C80-37FF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-04C00-37FF1-2048)         -         4x4x4x8x2   
-MIR-08000-3B371-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x8x2   
-MIR-08080-3B3F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x8x2   
-MIR-08400-3B771-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x8x2   
-MIR-08480-3B7F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08000-3B7F1-4096)         -         4x4x4x8x2   
-MIR-08800-3BB71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08800-3BBF1-2048)         -         4x4x4x8x2   
-MIR-08880-3BBF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08800-3BBF1-2048)         -         4x4x4x8x2   
-MIR-08C00-3BF71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x8x2   
-MIR-08C80-3BFF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x8x2   
-MIR-40000-73371-1-1024      prod-short:prod-long:backfill:testing:Q.THModeling                                             blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
-MIR-40000-73371-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
-MIR-40080-733F1-1-1024      prod-short:prod-long:backfill:testing:Q.THModeling                                             blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
-MIR-40080-733F1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
-MIR-40400-73771-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
-MIR-40400-73771-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
-MIR-40480-737F1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
-MIR-40480-737F1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x8x2   
-MIR-40800-73B71-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40800-73BF1-2048)         -         4x4x4x8x2   
-MIR-40800-73B71-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x8x2   
-MIR-40880-73BF1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40800-73BF1-2048)         -         4x4x4x8x2   
-MIR-40880-73BF1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x8x2   
-MIR-40C00-73F71-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40C00-73FF1-2048)         -         4x4x4x8x2   
-MIR-40C00-73F71-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x8x2   
-MIR-40C80-73FF1-1-1024      prod-short:prod-long:backfill:testing                                                          blocked (MIR-40C00-73FF1-2048)         -         4x4x4x8x2   
-MIR-40C80-73FF1-1024        prod-1024-torus:testing:backfill-1024-torus                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x8x2   
-MIR-44000-77371-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x8x2   
-MIR-44080-773F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x8x2   
-MIR-44400-77771-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x8x2   
-MIR-44480-777F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44000-777F1-4096)         -         4x4x4x8x2   
-MIR-44800-77B71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44800-77B31-512)          -         4x4x4x8x2   
-MIR-44880-77BF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44880-77BB1-512)          -         4x4x4x8x2   
-MIR-44C00-77F71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44C00-77F31-512)          -         4x4x4x8x2   
-MIR-44C80-77FF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-44C80-77FB1-512)          -         4x4x4x8x2   
-MIR-48000-7B371-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48040-7B371-512)          -         4x4x4x8x2   
-MIR-48080-7B3F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-480C0-7B3F1-512)          -         4x4x4x8x2   
-MIR-48400-7B771-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48400-7B731-512)          -         4x4x4x8x2   
-MIR-48480-7B7F1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-484C0-7B7F1-512)          -         4x4x4x8x2   
-MIR-48800-7BB71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48800-7BBF1-2048)         -         4x4x4x8x2   
-MIR-48880-7BBF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-48800-7BBF1-2048)         -         4x4x4x8x2   
-MIR-48C00-7BF71-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x8x2   
-MIR-48C80-7BFF1-1-1024      prod-short:backfill:testing:Q.bc                                                               blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x8x2   
-MIR-00000-33331-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
-MIR-00040-33371-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
-MIR-00080-333B1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
-MIR-000C0-333F1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
-MIR-00400-33731-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
-MIR-00440-33771-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
-MIR-00480-337B1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
-MIR-004C0-337F1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-00000-337F1-4096)         -         4x4x4x4x2   
-MIR-00800-33B31-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
-MIR-00840-33B71-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
-MIR-00880-33BB1-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
-MIR-008C0-33BF1-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
-MIR-00C00-33F31-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
-MIR-00C40-33F71-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
-MIR-00C80-33FB1-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
-MIR-00CC0-33FF1-512         prod-short:prod-long:backfill:testing:diags                                                    busy                                   -         4x4x4x4x2   
-MIR-04000-37331-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-04040-37371-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-04080-373B1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-040C0-373F1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-04400-37731-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-04440-37771-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-04480-377B1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-044C0-377F1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-04800-37B31-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-04840-37B71-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-04880-37BB1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-048C0-37BF1-512         prod-short:backfill:testing:Q.bc:diags                                                         idle                                   1:22      4x4x4x4x2   
-MIR-04C00-37F31-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-04C00-37FF1-2048)         -         4x4x4x4x2   
-MIR-04C40-37F71-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-04C00-37FF1-2048)         -         4x4x4x4x2   
-MIR-04C80-37FB1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-04C00-37FF1-2048)         -         4x4x4x4x2   
-MIR-04CC0-37FF1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-04C00-37FF1-2048)         -         4x4x4x4x2   
-MIR-08000-3B331-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
-MIR-08040-3B371-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
-MIR-08080-3B3B1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
-MIR-080C0-3B3F1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
-MIR-08400-3B731-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
-MIR-08440-3B771-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
-MIR-08480-3B7B1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
-MIR-084C0-3B7F1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08000-3B7F1-4096)         -         4x4x4x4x2   
-MIR-08800-3BB31-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08800-3BBF1-2048)         -         4x4x4x4x2   
-MIR-08840-3BB71-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08800-3BBF1-2048)         -         4x4x4x4x2   
-MIR-08880-3BBB1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08800-3BBF1-2048)         -         4x4x4x4x2   
-MIR-088C0-3BBF1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08800-3BBF1-2048)         -         4x4x4x4x2   
-MIR-08C00-3BF31-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
-MIR-08C40-3BF71-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
-MIR-08C80-3BFB1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
-MIR-08CC0-3BFF1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
-MIR-40000-73331-512         prod-short:prod-long:backfill:testing:Q.THModeling:diags                                       blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
-MIR-40040-73371-512         prod-short:prod-long:backfill:testing:Q.THModeling:diags                                       blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
-MIR-40080-733B1-512         prod-short:prod-long:backfill:testing:Q.THModeling:diags                                       blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
-MIR-400C0-733F1-512         prod-short:prod-long:backfill:testing:Q.THModeling:diags                                       blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
-MIR-40400-73731-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
-MIR-40440-73771-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
-MIR-40480-737B1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
-MIR-404C0-737F1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40000-737F1-4096)         -         4x4x4x4x2   
-MIR-40800-73B31-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x4x2   
-MIR-40840-73B71-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x4x2   
-MIR-40880-73BB1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x4x2   
-MIR-408C0-73BF1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40800-73BF1-2048)         -         4x4x4x4x2   
-MIR-40C00-73F31-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x4x2   
-MIR-40C40-73F71-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x4x2   
-MIR-40C80-73FB1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x4x2   
-MIR-40CC0-73FF1-512         prod-short:prod-long:backfill:testing:diags                                                    blocked (MIR-40C00-73FF1-2048)         -         4x4x4x4x2   
-MIR-44000-77331-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
-MIR-44040-77371-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
-MIR-44080-773B1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
-MIR-440C0-773F1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
-MIR-44400-77731-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
-MIR-44440-77771-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
-MIR-44480-777B1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
-MIR-444C0-777F1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-44000-777F1-4096)         -         4x4x4x4x2   
-MIR-44800-77B31-512         prod-short:backfill:testing:Q.bc:diags                                                         allocated                              -         4x4x4x4x2   
-MIR-44840-77B71-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-44880-77BB1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-448C0-77BF1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-44C00-77F31-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-44C40-77F71-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-44C80-77FB1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-44CC0-77FF1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-48000-7B331-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-48040-7B371-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-48080-7B3B1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-480C0-7B3F1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-48400-7B731-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-48440-7B771-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-48480-7B7B1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-484C0-7B7F1-512         prod-short:backfill:testing:Q.bc:diags                                                         busy                                   -         4x4x4x4x2   
-MIR-48800-7BB31-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-48800-7BBF1-2048)         -         4x4x4x4x2   
-MIR-48840-7BB71-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-48800-7BBF1-2048)         -         4x4x4x4x2   
-MIR-48880-7BBB1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-48800-7BBF1-2048)         -         4x4x4x4x2   
-MIR-488C0-7BBF1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-48800-7BBF1-2048)         -         4x4x4x4x2   
-MIR-48C00-7BF31-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
-MIR-48C40-7BF71-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
-MIR-48C80-7BFB1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
-MIR-48CC0-7BFF1-512         prod-short:backfill:testing:Q.bc:diags                                                         blocked (MIR-08C00-7BFF1-4096)         -         4x4x4x4x2   
+10240, MAXDIST, Sendrecv no delay, 738.481
+10240, MAXDIST, Sendrecv wt delay, 435.4
+10240, MAXDIST, Isend-recv no delay, 911.012
+10240, MAXDIST, Isend-recv wt delay, 806.558
+10240, MAXDIST, Isend-Irecv no delay, 715.938
+10240, MAXDIST, Isend-Irecv wt delay, 440.886
+10240, MAXDIST, 12 at a time no delay, 523.163
+10240, MAXDIST, 12 at a time wt delay, 163.251
+10240, REGULAR, Sendrecv no delay, 592.76
+10240, REGULAR, Sendrecv wt delay, 385.057
+10240, REGULAR, Isend-recv no delay, 678.849
+10240, REGULAR, Isend-recv wt delay, 617.296
+10240, REGULAR, Isend-Irecv no delay, 625.415
+10240, REGULAR, Isend-Irecv wt delay, 408.876
+10240, REGULAR, 12 at a time no delay, 338.929
+10240, REGULAR, 12 at a time wt delay, 163.312
+10240, SKEWED, Sendrecv no delay, 722.808
+10240, SKEWED, Sendrecv wt delay, 382.513
+10240, SKEWED, Isend-recv no delay, 679.363
+10240, SKEWED, Isend-recv wt delay, 619.227
+10240, SKEWED, Isend-Irecv no delay, 667.995
+10240, SKEWED, Isend-Irecv wt delay, 409.759
+10240, SKEWED, 12 at a time no delay, 433.235
+10240, SKEWED, 12 at a time wt delay, 192.665
+1024, MAXDIST, Sendrecv no delay, 290.171
+1024, MAXDIST, Sendrecv wt delay, 164.286
+1024, MAXDIST, Isend-recv no delay, 347.904
+1024, MAXDIST, Isend-recv wt delay, 283.069
+1024, MAXDIST, Isend-Irecv no delay, 237.115
+1024, MAXDIST, Isend-Irecv wt delay, 183.097
+1024, MAXDIST, 12 at a time no delay, 173.962
+1024, MAXDIST, 12 at a time wt delay, 112.651
+1024, REGULAR, Sendrecv no delay, 287.318
+1024, REGULAR, Sendrecv wt delay, 163.597
+1024, REGULAR, Isend-recv no delay, 277.844
+1024, REGULAR, Isend-recv wt delay, 253.02
+1024, REGULAR, Isend-Irecv no delay, 234.924
+1024, REGULAR, Isend-Irecv wt delay, 184.105
+1024, REGULAR, 12 at a time no delay, 172.335
+1024, REGULAR, 12 at a time wt delay, 112.225
+1024, SKEWED, Sendrecv no delay, 287.691
+1024, SKEWED, Sendrecv wt delay, 163.901
+1024, SKEWED, Isend-recv no delay, 277.496
+1024, SKEWED, Isend-recv wt delay, 253.268
+1024, SKEWED, Isend-Irecv no delay, 235.67
+1024, SKEWED, Isend-Irecv wt delay, 186.294
+1024, SKEWED, 12 at a time no delay, 171.822
+1024, SKEWED, 12 at a time wt delay, 113.844
+1048576, MAXDIST, Sendrecv no delay, 59506.3
+1048576, MAXDIST, Sendrecv wt delay, 41167.8
+1048576, MAXDIST, Isend-recv no delay, 72022.7
+1048576, MAXDIST, Isend-recv wt delay, 64855
+1048576, MAXDIST, Isend-Irecv no delay, 57241.7
+1048576, MAXDIST, Isend-Irecv wt delay, 41221.7
+1048576, MAXDIST, 12 at a time no delay, 43389.1
+1048576, MAXDIST, 12 at a time wt delay, 14690.2
+1048576, REGULAR, Sendrecv no delay, 37930.3
+1048576, REGULAR, Sendrecv wt delay, 33817.9
+1048576, REGULAR, Isend-recv no delay, 48098.1
+1048576, REGULAR, Isend-recv wt delay, 43079.3
+1048576, REGULAR, Isend-Irecv no delay, 46694.7
+1048576, REGULAR, Isend-Irecv wt delay, 33339.3
+1048576, REGULAR, 12 at a time no delay, 22621.1
+1048576, REGULAR, 12 at a time wt delay, 14692.6
+1048576, SKEWED, Sendrecv no delay, 52073.7
+1048576, SKEWED, Sendrecv wt delay, 44878.2
+1048576, SKEWED, Isend-recv no delay, 48087.4
+1048576, SKEWED, Isend-recv wt delay, 43064.1
+1048576, SKEWED, Isend-Irecv no delay, 51997
+1048576, SKEWED, Isend-Irecv wt delay, 44918.7
+1048576, SKEWED, 12 at a time no delay, 33746.9
+1048576, SKEWED, 12 at a time wt delay, 15801.9
+128, MAXDIST, Sendrecv no delay, 242.288
+128, MAXDIST, Sendrecv wt delay, 140.483
+128, MAXDIST, Isend-recv no delay, 280.856
+128, MAXDIST, Isend-recv wt delay, 224.66
+128, MAXDIST, Isend-Irecv no delay, 198.007
+128, MAXDIST, Isend-Irecv wt delay, 176.753
+128, MAXDIST, 12 at a time no delay, 155.795
+128, MAXDIST, 12 at a time wt delay, 112.271
+128, REGULAR, Sendrecv no delay, 259.977
+128, REGULAR, Sendrecv wt delay, 139.733
+128, REGULAR, Isend-recv no delay, 248.957
+128, REGULAR, Isend-recv wt delay, 201.735
+128, REGULAR, Isend-Irecv no delay, 194.855
+128, REGULAR, Isend-Irecv wt delay, 175.638
+128, REGULAR, 12 at a time no delay, 153.24
+128, REGULAR, 12 at a time wt delay, 110.929
+128, SKEWED, Sendrecv no delay, 266.224
+128, SKEWED, Sendrecv wt delay, 135.942
+128, SKEWED, Isend-recv no delay, 242.161
+128, SKEWED, Isend-recv wt delay, 198.067
+128, SKEWED, Isend-Irecv no delay, 193.637
+128, SKEWED, Isend-Irecv wt delay, 170.793
+128, SKEWED, 12 at a time no delay, 154.255
+128, SKEWED, 12 at a time wt delay, 107.57
+131072, MAXDIST, Sendrecv no delay, 7324.36
+131072, MAXDIST, Sendrecv wt delay, 4153.66
+131072, MAXDIST, Isend-recv no delay, 9168.85
+131072, MAXDIST, Isend-recv wt delay, 8215.23
+131072, MAXDIST, Isend-Irecv no delay, 7250.98
+131072, MAXDIST, Isend-Irecv wt delay, 4168.49
+131072, MAXDIST, 12 at a time no delay, 5194.81
+131072, MAXDIST, 12 at a time wt delay, 966.017
+131072, REGULAR, Sendrecv no delay, 5741.92
+131072, REGULAR, Sendrecv wt delay, 3487
+131072, REGULAR, Isend-recv no delay, 6048.87
+131072, REGULAR, Isend-recv wt delay, 5389.74
+131072, REGULAR, Isend-Irecv no delay, 5949.57
+131072, REGULAR, Isend-Irecv wt delay, 3381.27
+131072, REGULAR, 12 at a time no delay, 2947.88
+131072, REGULAR, 12 at a time wt delay, 964.57
+131072, SKEWED, Sendrecv no delay, 6778.31
+131072, SKEWED, Sendrecv wt delay, 3639.06
+131072, SKEWED, Isend-recv no delay, 6039
+131072, SKEWED, Isend-recv wt delay, 5449.92
+131072, SKEWED, Isend-Irecv no delay, 6506.55
+131072, SKEWED, Isend-Irecv wt delay, 3539.69
+131072, SKEWED, 12 at a time no delay, 4466.26
+131072, SKEWED, 12 at a time wt delay, 1514.42
+16384, MAXDIST, Sendrecv no delay, 1053.27
+16384, MAXDIST, Sendrecv wt delay, 617.263
+16384, MAXDIST, Isend-recv no delay, 1323.36
+16384, MAXDIST, Isend-recv wt delay, 1186.2
+16384, MAXDIST, Isend-Irecv no delay, 1030.78
+16384, MAXDIST, Isend-Irecv wt delay, 618.483
+16384, MAXDIST, 12 at a time no delay, 778.567
+16384, MAXDIST, 12 at a time wt delay, 201.146
+16384, REGULAR, Sendrecv no delay, 815.101
+16384, REGULAR, Sendrecv wt delay, 553.443
+16384, REGULAR, Isend-recv no delay, 947.201
+16384, REGULAR, Isend-recv wt delay, 851.134
+16384, REGULAR, Isend-Irecv no delay, 893.464
+16384, REGULAR, Isend-Irecv wt delay, 554.098
+16384, REGULAR, 12 at a time no delay, 473.49
+16384, REGULAR, 12 at a time wt delay, 200.913
+16384, SKEWED, Sendrecv no delay, 1022.22
+16384, SKEWED, Sendrecv wt delay, 550.928
+16384, SKEWED, Isend-recv no delay, 949.05
+16384, SKEWED, Isend-recv wt delay, 852.224
+16384, SKEWED, Isend-Irecv no delay, 971.317
+16384, SKEWED, Isend-Irecv wt delay, 556.622
+16384, SKEWED, 12 at a time no delay, 621.979
+16384, SKEWED, 12 at a time wt delay, 261.5
+16, MAXDIST, Sendrecv no delay, 227.216
+16, MAXDIST, Sendrecv wt delay, 132.189
+16, MAXDIST, Isend-recv no delay, 261.268
+16, MAXDIST, Isend-recv wt delay, 199.334
+16, MAXDIST, Isend-Irecv no delay, 171.647
+16, MAXDIST, Isend-Irecv wt delay, 147.772
+16, MAXDIST, 12 at a time no delay, 137.924
+16, MAXDIST, 12 at a time wt delay, 95.866
+16, REGULAR, Sendrecv no delay, 247.043
+16, REGULAR, Sendrecv wt delay, 121.934
+16, REGULAR, Isend-recv no delay, 203.902
+16, REGULAR, Isend-recv wt delay, 186.688
+16, REGULAR, Isend-Irecv no delay, 157.461
+16, REGULAR, Isend-Irecv wt delay, 147.951
+16, REGULAR, 12 at a time no delay, 135.256
+16, REGULAR, 12 at a time wt delay, 95.1197
+16, SKEWED, Sendrecv no delay, 245.204
+16, SKEWED, Sendrecv wt delay, 121.745
+16, SKEWED, Isend-recv no delay, 202.947
+16, SKEWED, Isend-recv wt delay, 187.701
+16, SKEWED, Isend-Irecv no delay, 156.815
+16, SKEWED, Isend-Irecv wt delay, 147.446
+16, SKEWED, 12 at a time no delay, 135.275
+16, SKEWED, 12 at a time wt delay, 94.6318
+1, MAXDIST, Sendrecv no delay, 102.504
+1, MAXDIST, Sendrecv wt delay, 76.6942
+1, MAXDIST, Isend-recv no delay, 236.48
+1, MAXDIST, Isend-recv wt delay, 131.516
+1, MAXDIST, Isend-Irecv no delay, 102.803
+1, MAXDIST, Isend-Irecv wt delay, 93.8872
+1, MAXDIST, 12 at a time no delay, 98.813
+1, MAXDIST, 12 at a time wt delay, 72.0033
+1, REGULAR, Sendrecv no delay, 106.675
+1, REGULAR, Sendrecv wt delay, 76.121
+1, REGULAR, Isend-recv no delay, 139.366
+1, REGULAR, Isend-recv wt delay, 128.975
+1, REGULAR, Isend-Irecv no delay, 104.158
+1, REGULAR, Isend-Irecv wt delay, 92.0678
+1, REGULAR, 12 at a time no delay, 98.9938
+1, REGULAR, 12 at a time wt delay, 70.5097
+1, SKEWED, Sendrecv no delay, 106.285
+1, SKEWED, Sendrecv wt delay, 75.4657
+1, SKEWED, Isend-recv no delay, 183.638
+1, SKEWED, Isend-recv wt delay, 128.197
+1, SKEWED, Isend-Irecv no delay, 104.525
+1, SKEWED, Isend-Irecv wt delay, 92.1075
+1, SKEWED, 12 at a time no delay, 98.987
+1, SKEWED, 12 at a time wt delay, 70.3873
+2048, MAXDIST, Sendrecv no delay, 339.818
+2048, MAXDIST, Sendrecv wt delay, 189.889
+2048, MAXDIST, Isend-recv no delay, 389.901
+2048, MAXDIST, Isend-recv wt delay, 329.435
+2048, MAXDIST, Isend-Irecv no delay, 269.721
+2048, MAXDIST, Isend-Irecv wt delay, 208.589
+2048, MAXDIST, 12 at a time no delay, 173.957
+2048, MAXDIST, 12 at a time wt delay, 119.454
+2048, REGULAR, Sendrecv no delay, 330.345
+2048, REGULAR, Sendrecv wt delay, 189.184
+2048, REGULAR, Isend-recv no delay, 316.137
+2048, REGULAR, Isend-recv wt delay, 291.108
+2048, REGULAR, Isend-Irecv no delay, 267.571
+2048, REGULAR, Isend-Irecv wt delay, 208.496
+2048, REGULAR, 12 at a time no delay, 170.321
+2048, REGULAR, 12 at a time wt delay, 118.517
+2048, SKEWED, Sendrecv no delay, 330.113
+2048, SKEWED, Sendrecv wt delay, 188.781
+2048, SKEWED, Isend-recv no delay, 317.303
+2048, SKEWED, Isend-recv wt delay, 291.931
+2048, SKEWED, Isend-Irecv no delay, 274.501
+2048, SKEWED, Isend-Irecv wt delay, 210.962
+2048, SKEWED, 12 at a time no delay, 179.35
+2048, SKEWED, 12 at a time wt delay, 118.704
+2097152, MAXDIST, Sendrecv no delay, 119054
+2097152, MAXDIST, Sendrecv wt delay, 91731.5
+2097152, MAXDIST, Isend-recv no delay, 145071
+2097152, MAXDIST, Isend-recv wt delay, 136720
+2097152, MAXDIST, Isend-Irecv no delay, 117695
+2097152, MAXDIST, Isend-Irecv wt delay, 91388.7
+2097152, MAXDIST, 12 at a time no delay, 81512.6
+2097152, MAXDIST, 12 at a time wt delay, 38186.2
+2097152, REGULAR, Sendrecv no delay, 78404
+2097152, REGULAR, Sendrecv wt delay, 70076.6
+2097152, REGULAR, Isend-recv no delay, 96812.8
+2097152, REGULAR, Isend-recv wt delay, 92640.8
+2097152, REGULAR, Isend-Irecv no delay, 92241.5
+2097152, REGULAR, Isend-Irecv wt delay, 69814.1
+2097152, REGULAR, 12 at a time no delay, 44432.4
+2097152, REGULAR, 12 at a time wt delay, 30769.7
+2097152, SKEWED, Sendrecv no delay, 102791
+2097152, SKEWED, Sendrecv wt delay, 92454.9
+2097152, SKEWED, Isend-recv no delay, 96814.3
+2097152, SKEWED, Isend-recv wt delay, 92647.2
+2097152, SKEWED, Isend-Irecv no delay, 103862
+2097152, SKEWED, Isend-Irecv wt delay, 92529.8
+2097152, SKEWED, 12 at a time no delay, 68730.7
+2097152, SKEWED, 12 at a time wt delay, 40654.2
+24576, MAXDIST, Sendrecv no delay, 1525.98
+24576, MAXDIST, Sendrecv wt delay, 860.188
+24576, MAXDIST, Isend-recv no delay, 1874.77
+24576, MAXDIST, Isend-recv wt delay, 1676.47
+24576, MAXDIST, Isend-Irecv no delay, 1531.08
+24576, MAXDIST, Isend-Irecv wt delay, 854.083
+24576, MAXDIST, 12 at a time no delay, 1106.03
+24576, MAXDIST, 12 at a time wt delay, 262.72
+24576, REGULAR, Sendrecv no delay, 1108.61
+24576, REGULAR, Sendrecv wt delay, 761.434
+24576, REGULAR, Isend-recv no delay, 1307.1
+24576, REGULAR, Isend-recv wt delay, 1175.28
+24576, REGULAR, Isend-Irecv no delay, 1253.52
+24576, REGULAR, Isend-Irecv wt delay, 758.889
+24576, REGULAR, 12 at a time no delay, 647.976
+24576, REGULAR, 12 at a time wt delay, 264.543
+24576, SKEWED, Sendrecv no delay, 1434.52
+24576, SKEWED, Sendrecv wt delay, 753.319
+24576, SKEWED, Isend-recv no delay, 1308.19
+24576, SKEWED, Isend-recv wt delay, 1170.15
+24576, SKEWED, Isend-Irecv no delay, 1347.36
+24576, SKEWED, Isend-Irecv wt delay, 752.974
+24576, SKEWED, 12 at a time no delay, 854.988
+24576, SKEWED, 12 at a time wt delay, 343.429
+256, MAXDIST, Sendrecv no delay, 253.921
+256, MAXDIST, Sendrecv wt delay, 154.513
+256, MAXDIST, Isend-recv no delay, 290.346
+256, MAXDIST, Isend-recv wt delay, 234.081
+256, MAXDIST, Isend-Irecv no delay, 207.345
+256, MAXDIST, Isend-Irecv wt delay, 187.829
+256, MAXDIST, 12 at a time no delay, 162.177
+256, MAXDIST, 12 at a time wt delay, 119.449
+256, REGULAR, Sendrecv no delay, 268.085
+256, REGULAR, Sendrecv wt delay, 153.395
+256, REGULAR, Isend-recv no delay, 243.748
+256, REGULAR, Isend-recv wt delay, 230.912
+256, REGULAR, Isend-Irecv no delay, 204.757
+256, REGULAR, Isend-Irecv wt delay, 186.149
+256, REGULAR, 12 at a time no delay, 159.827
+256, REGULAR, 12 at a time wt delay, 117.716
+256, SKEWED, Sendrecv no delay, 276.464
+256, SKEWED, Sendrecv wt delay, 153.678
+256, SKEWED, Isend-recv no delay, 236.096
+256, SKEWED, Isend-recv wt delay, 225.698
+256, SKEWED, Isend-Irecv no delay, 203.021
+256, SKEWED, Isend-Irecv wt delay, 187.67
+256, SKEWED, 12 at a time no delay, 160.39
+256, SKEWED, 12 at a time wt delay, 119.274
+262144, MAXDIST, Sendrecv no delay, 14654.4
+262144, MAXDIST, Sendrecv wt delay, 9246.82
+262144, MAXDIST, Isend-recv no delay, 18102.3
+262144, MAXDIST, Isend-recv wt delay, 16253.6
+262144, MAXDIST, Isend-Irecv no delay, 14469.7
+262144, MAXDIST, Isend-Irecv wt delay, 9362.07
+262144, MAXDIST, 12 at a time no delay, 10684.8
+262144, MAXDIST, 12 at a time wt delay, 2431.3
+262144, REGULAR, Sendrecv no delay, 10789.3
+262144, REGULAR, Sendrecv wt delay, 6993.02
+262144, REGULAR, Isend-recv no delay, 11873.4
+262144, REGULAR, Isend-recv wt delay, 10608
+262144, REGULAR, Isend-Irecv no delay, 11734.2
+262144, REGULAR, Isend-Irecv wt delay, 6710.65
+262144, REGULAR, 12 at a time no delay, 5861.25
+262144, REGULAR, 12 at a time wt delay, 2437.11
+262144, SKEWED, Sendrecv no delay, 13390.7
+262144, SKEWED, Sendrecv wt delay, 8097.07
+262144, SKEWED, Isend-recv no delay, 11878.1
+262144, SKEWED, Isend-recv wt delay, 10602.7
+262144, SKEWED, Isend-Irecv no delay, 12994.3
+262144, SKEWED, Isend-Irecv wt delay, 7880.79
+262144, SKEWED, 12 at a time no delay, 8793.83
+262144, SKEWED, 12 at a time wt delay, 2939.27
+2, MAXDIST, Sendrecv no delay, 101.579
+2, MAXDIST, Sendrecv wt delay, 77.477
+2, MAXDIST, Isend-recv no delay, 237.855
+2, MAXDIST, Isend-recv wt delay, 130.965
+2, MAXDIST, Isend-Irecv no delay, 103.434
+2, MAXDIST, Isend-Irecv wt delay, 93.1977
+2, MAXDIST, 12 at a time no delay, 98.5275
+2, MAXDIST, 12 at a time wt delay, 71.8723
+2, REGULAR, Sendrecv no delay, 107.046
+2, REGULAR, Sendrecv wt delay, 76.8837
+2, REGULAR, Isend-recv no delay, 141.258
+2, REGULAR, Isend-recv wt delay, 129.047
+2, REGULAR, Isend-Irecv no delay, 103.428
+2, REGULAR, Isend-Irecv wt delay, 93.2327
+2, REGULAR, 12 at a time no delay, 98.5037
+2, REGULAR, 12 at a time wt delay, 70.786
+2, SKEWED, Sendrecv no delay, 106.594
+2, SKEWED, Sendrecv wt delay, 76.853
+2, SKEWED, Isend-recv no delay, 160.394
+2, SKEWED, Isend-recv wt delay, 130.67
+2, SKEWED, Isend-Irecv no delay, 102.883
+2, SKEWED, Isend-Irecv wt delay, 93.6963
+2, SKEWED, 12 at a time no delay, 98.5395
+2, SKEWED, 12 at a time wt delay, 78.5653
+32768, MAXDIST, Sendrecv no delay, 2009.46
+32768, MAXDIST, Sendrecv wt delay, 1109.9
+32768, MAXDIST, Isend-recv no delay, 2451.32
+32768, MAXDIST, Isend-recv wt delay, 2191.56
+32768, MAXDIST, Isend-Irecv no delay, 1979.3
+32768, MAXDIST, Isend-Irecv wt delay, 1097.04
+32768, MAXDIST, 12 at a time no delay, 1462.14
+32768, MAXDIST, 12 at a time wt delay, 316.599
+32768, REGULAR, Sendrecv no delay, 1405.03
+32768, REGULAR, Sendrecv wt delay, 973.765
+32768, REGULAR, Isend-recv no delay, 1676.04
+32768, REGULAR, Isend-recv wt delay, 1503.89
+32768, REGULAR, Isend-Irecv no delay, 1622.46
+32768, REGULAR, Isend-Irecv wt delay, 961.094
+32768, REGULAR, 12 at a time no delay, 822.894
+32768, REGULAR, 12 at a time wt delay, 316.682
+32768, SKEWED, Sendrecv no delay, 1848.48
+32768, SKEWED, Sendrecv wt delay, 971.52
+32768, SKEWED, Isend-recv no delay, 1677.31
+32768, SKEWED, Isend-recv wt delay, 1505.32
+32768, SKEWED, Isend-Irecv no delay, 1775.5
+32768, SKEWED, Isend-Irecv wt delay, 961.875
+32768, SKEWED, 12 at a time no delay, 1175.05
+32768, SKEWED, 12 at a time wt delay, 440.981
+32, MAXDIST, Sendrecv no delay, 230.403
+32, MAXDIST, Sendrecv wt delay, 125.243
+32, MAXDIST, Isend-recv no delay, 265.235
+32, MAXDIST, Isend-recv wt delay, 203.556
+32, MAXDIST, Isend-Irecv no delay, 178.231
+32, MAXDIST, Isend-Irecv wt delay, 151.901
+32, MAXDIST, 12 at a time no delay, 139.676
+32, MAXDIST, 12 at a time wt delay, 97.7698
+32, REGULAR, Sendrecv no delay, 251.892
+32, REGULAR, Sendrecv wt delay, 124.612
+32, REGULAR, Isend-recv no delay, 206.237
+32, REGULAR, Isend-recv wt delay, 189.768
+32, REGULAR, Isend-Irecv no delay, 160.498
+32, REGULAR, Isend-Irecv wt delay, 150.479
+32, REGULAR, 12 at a time no delay, 136.707
+32, REGULAR, 12 at a time wt delay, 95.2628
+32, SKEWED, Sendrecv no delay, 252.948
+32, SKEWED, Sendrecv wt delay, 125.381
+32, SKEWED, Isend-recv no delay, 205.649
+32, SKEWED, Isend-recv wt delay, 189.055
+32, SKEWED, Isend-Irecv no delay, 160.57
+32, SKEWED, Isend-Irecv wt delay, 151.047
+32, SKEWED, 12 at a time no delay, 136.532
+32, SKEWED, 12 at a time wt delay, 96.5703
+4096, MAXDIST, Sendrecv no delay, 430.639
+4096, MAXDIST, Sendrecv wt delay, 235.087
+4096, MAXDIST, Isend-recv no delay, 510.108
+4096, MAXDIST, Isend-recv wt delay, 439.333
+4096, MAXDIST, Isend-Irecv no delay, 361.182
+4096, MAXDIST, Isend-Irecv wt delay, 257.801
+4096, MAXDIST, 12 at a time no delay, 253.464
+4096, MAXDIST, 12 at a time wt delay, 124.053
+4096, REGULAR, Sendrecv no delay, 396.039
+4096, REGULAR, Sendrecv wt delay, 235.017
+4096, REGULAR, Isend-recv no delay, 399.39
+4096, REGULAR, Isend-recv wt delay, 369.12
+4096, REGULAR, Isend-Irecv no delay, 352.7
+4096, REGULAR, Isend-Irecv wt delay, 259.522
+4096, REGULAR, 12 at a time no delay, 205.076
+4096, REGULAR, 12 at a time wt delay, 124.484
+4096, SKEWED, Sendrecv no delay, 419.347
+4096, SKEWED, Sendrecv wt delay, 234.202
+4096, SKEWED, Isend-recv no delay, 399.097
+4096, SKEWED, Isend-recv wt delay, 369.95
+4096, SKEWED, Isend-Irecv no delay, 368.107
+4096, SKEWED, Isend-Irecv wt delay, 259.731
+4096, SKEWED, 12 at a time no delay, 239.326
+4096, SKEWED, 12 at a time wt delay, 129.531
+4194304, MAXDIST, Sendrecv no delay, 235375
+4194304, MAXDIST, Sendrecv wt delay, 198422
+4194304, MAXDIST, Isend-recv no delay, 288554
+4194304, MAXDIST, Isend-recv wt delay, 274621
+4194304, MAXDIST, Isend-Irecv no delay, 228358
+4194304, MAXDIST, Isend-Irecv wt delay, 198389
+4194304, MAXDIST, 12 at a time no delay, 162881
+4194304, MAXDIST, 12 at a time wt delay, 113682
+4194304, REGULAR, Sendrecv no delay, 146512
+4194304, REGULAR, Sendrecv wt delay, 150662
+4194304, REGULAR, Isend-recv no delay, 185918
+4194304, REGULAR, Isend-recv wt delay, 182537
+4194304, REGULAR, Isend-Irecv no delay, 180477
+4194304, REGULAR, Isend-Irecv wt delay, 149665
+4194304, REGULAR, 12 at a time no delay, 87417.2
+4194304, REGULAR, 12 at a time wt delay, 70968.8
+4194304, SKEWED, Sendrecv no delay, 203243
+4194304, SKEWED, Sendrecv wt delay, 192613
+4194304, SKEWED, Isend-recv no delay, 185871
+4194304, SKEWED, Isend-recv wt delay, 183547
+4194304, SKEWED, Isend-Irecv no delay, 203532
+4194304, SKEWED, Isend-Irecv wt delay, 192623
+4194304, SKEWED, 12 at a time no delay, 136665
+4194304, SKEWED, 12 at a time wt delay, 98876.1
+4, MAXDIST, Sendrecv no delay, 102.769
+4, MAXDIST, Sendrecv wt delay, 87.1052
+4, MAXDIST, Isend-recv no delay, 237.026
+4, MAXDIST, Isend-recv wt delay, 131.337
+4, MAXDIST, Isend-Irecv no delay, 102.873
+4, MAXDIST, Isend-Irecv wt delay, 95.0533
+4, MAXDIST, 12 at a time no delay, 94.819
+4, MAXDIST, 12 at a time wt delay, 69.784
+4, REGULAR, Sendrecv no delay, 105.941
+4, REGULAR, Sendrecv wt delay, 78.1055
+4, REGULAR, Isend-recv no delay, 140.466
+4, REGULAR, Isend-recv wt delay, 132.398
+4, REGULAR, Isend-Irecv no delay, 103.431
+4, REGULAR, Isend-Irecv wt delay, 94.258
+4, REGULAR, 12 at a time no delay, 95.4755
+4, REGULAR, 12 at a time wt delay, 68.9585
+4, SKEWED, Sendrecv no delay, 108.361
+4, SKEWED, Sendrecv wt delay, 77.86
+4, SKEWED, Isend-recv no delay, 140.203
+4, SKEWED, Isend-recv wt delay, 133.641
+4, SKEWED, Isend-Irecv no delay, 103.645
+4, SKEWED, Isend-Irecv wt delay, 94.456
+4, SKEWED, 12 at a time no delay, 95.3623
+4, SKEWED, 12 at a time wt delay, 68.8947
+512, MAXDIST, Sendrecv no delay, 261.962
+512, MAXDIST, Sendrecv wt delay, 161.06
+512, MAXDIST, Isend-recv no delay, 306.223
+512, MAXDIST, Isend-recv wt delay, 247.592
+512, MAXDIST, Isend-Irecv no delay, 214.125
+512, MAXDIST, Isend-Irecv wt delay, 177.286
+512, MAXDIST, 12 at a time no delay, 168.757
+512, MAXDIST, 12 at a time wt delay, 122.015
+512, REGULAR, Sendrecv no delay, 287.117
+512, REGULAR, Sendrecv wt delay, 160.492
+512, REGULAR, Isend-recv no delay, 247.475
+512, REGULAR, Isend-recv wt delay, 244.206
+512, REGULAR, Isend-Irecv no delay, 211.351
+512, REGULAR, Isend-Irecv wt delay, 176.699
+512, REGULAR, 12 at a time no delay, 167.632
+512, REGULAR, 12 at a time wt delay, 122.367
+512, SKEWED, Sendrecv no delay, 282.786
+512, SKEWED, Sendrecv wt delay, 161.079
+512, SKEWED, Isend-recv no delay, 251.339
+512, SKEWED, Isend-recv wt delay, 247.028
+512, SKEWED, Isend-Irecv no delay, 210.355
+512, SKEWED, Isend-Irecv wt delay, 186.926
+512, SKEWED, 12 at a time no delay, 167.625
+512, SKEWED, 12 at a time wt delay, 122.413
+524288, MAXDIST, Sendrecv no delay, 29253.7
+524288, MAXDIST, Sendrecv wt delay, 21022.9
+524288, MAXDIST, Isend-recv no delay, 36265.4
+524288, MAXDIST, Isend-recv wt delay, 32594.9
+524288, MAXDIST, Isend-Irecv no delay, 28596.6
+524288, MAXDIST, Isend-Irecv wt delay, 21032.9
+524288, MAXDIST, 12 at a time no delay, 20643.7
+524288, MAXDIST, 12 at a time wt delay, 6298.3
+524288, REGULAR, Sendrecv no delay, 20425
+524288, REGULAR, Sendrecv wt delay, 15583.4
+524288, REGULAR, Isend-recv no delay, 23642.5
+524288, REGULAR, Isend-recv wt delay, 21528.1
+524288, REGULAR, Isend-Irecv no delay, 22867.9
+524288, REGULAR, Isend-Irecv wt delay, 15144.2
+524288, REGULAR, 12 at a time no delay, 11799.8
+524288, REGULAR, 12 at a time wt delay, 6334.55
+524288, SKEWED, Sendrecv no delay, 27238.7
+524288, SKEWED, Sendrecv wt delay, 18572.4
+524288, SKEWED, Isend-recv no delay, 23623.4
+524288, SKEWED, Isend-recv wt delay, 21533.6
+524288, SKEWED, Isend-Irecv no delay, 26155.3
+524288, SKEWED, Isend-Irecv wt delay, 17603.6
+524288, SKEWED, 12 at a time no delay, 17905.6
+524288, SKEWED, 12 at a time wt delay, 7266.26
+64, MAXDIST, Sendrecv no delay, 235.953
+64, MAXDIST, Sendrecv wt delay, 132.776
+64, MAXDIST, Isend-recv no delay, 275.594
+64, MAXDIST, Isend-recv wt delay, 218.412
+64, MAXDIST, Isend-Irecv no delay, 190.483
+64, MAXDIST, Isend-Irecv wt delay, 170.099
+64, MAXDIST, 12 at a time no delay, 152.117
+64, MAXDIST, 12 at a time wt delay, 108.081
+64, REGULAR, Sendrecv no delay, 258.218
+64, REGULAR, Sendrecv wt delay, 132.596
+64, REGULAR, Isend-recv no delay, 236.697
+64, REGULAR, Isend-recv wt delay, 198.117
+64, REGULAR, Isend-Irecv no delay, 188.14
+64, REGULAR, Isend-Irecv wt delay, 168.517
+64, REGULAR, 12 at a time no delay, 147.79
+64, REGULAR, 12 at a time wt delay, 107.702
+64, SKEWED, Sendrecv no delay, 240.898
+64, SKEWED, Sendrecv wt delay, 132.431
+64, SKEWED, Isend-recv no delay, 251.421
+64, SKEWED, Isend-recv wt delay, 198.09
+64, SKEWED, Isend-Irecv no delay, 187.621
+64, SKEWED, Isend-Irecv wt delay, 168.995
+64, SKEWED, 12 at a time no delay, 150.035
+64, SKEWED, 12 at a time wt delay, 108.332
+65536, MAXDIST, Sendrecv no delay, 3822.56
+65536, MAXDIST, Sendrecv wt delay, 2096.18
+65536, MAXDIST, Isend-recv no delay, 4676.8
+65536, MAXDIST, Isend-recv wt delay, 4188.98
+65536, MAXDIST, Isend-Irecv no delay, 3809.53
+65536, MAXDIST, Isend-Irecv wt delay, 2074.11
+65536, MAXDIST, 12 at a time no delay, 2728.1
+65536, MAXDIST, 12 at a time wt delay, 522.814
+65536, REGULAR, Sendrecv no delay, 2711.31
+65536, REGULAR, Sendrecv wt delay, 1805.68
+65536, REGULAR, Isend-recv no delay, 3119.47
+65536, REGULAR, Isend-recv wt delay, 2787
+65536, REGULAR, Isend-Irecv no delay, 3063.7
+65536, REGULAR, Isend-Irecv wt delay, 1762.81
+65536, REGULAR, 12 at a time no delay, 1518.06
+65536, REGULAR, 12 at a time wt delay, 524.481
+65536, SKEWED, Sendrecv no delay, 3499.81
+65536, SKEWED, Sendrecv wt delay, 1805.5
+65536, SKEWED, Isend-recv no delay, 3119.28
+65536, SKEWED, Isend-recv wt delay, 2787.39
+65536, SKEWED, Isend-Irecv no delay, 3331.73
+65536, SKEWED, Isend-Irecv wt delay, 1762.67
+65536, SKEWED, 12 at a time no delay, 2225.95
+65536, SKEWED, 12 at a time wt delay, 789.684
+8192, MAXDIST, Sendrecv no delay, 635.424
+8192, MAXDIST, Sendrecv wt delay, 366.171
+8192, MAXDIST, Isend-recv no delay, 748.56
+8192, MAXDIST, Isend-recv wt delay, 665.293
+8192, MAXDIST, Isend-Irecv no delay, 595.787
+8192, MAXDIST, Isend-Irecv wt delay, 373.923
+8192, MAXDIST, 12 at a time no delay, 432.579
+8192, MAXDIST, 12 at a time wt delay, 149.387
+8192, REGULAR, Sendrecv no delay, 521.628
+8192, REGULAR, Sendrecv wt delay, 330.144
+8192, REGULAR, Isend-recv no delay, 576.713
+8192, REGULAR, Isend-recv wt delay, 525.192
+8192, REGULAR, Isend-Irecv no delay, 531.899
+8192, REGULAR, Isend-Irecv wt delay, 355.6
+8192, REGULAR, 12 at a time no delay, 291.217
+8192, REGULAR, 12 at a time wt delay, 147.439
+8192, SKEWED, Sendrecv no delay, 621.923
+8192, SKEWED, Sendrecv wt delay, 329.969
+8192, SKEWED, Isend-recv no delay, 578.124
+8192, SKEWED, Isend-recv wt delay, 526.092
+8192, SKEWED, Isend-Irecv no delay, 565.895
+8192, SKEWED, Isend-Irecv wt delay, 356.162
+8192, SKEWED, 12 at a time no delay, 362.265
+8192, SKEWED, 12 at a time wt delay, 173.672
+8388608, MAXDIST, Sendrecv no delay, 464844
+8388608, MAXDIST, Sendrecv wt delay, 404962
+8388608, MAXDIST, Isend-recv no delay, 570472
+8388608, MAXDIST, Isend-recv wt delay, 547082
+8388608, MAXDIST, Isend-Irecv no delay, 457209
+8388608, MAXDIST, Isend-Irecv wt delay, 404890
+8388608, MAXDIST, 12 at a time no delay, 325701
+8388608, MAXDIST, 12 at a time wt delay, 268168
+8388608, REGULAR, Sendrecv no delay, 286989
+8388608, REGULAR, Sendrecv wt delay, 313801
+8388608, REGULAR, Isend-recv no delay, 372055
+8388608, REGULAR, Isend-recv wt delay, 368633
+8388608, REGULAR, Isend-Irecv no delay, 359518
+8388608, REGULAR, Isend-Irecv wt delay, 313332
+8388608, REGULAR, 12 at a time no delay, 174008
+8388608, REGULAR, 12 at a time wt delay, 157517
+8388608, SKEWED, Sendrecv no delay, 399151
+8388608, SKEWED, Sendrecv wt delay, 404082
+8388608, SKEWED, Isend-recv no delay, 370544
+8388608, SKEWED, Isend-recv wt delay, 368235
+8388608, SKEWED, Isend-Irecv no delay, 405063
+8388608, SKEWED, Isend-Irecv wt delay, 404469
+8388608, SKEWED, 12 at a time no delay, 268119
+8388608, SKEWED, 12 at a time wt delay, 228856
+8, MAXDIST, Sendrecv no delay, 102.985
+8, MAXDIST, Sendrecv wt delay, 78.6
+8, MAXDIST, Isend-recv no delay, 237.77
+8, MAXDIST, Isend-recv wt delay, 130.622
+8, MAXDIST, Isend-Irecv no delay, 103.47
+8, MAXDIST, Isend-Irecv wt delay, 95.2635
+8, MAXDIST, 12 at a time no delay, 98.4557
+8, MAXDIST, 12 at a time wt delay, 70.473
+8, REGULAR, Sendrecv no delay, 105.802
+8, REGULAR, Sendrecv wt delay, 77.1885
+8, REGULAR, Isend-recv no delay, 179.045
+8, REGULAR, Isend-recv wt delay, 129.897
+8, REGULAR, Isend-Irecv no delay, 103.961
+8, REGULAR, Isend-Irecv wt delay, 94.7743
+8, REGULAR, 12 at a time no delay, 98.7618
+8, REGULAR, 12 at a time wt delay, 69.3805
+8, SKEWED, Sendrecv no delay, 107.273
+8, SKEWED, Sendrecv wt delay, 78.1373
+8, SKEWED, Isend-recv no delay, 141.704
+8, SKEWED, Isend-recv wt delay, 130.618
+8, SKEWED, Isend-Irecv no delay, 104.605
+8, SKEWED, Isend-Irecv wt delay, 94.3275
+8, SKEWED, 12 at a time no delay, 99.0055
+8, SKEWED, 12 at a time wt delay, 68.604
