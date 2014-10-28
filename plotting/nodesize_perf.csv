@@ -1,0 +1,72 @@
+TEST_2, Sendrecv no delay, 397.228
+TEST_2, Sendrecv wt delay, 240.711
+TEST_2, Isend-recv no delay, 233.931
+TEST_2, Isend-recv wt delay, 258.499
+TEST_2, Isend-Irecv no delay, 260.024
+TEST_2, Isend-Irecv wt delay, 267.666
+TEST_2, 12 at a time no delay, 207.652
+TEST_2, 12 at a time wt delay, 213.762
+TEST_4, Sendrecv no delay, 466.255
+TEST_4, Sendrecv wt delay, 271.773
+TEST_4, Isend-recv no delay, 303.957
+TEST_4, Isend-recv wt delay, 328.532
+TEST_4, Isend-Irecv no delay, 321.949
+TEST_4, Isend-Irecv wt delay, 321.22
+TEST_4, 12 at a time no delay, 219.367
+TEST_4, 12 at a time wt delay, 226.791
+TEST_8, Sendrecv no delay, 516.537
+TEST_8, Sendrecv wt delay, 333.823
+TEST_8, Isend-recv no delay, 372.378
+TEST_8, Isend-recv wt delay, 402.014
+TEST_8, Isend-Irecv no delay, 386.656
+TEST_8, Isend-Irecv wt delay, 357.679
+TEST_8, 12 at a time no delay, 235.48
+TEST_8, 12 at a time wt delay, 236.701
+TEST_16, Sendrecv no delay, 456.817
+TEST_16, Sendrecv wt delay, 262.794
+TEST_16, Isend-recv no delay, 322.494
+TEST_16, Isend-recv wt delay, 325.252
+TEST_16, Isend-Irecv no delay, 329.692
+TEST_16, Isend-Irecv wt delay, 292.975
+TEST_16, 12 at a time no delay, 244.955
+TEST_16, 12 at a time wt delay, 226.665
+TEST_32, Sendrecv no delay, 507.182
+TEST_32, Sendrecv wt delay, 328.921
+TEST_32, Isend-recv no delay, 385.423
+TEST_32, Isend-recv wt delay, 392.92
+TEST_32, Isend-Irecv no delay, 387.699
+TEST_32, Isend-Irecv wt delay, 347.36
+TEST_32, 12 at a time no delay, 294.945
+TEST_32, 12 at a time wt delay, 249.486
+TEST_64, Sendrecv no delay, 520.783
+TEST_64, Sendrecv wt delay, 352.858
+TEST_64, Isend-recv no delay, 415.24
+TEST_64, Isend-recv wt delay, 426.515
+TEST_64, Isend-Irecv no delay, 400.255
+TEST_64, Isend-Irecv wt delay, 385.112
+TEST_64, 12 at a time no delay, 307.611
+TEST_64, 12 at a time wt delay, 268.657
+TEST_128, Sendrecv no delay, 507.96
+TEST_128, Sendrecv wt delay, 326.969
+TEST_128, Isend-recv no delay, 408.425
+TEST_128, Isend-recv wt delay, 422.932
+TEST_128, Isend-Irecv no delay, 392.833
+TEST_128, Isend-Irecv wt delay, 366.707
+TEST_128, 12 at a time no delay, 300.617
+TEST_128, 12 at a time wt delay, 255.159
+TEST_256, Sendrecv no delay, 518.185
+TEST_256, Sendrecv wt delay, 369.154
+TEST_256, Isend-recv no delay, 428.287
+TEST_256, Isend-recv wt delay, 452.805
+TEST_256, Isend-Irecv no delay, 408.794
+TEST_256, Isend-Irecv wt delay, 390.921
+TEST_256, 12 at a time no delay, 304.741
+TEST_256, 12 at a time wt delay, 256.459
+TEST_512, Sendrecv no delay, 504.985
+TEST_512, Sendrecv wt delay, 340.34
+TEST_512, Isend-recv no delay, 424.116
+TEST_512, Isend-recv wt delay, 426.108
+TEST_512, Isend-Irecv no delay, 401.913
+TEST_512, Isend-Irecv wt delay, 387.037
+TEST_512, 12 at a time no delay, 308.744
+TEST_512, 12 at a time wt delay, 264.866
