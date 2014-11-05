@@ -40,7 +40,12 @@ CFLAGS = -g $(CINCLUDE) -Wall #-qnostaticlink
 LDFLAGS = $(CFLAGS)
 LIB =
 
-ifeq ($(HALO_SYS),bgq)
+ifeq ($(HALO_SYS),crayxe6)
+	FFLAGS += -fno-underscoring
+        CFLAGS += -D HALO_CRAYXE6
+	LIB +=
+else ifeq ($(HALO_SYS),bgq)
+        CFLAGS += -D HALO_BGQ
 	LIB += -L$(HOME)/lib -ltimebase
 else ifeq ($(HALO_SYS),gnu)
 	FFLAGS += -fno-underscoring

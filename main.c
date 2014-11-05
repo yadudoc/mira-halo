@@ -40,6 +40,14 @@ static double timebase_us(halo_time_t t) {
 #endif
 
 #ifdef HALO_GNU
+#define HALO_USE_TIMESPEC
+#endif
+
+#ifdef HALO_CRAYXE6
+#define HALO_USE_TIMESPEC
+#endif
+
+#ifdef HALO_USE_TIMESPEC
 #include <time.h>
 typedef struct timespec halo_time_t;
 
