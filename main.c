@@ -339,7 +339,7 @@ int main( int argc, char *argv[] )
         assert(rc == MPI_SUCCESS);
     }
 
-    rc = MPI_Waitall( 2*NDIMS, &req[0], &stt[0] );
+    rc = MPI_Waitall( 4*NDIMS, &req[0], &stt[0] );
     assert(rc == MPI_SUCCESS);
 
     rc = MPI_Barrier( comm_cart );
@@ -371,7 +371,7 @@ int main( int argc, char *argv[] )
         assert(rc == MPI_SUCCESS);
     }
 
-    rc = MPI_Waitall( 2*NDIMS, &req[0], &stt[0] );
+    rc = MPI_Waitall( 4*NDIMS, &req[0], &stt[0] );
     assert(rc == MPI_SUCCESS);
 
     rc = MPI_Barrier( comm_cart );
