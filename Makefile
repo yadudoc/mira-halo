@@ -4,7 +4,11 @@ ifeq ($(HALO_SYS),)
 	HALO_SYS := bgq
 endif
 
-ifeq ($(HALO_SYS),crayxe6)
+ifeq ($(HALO_SYS),crayxe6-gnu)
+	FF     = ftn
+	CC     = cc
+	LD     = $(CC)
+else ifeq ($(HALO_SYS),crayxe6-cray)
 	FF     = ftn
 	CC     = cc
 	LD     = $(CC)
@@ -24,10 +28,7 @@ endif
 
 
 CINCLUDE :=
-ifeq ($(HALO_SYS),crayxe6)
-	# TODO
-	CINCLUDE +=
-else ifeq ($(HALO_SYS),bgq)
+ifeq ($(HALO_SYS),bgq)
 	CINCLUDE  = -I/bgsys/drivers/ppcfloor
 	CINCLUDE += -I/bgsys/drivers/ppcfloor/firmware/include
 	CINCLUDE += -I/bgsys/drivers/ppcfloor/spi/include/kernel
@@ -36,20 +37,22 @@ else ifeq ($(HALO_SYS),bgq)
 endif
 
 FFLAGS = -g
-CFLAGS = -g $(CINCLUDE) -Wall #-qnostaticlink
+CFLAGS = -g $(CINCLUDE) #-qnostaticlink
 LDFLAGS = $(CFLAGS)
 LIB =
 
-ifeq ($(HALO_SYS),crayxe6)
-	FFLAGS += -fno-underscoring
-        CFLAGS += -D HALO_CRAYXE6
+ifeq ($(HALO_SYS),crayxe6-gnu)
+        CFLAGS += -Wall -DHALO_TIMER_CLOCK_REALTIME -DFTN_UNDERSCORE
+	LIB +=
+else ifeq ($(HALO_SYS),crayxe6-cray)
+        CFLAGS += -DHALO_TIMER_CLOCK_REALTIME -DFTN_UNDERSCORE
 	LIB +=
 else ifeq ($(HALO_SYS),bgq)
-        CFLAGS += -D HALO_BGQ
+        CFLAGS += -Wall -DHALO_TIMER_BGQ_TIMEBASE
 	LIB += -L$(HOME)/lib -ltimebase
 else ifeq ($(HALO_SYS),gnu)
 	FFLAGS += -fno-underscoring
-        CFLAGS += -D HALO_GNU
+        CFLAGS += -DHALO_TIMER_CLOCK_REALTIME -DFTN_UNDERSCORE
 	LIB += -lgfortran
 endif
 

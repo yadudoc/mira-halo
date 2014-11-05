@@ -20,7 +20,7 @@
 #define L3CACHE 32     // last level cache in MB, used to flash the cache before each test
 
 
-#ifdef HALO_BGQ
+#ifdef HALO_TIMER_BGQ_TIMEBASE
 typedef unsigned long long halo_time_t;
 
 halo_time_t  timebase();
@@ -39,15 +39,7 @@ static double timebase_us(halo_time_t t) {
 #define halo_time_us(td) timebase_us(td)
 #endif
 
-#ifdef HALO_GNU
-#define HALO_USE_TIMESPEC
-#endif
-
-#ifdef HALO_CRAYXE6
-#define HALO_USE_TIMESPEC
-#endif
-
-#ifdef HALO_USE_TIMESPEC
+#ifdef HALO_TIMER_CLOCK_REALTIME
 #include <time.h>
 typedef struct timespec halo_time_t;
 
@@ -76,7 +68,12 @@ static double timespec_us(halo_time_t t) {
 #endif
 
 
-void durand(double *, int *, double *);
+#ifdef FTN_UNDERSCORE
+void durand_(double *seed, int *npts, double *x);
+#define durand(seed, npts, x) durand_(seed, npts, x)
+#else
+void durand(double *seed, int *npts, double *x);
+#endif
 
 int main( int argc, char *argv[] )
 {
