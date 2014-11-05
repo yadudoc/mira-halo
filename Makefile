@@ -51,7 +51,6 @@ else ifeq ($(HALO_SYS),bgq)
         CFLAGS += -Wall -DHALO_TIMER_BGQ_TIMEBASE
 	LIB += -L$(HOME)/lib -ltimebase
 else ifeq ($(HALO_SYS),gnu)
-	FFLAGS += -fno-underscoring
         CFLAGS += -DHALO_TIMER_CLOCK_REALTIME -DFTN_UNDERSCORE
 	LIB += -lgfortran
 endif
