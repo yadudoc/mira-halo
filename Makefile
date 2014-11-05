@@ -1,7 +1,7 @@
 #FF      = mpixlf90
 
 ifeq ($(HALO_SYS),)
-	HALO_SYS := bgq
+	HALO_SYS := gnu
 endif
 
 ifeq ($(HALO_SYS),crayxe6-gnu)
