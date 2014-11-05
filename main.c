@@ -1,17 +1,15 @@
-/* 
+/*
     Argonne Leadership Computing Facility benchmark
     BlueGene/P version
-    Messaging rate 
+    Messaging rate
     Written by Vitali Morozov <morozov@anl.gov>
     Updated 20090929: made bi-directional
-*/    
+*/
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-
-#include "q5d.h"
 
 #define MAXN 150000     // repetition rate for a single pair test
 #define MAXSKIP 20      // skip first tests to warm-up
@@ -22,14 +20,61 @@
 #define L3CACHE 32     // last level cache in MB, used to flash the cache before each test
 
 
-unsigned long long timebase();
+#ifdef HALO_BGQ
+typedef unsigned long long halo_time_t;
+
+halo_time_t  timebase();
+
+static halo_time_t timebase_diff(halo_time_t t1, halo_time_t t2) {
+  return t2 - t1;
+}
+
+static double timebase_us(halo_time_t t) {
+  return (double)( t ) / Hz * 1e6
+}
+
+#define halo_timer(t1) *(t1) = timebase()
+#define halo_time_ticks(t) (t)
+#define halo_time_diff(t1, t2) timebase_diff((t1), (t2))
+#define halo_time_us(td) timebase_us(td)
+#endif
+
+#ifdef HALO_GNU
+#include <time.h>
+typedef struct timespec halo_time_t;
+
+static halo_time_t timespec_diff(halo_time_t t1, halo_time_t t2) {
+  halo_time_t res;
+  res.tv_sec = t2.tv_sec - t1.tv_sec;
+  if (t2.tv_nsec > t1.tv_nsec) {
+    res.tv_nsec = t2.tv_nsec - t1.tv_nsec;
+  } else {
+    res.tv_sec--;
+    res.tv_nsec = 1000000000L - t1.tv_nsec + t2.tv_nsec;
+  }
+
+  return res;
+}
+
+static double timespec_us(halo_time_t t) {
+  return (t.tv_sec * 1e6 + ((double)t.tv_nsec) / 1e3);
+}
+
+#define halo_timer(t1) clock_gettime(CLOCK_REALTIME, t1)
+#define halo_time_ticks(t) ((t).tv_nsec + ((long long)(t).tv_sec) * 1000000000)
+#define halo_time_diff(t1, t2) timespec_diff((t1), (t2))
+#define halo_time_us(td) timespec_us(td)
+
+#endif
+
+
 void durand(double *, int *, double *);
 
-main( int argc, char *argv[] )
+int main( int argc, char *argv[] )
 {
     int taskid, ntasks, i, j;
     double sb[NDIMS][2][LENGTH], rb[NDIMS][2][LENGTH]; // buffers: 2 displacements in each dimension
-    unsigned long long t1, t2, tdelay;
+    halo_time_t t1, t2, tdelay;
     int dims[NDIMS], periods[NDIMS], reorder;
     MPI_Comm comm_cart;
     MPI_Request req[2*NDIMS];
@@ -45,11 +90,11 @@ main( int argc, char *argv[] )
     LB = L3CACHE * 1024 * 1024;
     src = (char *)malloc( LB );
     trg = (char *)malloc( LB );
-                                                
+
     MPI_Init( &argc, &argv );
     MPI_Comm_rank( MPI_COMM_WORLD, &taskid );
     MPI_Comm_size( MPI_COMM_WORLD, &ntasks );
-    
+
     for ( i = 0; i < NDIMS; i++ ) dims[i] = 0;
     MPI_Dims_create( ntasks, NDIMS, dims );
 
@@ -64,52 +109,52 @@ main( int argc, char *argv[] )
     one = 1;
     durand( &seed, &one, &delay );
     udelay = (useconds_t)(delay * 1e5 );
-    
+
     MPI_Barrier( comm_cart );
-    t1 = timebase();
-    
+    halo_timer(&t1);
+
     usleep( udelay );
 
     MPI_Barrier( comm_cart );
-    t2 = timebase();
+    halo_timer(&t2);
     /////////////////////////////////////////////////////
 
-    tdelay = t2 - t1;
+    tdelay = halo_time_diff(t1, t2);
     //fprintf( stderr, "Hello from rank %d of %d tasks: delay %ld microseconds\n", taskid, ntasks, udelay );
-    if ( taskid == 0 ) fprintf( stderr, "Delay time: %lld pclks, %18.12lf microseconds\n", 
-        tdelay, (double)tdelay / Hz * 1e6 );
-    
-    
+    if ( taskid == 0 ) fprintf( stderr, "Delay time: %lld pclks, %18.12lf microseconds\n",
+        halo_time_ticks(tdelay), halo_time_us(tdelay) );
+
+
     for( i = 0; i < NDIMS; i++ )
     {
         MPI_Cart_shift( comm_cart, i,  1, &rank_src[0][i], &rank_dst[0][i] );
         MPI_Cart_shift( comm_cart, i, -1, &rank_src[1][i], &rank_dst[1][i] );
     }
 
-    
+
     ///////////// Test Sendrecv without delay //////////////////
     memcpy( trg, src, LB );
 
     MPI_Barrier( comm_cart );
-    t1 = timebase();
+    halo_timer(&t1);
 
     for ( i = 0; i < NDIMS; i++ )
     {
         MPI_Sendrecv( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, MPI_STATUS_IGNORE );
         MPI_Sendrecv( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 1, &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 1, comm_cart, MPI_STATUS_IGNORE );
     }
-    
+
     MPI_Barrier( comm_cart );
-    t2 = timebase();
+    halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "Sendrecv no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, t2 - t1, (double)( t2 - t1 ) / Hz * 1e6 );
+        LENGTH, halo_time_ticks(timespec_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
     //////////// Test Sendrecv with delay ////////////////////
     memcpy( trg, src, LB );
-    
+
     MPI_Barrier( comm_cart );
-    t1 = timebase();
+    halo_timer(&t1);
 
     usleep( udelay );
 
@@ -118,41 +163,41 @@ main( int argc, char *argv[] )
         MPI_Sendrecv( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, MPI_STATUS_IGNORE );
         MPI_Sendrecv( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 1, &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 1, comm_cart, MPI_STATUS_IGNORE );
     }
-    
+
     MPI_Barrier( comm_cart );
-    t2 = timebase();
+    halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "Sendrecv wt delay time for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, t2 - t1 - tdelay, (double)( t2 - t1 - tdelay ) / Hz * 1e6 );
+        LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2)) ) );
 
 
     ///////////// Test ISend - Recv - Barrier without delay //////////////////
     memcpy( trg, src, LB );
 
     MPI_Barrier( comm_cart );
-    t1 = timebase();
+    halo_timer(&t1);
 
     for ( i = 0; i < NDIMS; i++ )
     {
         for ( j = 0; j < 2; j++ ) // displacement
         {
-            MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] ); 
+            MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] );
             MPI_Recv ( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, MPI_STATUS_IGNORE );
             MPI_Barrier( comm_cart );
         }
     }
-    
+
     MPI_Barrier( comm_cart );
-    t2 = timebase();
+    halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "Isend-recv no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, t2 - t1, (double)( t2 - t1 ) / Hz * 1e6 );
+        LENGTH, halo_time_ticks(timespec_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
     ///////////// Test ISend - Recv - Barrier with delay //////////////////
     memcpy( trg, src, LB );
-    
+
     MPI_Barrier( comm_cart );
-    t1 = timebase();
+    halo_timer(&t1);
 
     usleep( udelay );
 
@@ -160,46 +205,46 @@ main( int argc, char *argv[] )
     {
         for ( j = 0; j < 2; j++ ) // displacement
         {
-            MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] ); 
+            MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] );
             MPI_Recv ( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, MPI_STATUS_IGNORE );
             MPI_Barrier( comm_cart );
         }
     }
-    
+
     MPI_Barrier( comm_cart );
-    t2 = timebase();
+    halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "Isend-recv wt delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, t2 - t1 - tdelay, (double)( t2 - t1 - tdelay ) / Hz * 1e6 );
+        LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2))));
 
     ///////////// Test ISend - Recv - Wait without delay //////////////////
     memcpy( trg, src, LB );
-    
+
     MPI_Barrier( comm_cart );
-    t1 = timebase();
+    halo_timer(&t1);
 
     for ( i = 0; i < NDIMS; i++ )
     {
         for ( j = 0; j < 2; j++ ) // displacement
         {
-            MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] ); 
+            MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] );
             MPI_Irecv( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, &req[1] );
-            MPI_Waitall( 2, &req[0], &stt[0] ); 
+            MPI_Waitall( 2, &req[0], &stt[0] );
         }
     }
-    
+
     MPI_Barrier( comm_cart );
-    t2 = timebase();
+    halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "Isend-Irecv no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, t2 - t1, (double)( t2 - t1 ) / Hz * 1e6 );
+        LENGTH, halo_time_ticks(timespec_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
 
     ///////////// Test ISend - Recv - Wait with delay //////////////////
     memcpy( trg, src, LB );
-    
+
     MPI_Barrier( comm_cart );
-    t1 = timebase();
+    halo_timer(&t1);
 
     usleep( udelay );
 
@@ -207,68 +252,70 @@ main( int argc, char *argv[] )
     {
         for ( j = 0; j < 2; j++ ) // displacement
         {
-            MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] ); 
+            MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] );
             MPI_Irecv( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, &req[1] );
-            MPI_Waitall( 2, &req[0], &stt[0] ); 
+            MPI_Waitall( 2, &req[0], &stt[0] );
         }
     }
-    
+
     MPI_Barrier( comm_cart );
-    t2 = timebase();
+    halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "Isend-Irecv wt delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, t2 - t1 - tdelay, (double)( t2 - t1 - tdelay ) / Hz * 1e6 );
+        LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2)) ));
 
     ///////////// Test ISend - Recv - Wait all 6 without delay //////////////////
     memcpy( trg, src, LB );
-    
+
     MPI_Barrier( comm_cart );
-    t1 = timebase();
+    halo_timer(&t1);
 
     for ( i = 0; i < NDIMS; i++ )
     {
-        MPI_Isend( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, comm_cart, &req[i*4+0] ); 
+        MPI_Isend( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, comm_cart, &req[i*4+0] );
         MPI_Irecv( &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, &req[i*4+1] );
-        
-        MPI_Isend( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 0, comm_cart, &req[i*4+2] ); 
+
+        MPI_Isend( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 0, comm_cart, &req[i*4+2] );
         MPI_Irecv( &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 0, comm_cart, &req[i*4+3] );
     }
-    
-    MPI_Waitall( 2*NDIMS, &req[0], &stt[0] ); 
-    
+
+    MPI_Waitall( 2*NDIMS, &req[0], &stt[0] );
+
     MPI_Barrier( comm_cart );
-    t2 = timebase();
+    halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "12 at a time no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, t2 - t1, (double)( t2 - t1 ) / Hz * 1e6 );
+        LENGTH, halo_time_ticks(timespec_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
     ///////////// Test ISend - Recv - Wait all 6 with delay //////////////////
     memcpy( trg, src, LB );
-    
+
     MPI_Barrier( comm_cart );
-    t1 = timebase();
+    halo_timer(&t1);
 
     usleep( udelay );
 
     for ( i = 0; i < NDIMS; i++ )
     {
-        MPI_Isend( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, comm_cart, &req[i*4+0] ); 
+        MPI_Isend( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, comm_cart, &req[i*4+0] );
         MPI_Irecv( &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, &req[i*4+1] );
-        
-        MPI_Isend( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 0, comm_cart, &req[i*4+2] ); 
+
+        MPI_Isend( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 0, comm_cart, &req[i*4+2] );
         MPI_Irecv( &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 0, comm_cart, &req[i*4+3] );
     }
-    
-    MPI_Waitall( 2*NDIMS, &req[0], &stt[0] ); 
-    
+
+    MPI_Waitall( 2*NDIMS, &req[0], &stt[0] );
+
     MPI_Barrier( comm_cart );
-    t2 = timebase();
+    halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "12 at a time wt delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, t2 - t1 - tdelay, (double)( t2 - t1 - tdelay ) / Hz * 1e6 );
+        LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2)) ) );
 
     MPI_Finalize();
 
     free( src );
     free( trg );
+
+    return 0;
 }
