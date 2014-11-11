@@ -36,7 +36,7 @@ static halo_time_t timebase_diff(halo_time_t t1, halo_time_t t2) {
 }
 
 static double timebase_us(halo_time_t t) {
-  return (double)( t ) / Hz * 1e6
+  return (double)( t ) / Hz * 1e6 ;
 }
 
 #define halo_timer(t1) *(t1) = timebase()
