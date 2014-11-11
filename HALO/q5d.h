@@ -2,6 +2,8 @@
 extern "C" {
 #endif
 
+#include <stdint.h>
+
 void Q5D_Init(void);
 
 void Q5D_Torus_coords(int32_t coords[]);
