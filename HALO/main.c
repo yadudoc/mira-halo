@@ -195,7 +195,7 @@ int main( int argc, char *argv[] )
     halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "Sendrecv no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(timespec_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
+        LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
     //////////// Test Sendrecv with delay ////////////////////
     memcpy( trg, src, LB );
@@ -247,7 +247,7 @@ int main( int argc, char *argv[] )
     halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "Isend-recv no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(timespec_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
+        LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
     ///////////// Test ISend - Recv - Barrier with delay //////////////////
     memcpy( trg, src, LB );
@@ -301,7 +301,7 @@ int main( int argc, char *argv[] )
     halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "Isend-Irecv no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(timespec_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
+        LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
 
     ///////////// Test ISend - Recv - Wait with delay //////////////////
@@ -361,7 +361,7 @@ int main( int argc, char *argv[] )
     halo_timer(&t2);
 
     if( taskid == 0 ) fprintf( stderr, "12 at a time no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(timespec_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
+        LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
     ///////////// Test ISend - Recv - Wait all 6 with delay //////////////////
     memcpy( trg, src, LB );
