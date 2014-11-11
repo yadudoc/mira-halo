@@ -12,6 +12,10 @@
 #include <unistd.h>
 #include <string.h>
 
+#ifdef HALO_BGQ
+#include "q5d.h"
+#endif
+
 #define MAXN 150000     // repetition rate for a single pair test
 #define MAXSKIP 20      // skip first tests to warm-up
 #define N 6             // number of simumtaneous communications (available links)
@@ -107,6 +111,16 @@ int main( int argc, char *argv[] )
 
     rc = MPI_Comm_size( MPI_COMM_WORLD, &ntasks );
     assert(rc == MPI_SUCCESS);
+
+#ifdef HALO_BGQ
+    Q5D_Init();
+    int32_t torus_coords[6]
+    Q5D_Torus_coords(torus_coords);
+    fprintf(stderr, "Rank %d torus coords: (%"PRId32", %"PRId32", "
+              "%"PRId32", %"PRId32", %"PRId32", %"PRId32")", taskid,
+              torus_coords[0], torus_coords[1], torus_coords[2],
+              torus_coords[3], torus_coords[4], torus_coords[5]);
+#endif
 
     for ( i = 0; i < NDIMS; i++ ) dims[i] = 0;
     rc = MPI_Dims_create( ntasks, NDIMS, dims );
