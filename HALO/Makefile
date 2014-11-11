@@ -48,7 +48,7 @@ else ifeq ($(HALO_SYS),crayxe6-cray)
         CFLAGS += -DHALO_TIMER_CLOCK_REALTIME -DFTN_UNDERSCORE
 	LIB +=
 else ifeq ($(HALO_SYS),bgq)
-        CFLAGS += -Wall -DHALO_TIMER_BGQ_TIMEBASE -DBGQ
+        CFLAGS += -Wall -DHALO_TIMER_BGQ_TIMEBASE -DHALO_BGQ
 	LIB += -L$(HOME)/lib -ltimebase
 else ifeq ($(HALO_SYS),gnu)
         CFLAGS += -DHALO_TIMER_CLOCK_REALTIME -DFTN_UNDERSCORE
