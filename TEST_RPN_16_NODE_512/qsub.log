@@ -1,0 +1,45 @@
+   qsub cobalt_script.sh linear_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362498
+   qsub cobalt_script.sh random1_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362499
+   qsub cobalt_script.sh random2_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362500
+   qsub cobalt_script.sh random3_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362501
+   qsub cobalt_script.sh regular_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362502
+   qsub cobalt_script.sh reversed_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362503
+   qsub cobalt_script.sh linear_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362529
+   qsub cobalt_script.sh random1_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362530
+   qsub cobalt_script.sh random2_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362531
+   qsub cobalt_script.sh random3_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362532
+   qsub cobalt_script.sh regular_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362533
+   qsub cobalt_script.sh reversed_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+362534
+   qsub cobalt_script.sh random1_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+363205
+   qsub cobalt_script.sh random2_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+363206
+   qsub cobalt_script.sh random3_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+363207

@@ -1,0 +1,4 @@
+Jobid: 362496
+qsub --mode script -n 512 -t 00:59:00 -A ExM -q prod-short cobalt_script.sh
+Wed Nov 12 00:20:43 2014 +0000 (UTC) submitted with cwd set to: /gpfs/mira-home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512
+Wed Nov 12 00:21:09 2014 +0000 (UTC) Info: user delete requested; removing job from the queue
