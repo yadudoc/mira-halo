@@ -1,0 +1,7 @@
+regular_mapping.txt
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-08C00-3BF31-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/regular_mapping.txt : mmps 1
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-08C00-3BF31-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/regular_mapping.txt : mmps 2
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================

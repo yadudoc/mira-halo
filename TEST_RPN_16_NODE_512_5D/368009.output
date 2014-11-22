@@ -1,0 +1,80 @@
+reversed_mapping.txt
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 1
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 2
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 4
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 8
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 16
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 32
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 64
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 128
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 256
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 512
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 1024
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 2048
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 4096
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 8192
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 16384
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 32768
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 65536
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 131072
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 262144
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 524288
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 1048576
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 2097152
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 4194304
+Cartesian topology: 8 x 8 x 8
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 8388608
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 16777216
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 33554432
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 67108864
+done regular =======================================================================================
+runjob --cwd /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D --block MIR-04CC0-37FF1-512 --np 8192 -p 16 --mapping /home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/reversed_mapping.txt : mmps 134217728
+done regular =======================================================================================

@@ -1,0 +1,26 @@
+Jobid: 368009
+qsub --mode script -n 512 -t 01:59:00 -A ExM -q prod-short cobalt_script.sh reversed_mapping.txt
+Fri Nov 21 07:54:54 2014 +0000 (UTC) submitted with cwd set to: /gpfs/mira-home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D
+Fri Nov 21 14:35:08 2014 +0000 (UTC) yadunand/368009: Initiating boot at location MIR-04CC0-37FF1-512.
+Fri Nov 21 14:35:46 2014 +0000 (UTC) yadunand/368009: Block MIR-04CC0-37FF1-512 for location MIR-04CC0-37FF1-512 successfully booted (Initiating). 
+Fri Nov 21 14:35:46 2014 +0000 (UTC) 
+Fri Nov 21 14:35:46 2014 +0000 (UTC) Command: '/gpfs/mira-home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/cobalt_script.sh' 'reversed_mapping.txt'
+Fri Nov 21 14:35:46 2014 +0000 (UTC) 
+Fri Nov 21 14:35:46 2014 +0000 (UTC) Environment:
+Fri Nov 21 14:35:46 2014 +0000 (UTC) SHELL=/bin/bash
+Fri Nov 21 14:35:46 2014 +0000 (UTC) COBALT_NODEFILE=/tmp/tmp86uOyr
+Fri Nov 21 14:35:46 2014 +0000 (UTC) COBALT_PARTNAME=MIR-04CC0-37FF1-512
+Fri Nov 21 14:35:46 2014 +0000 (UTC) COBALT_JOBID=368009
+Fri Nov 21 14:35:46 2014 +0000 (UTC) COBALT_STARTTIME=1416580473
+Fri Nov 21 14:35:46 2014 +0000 (UTC) LOGNAME=yadunand
+Fri Nov 21 14:35:46 2014 +0000 (UTC) USER=yadunand
+Fri Nov 21 14:35:46 2014 +0000 (UTC) COBALT_ENDTIME=1416587613
+Fri Nov 21 14:35:46 2014 +0000 (UTC) COBALT_PARTSIZE=512
+Fri Nov 21 14:35:46 2014 +0000 (UTC) HOME=/home/yadunand
+Fri Nov 21 14:35:46 2014 +0000 (UTC) COBALT_JOBSIZE=512
+Fri Nov 21 14:35:46 2014 +0000 (UTC) 
+Fri Nov 21 14:35:46 2014 +0000 (UTC) Info: stdin received from /dev/null
+Fri Nov 21 14:35:46 2014 +0000 (UTC) Info: stdout sent to /gpfs/mira-home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/368009.output
+Fri Nov 21 14:35:46 2014 +0000 (UTC) Info: stderr sent to /gpfs/mira-home/yadunand/HALO/mira-halo/TEST_RPN_16_NODE_512_5D/368009.error
+Fri Nov 21 14:35:46 2014 +0000 (UTC) 
+Fri Nov 21 15:32:30 2014 +0000 (UTC) Info: task completed normally with an exit code of 0; initiating job cleanup and removal
