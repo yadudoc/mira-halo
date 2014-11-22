@@ -106,25 +106,46 @@ def load_mapping_file(mapping_file, wrap_dims, same_node_dims):
 
   return NetworkMapping(net_dims, exp_ranks, wrap_dims, same_node_dims, rank2net)
 
-def compute_logical_mapping(logical_dims, nranks):
-  rank2log = {}
-  log2rank = {}
+def dims_from_string(dim_str):
+  """
+  returns nranks, dimension size list
+  """
+  dims = dim_str.split(",")
+  size = 1
+  for i in range(len(dims)):
+    try:
+      dims[i] = int(dims[i])
+      size *= dims[i]
+    except ValueError, e:
+      raise ValueError("Invalid dimension: %s" % dims[i])
+
+  return size, dims
+
+def basic_mapping(dims, nranks):
+  rank2coord = [None] * nranks
+  coord2rank = {}
 
   for rank in range(nranks):
     if rank == 0:
-      coords = [0] * len(logical_dims)
+      coords = [0] * len(dims)
     else:
       # TODO: what order is used for dimensions
       # For now, increment last first
       dim = len(coords) - 1
 
       while dim >= 0:
-        coords[dim] = (coords[dim] + 1) % logical_dims[dim]
+        coords[dim] = (coords[dim] + 1) % dims[dim]
         if coords[dim] != 0:
           break
         dim -= 1
-    rank2log[rank] = tuple(coords)
-    log2rank[tuple(coords)] = rank
+    rank2coord[rank] = tuple(coords)
+    coord2rank[tuple(coords)] = rank
+
+  
+  return rank2coord, coord2rank
+
+def compute_logical_mapping(logical_dims, nranks):
+  rank2log, log2rank = basic_mapping(logical_dims, nranks)
 
   return LogicalMapping(logical_dims, nranks, rank2log, log2rank)
 
@@ -225,7 +246,7 @@ def compute_distances(logical, network):
       sum_neighbour_dist += dist
       total_neighbours += 1
 
-    if DEBUG:
+    if DEBUG and False:
       print "%d %s neighbours: %s" % (rank, str(cs), str(ns))
 
   return max_neighbour_dist, sum_neighbour_dist, total_neighbours
@@ -258,15 +279,11 @@ def main():
                           "doesn't match nranks %d") % (network.nranks, nranks)
     sys.exit(1)
 
-  logical_dims = sys.argv[3].split(",")
-  logical_size = 1
-  for i in range(len(logical_dims)):
-    try:
-      logical_dims[i] = int(logical_dims[i])
-      logical_size *= logical_dims[i]
-    except ValueError, e:
-      print >> sys.stderr, "Invalid dimension: %s" % logical_dims[i]
-      usage()
+  try: 
+    logical_size, logical_dims = dims_from_string(sys.argv[3])
+  except ValueError, e:
+    print >> sys.stderr, e.message
+    usage()
 
   if DEBUG:
     print >> sys.stderr, "Logical dims: %s size: %d" % (
