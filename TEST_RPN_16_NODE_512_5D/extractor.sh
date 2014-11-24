@@ -1,16 +1,24 @@
 #!/bin/bash
 
+declare -a strings=("Sendrecv no delay" "Sendrecv wt delay" "Isend-recv no delay" "Isend-recv wt delay" "Isend-Irecv no delay" "Isend-Irecv wt delay" "12 at a time no delay" "12 at a time wt delay")
 
-#ERRFILES=(362529.error 362530.error 362531.error 362532.error 362533.error 362534.error)
 
-ERRFILES=(362529.error 362533.error 362534.error 363205.error 363206.error 363207.error)
-
+#ERRFILES=(368005.error.data) # 368006.error.data  368007.error.data  368008.error.data  368009.error.data  368010.error.data  368011.error.data  368012.error.data)
+ERRFILES=(368005.error.data  368006.error.data  368007.error.data  368008.error.data  368009.error.data  368010.error.data  368011.error.data  368012.error.data)
 for errfile in ${ERRFILES[*]}
 do
-    echo -n "$errfile  "
-    cat ${errfile%.error}.cobaltlog | grep "qsub" | awk '{print $NF}'
-    #grep "-q" ${errfile%.error}.cobaltlog | awk '{print $NF}'
-    cat $errfile | grep microseconds | grep for > $errfile.data
-    cat $errfile.data | grep "12 at a time no delay" | awk '{sum += $(NF-1)} (NR%50)==0{print sum/50; sum = 0;}'
-
+    mapping="$(cat ${errfile%.error.data}.cobaltlog | grep "qsub" | awk '{print $NF}')"
+    CSV=${mapping%.txt}.csv
+    avgdist=$(./measure_mapping.py 8192 $mapping 8,8,8,8,2 | grep "Average" | awk '{print $NF}')
+    maxdist=$(./measure_mapping.py 8192 $mapping 8,8,8,8,2 | grep "Max" | awk '{print $NF}')
+    suffix=", $avgdist, $maxdist"
+    rm $CSV
+    for search in "${strings[@]}"
+    do
+        FOO="${mapping%.txt}, $search"
+        #grep "$search" $errfile | awk '{sum += $(NF-1)} (NR%50)==0{print sum/50; sum = 0;}' | sed -e "s/^/$FOO,\ /" | sed -e "s/$/$suffix/" >> $CSV
+        grep "$search" $errfile | awk '{print $(NF-1)}' | sed -e "s/^/$FOO,\ /" | sed -e "s/$/$suffix/" >> $CSV
+    done
 done
+
+

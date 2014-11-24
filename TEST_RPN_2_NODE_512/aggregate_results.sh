@@ -4,6 +4,7 @@ declare -a strings=("Sendrecv no delay" "Sendrecv wt delay" "Isend-recv no delay
 
 for i in $(ls mmps*)
 do
+    echo $i
     for search in "${strings[@]}"
     do
 	    #grep "$search" *error | awk '{print $(NF-1)}'
