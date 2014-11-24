@@ -89,7 +89,7 @@ def anneal(logical, network, neighbour_lists, niters):
       print >> sys.stderr, "Annealing iteration %i/%i dist = %f T = %f" % (
                             i, niters, curr_dist, temp)
 
-    nswaps = max(1, int(5 * temp))
+    nswaps = max(1, int(0.02 * temp * network.nranks))
 
     swaps = select_permutation(network.nranks, nswaps)
 
