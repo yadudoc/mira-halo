@@ -261,13 +261,14 @@ def compute_distances(logical, network, neighbour_lists):
   net_dims = network.dims
   net_wrap_dims = network.wrap_dims
   net_include_dims = network.dist_include_dims
+  net_rank2coord = network.rank2coord
 
   for rank in xrange(logical.nranks):
     #ns = []
-    coords = network.rank2coord[rank]
+    coords = net_rank2coord[rank]
     for n_rank in neighbour_lists[rank]:
       #assert rank != n_rank
-      dist = coord_dist(coords, network.rank2coord[n_rank], net_dims,
+      dist = coord_dist(coords, net_rank2coord[n_rank], net_dims,
                         net_wrap_dims, net_include_dims)
                       
       #ns.append((n_rank, ncs, dist))
