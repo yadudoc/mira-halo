@@ -8,14 +8,15 @@ from mapping import NetworkMapping
 from mapping import BGQ_NET_DIM_IS_TORUS, BGQ_NET_DIM_SAME_NODE
 
 def usage():
-  print >> sys.stderr, "Usage: opt.py <nranks> <network dims> <logical dims>\n"
+  print >> sys.stderr, "Usage: opt.py <nranks> <network dims> <logical dims> <nsteps>\n"
   print >> sys.stderr, "    nranks: total number of MPI ranks"
-  print >> sys.stderr, "    logical dims: comma-separated list of logical dim sizes"
   print >> sys.stderr, "    network dims: comma-separated list of network dim sizes"
+  print >> sys.stderr, "    logical dims: comma-separated list of logical dim sizes"
+  print >> sys.stderr, "    nsteps: number of annealing steps"
   sys.exit(1)
 
 def main():
-  if (len(sys.argv) != 4):
+  if (len(sys.argv) != 5):
     usage()
 
   try:
@@ -55,6 +56,12 @@ def main():
     print >> sys.stderr, "Logical size %d doesn't match nranks %d" % (
                           logical_size, nranks)
     sys.exit(1)
+  
+  try:
+    nsteps = int(sys.argv[4])
+  except ValueError, e:
+    print >> sys.stderr, "Invalid nsteps: %s" % sys.argv[4]
+    usage()
 
   logical = mapping.compute_logical_mapping(logical_dims, nranks)
   
@@ -62,12 +69,12 @@ def main():
   
   network = NetworkMapping(network_dims, nranks, BGQ_NET_DIM_IS_TORUS, BGQ_NET_DIM_SAME_NODE, rank2net)
 
+  neighbour_lists = mapping.compute_neighbour_lists(logical, False)
 
-  anneal(logical, network, 2000000)
+  anneal(logical, network, neighbour_lists, nsteps)
 
-
-def anneal(logical, network, niters):
-  curr_dist = average_distance(logical, network)
+def anneal(logical, network, neighbour_lists, niters):
+  curr_dist = average_distance(logical, network, neighbour_lists)
   best_dist = curr_dist
 
   print "Initial average distance: %f" % (curr_dist)
@@ -82,17 +89,13 @@ def anneal(logical, network, niters):
       print >> sys.stderr, "Annealing iteration %i/%i dist = %f T = %f" % (
                             i, niters, curr_dist, temp)
 
-    curr_rank2net = network.rank2coord
-    
     nswaps = max(1, int(5 * temp))
 
-    new_rank2net = network.rank2coord[:]
+    swaps = select_permutation(network.nranks, nswaps)
 
-    permute(new_rank2net, nswaps)
+    permute(network.rank2coord, swaps)
 
-    network.rank2coord = new_rank2net
-
-    dist = average_distance(logical, network)
+    dist = average_distance(logical, network, neighbour_lists)
 
     # TODO: make direction of optimisation configurable
     accept = False
@@ -114,8 +117,8 @@ def anneal(logical, network, niters):
     if accept:
       curr_dist = dist
     else:
-      # Restore copied mapping
-      network.rank2coord = curr_rank2net
+      # Undo changes to mapping
+      permute_reverse(network.rank2coord, swaps)
       
     if DEBUG:
       print >> sys.stderr, "Swapped %d, average distance = %f" % (nswaps, dist)
@@ -144,9 +147,9 @@ def calc_temp(i, n):
   return temp ** 3
  
 
-def average_distance(logical, network):
+def average_distance(logical, network, neighbour_lists):
   max_neighbour_dist, sum_neighbour_dist, total_neighbours = \
-                            mapping.compute_distances(logical, network)
+              mapping.compute_distances(logical, network, neighbour_lists)
 
   return sum_neighbour_dist / float(total_neighbours)
 
@@ -157,10 +160,26 @@ def random_rank2net(network_size, network_dims):
 
   return rank2net
 
-def permute(rank2net, nswaps):
+def select_permutation(nranks, nswaps):
+  p = [0] * (nswaps * 2)
   for i in xrange(nswaps):
-    i1 = random.randint(0, len(rank2net) - 1)
-    i2 = random.randint(0, len(rank2net) - 1)
+    p[i * 2] = random.randint(0, nranks - 1)
+    p[i * 2 + 1] = random.randint(0, nranks - 1)
+  return p
+
+def permute_reverse(rank2net, swaps):
+  last = len(swaps) - 1
+  for i in xrange(len(swaps) / 2):
+    i1 = swaps[last - i * 2]
+    i2 = swaps[last - i * 2 - 1]
+    t = rank2net[i1]
+    rank2net[i1] = rank2net[i2]
+    rank2net[i2] = t
+
+def permute(rank2net, swaps):
+  for i in xrange(len(swaps) / 2):
+    i1 = swaps[i * 2]
+    i2 = swaps[i * 2 + 1]
     t = rank2net[i1]
     rank2net[i1] = rank2net[i2]
     rank2net[i2] = t

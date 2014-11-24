@@ -32,6 +32,14 @@ class NetworkMapping:
     self.wrap_dims = wrap_dims
     self.same_node_dims = same_node_dims
     self.rank2coord = rank2coord
+    self.dist_include_dims = self.calc_include_dims(dims, same_node_dims)
+
+  def calc_include_dims(self, dims, same_node_dims):
+    d = []
+    for i in range(len(dims)):
+      if not same_node_dims[i]:
+        d.append(i)
+    return d
 
 def load_mapping_file(mapping_file, wrap_dims, same_node_dims):
   """
@@ -149,6 +157,20 @@ def compute_logical_mapping(logical_dims, nranks):
 
   return LogicalMapping(logical_dims, nranks, rank2log, log2rank)
 
+def compute_neighbour_lists(logical, bothways):
+  neighbour_lists = [None] * logical.nranks
+  for rank in xrange(logical.nranks):
+    neighbour_ranks = []
+    cs = logical.rank2coord[rank]
+    for ncs in neighbours(cs, logical.dims, [True] * len(logical.dims)):
+      n_rank = logical.coord2rank[ncs]
+      if bothways or n_rank < rank:
+        neighbour_ranks.append(n_rank)
+
+    neighbour_lists[rank] = neighbour_ranks
+
+  return neighbour_lists
+
 def neighbours(coords, dims, wrap_dims):
   """
   Compute neighbours of coordinate.  Returns list of coordinates.
@@ -192,62 +214,70 @@ def neighbours(coords, dims, wrap_dims):
 
 def net_coord_dist(coord1, coord2, network):
   return coord_dist(coord1, coord2, network.dims, network.wrap_dims, \
-                    network.same_node_dims)
+                    network.dist_include_dims)
 
-def coord_dist(coord1, coord2, dims, wrap_dims, ignore_dims):
+def coord_dist(coord1, coord2, dims, wrap_dims, dist_include_dims):
   """
   Compute manhattan distance between coordinates
   wrap_dims: whether dims wrap
-  ignore_dims: if true, don't count towards distance
+  dist_include_dims: list of the dim indices to include 
   """
   dist = 0.0
-  assert len(coord1) == len(dims)
-  assert len(coord2) == len(dims)
+  #assert len(coord1) == len(dims)
+  #assert len(coord2) == len(dims)
 
-  assert len(dims) == len(dims)
-  assert len(wrap_dims) == len(dims)
-  assert len(ignore_dims) == len(dims)
+  #assert len(dims) == len(dims)
+  #assert len(wrap_dims) == len(dims)
+  #assert len(ignore_dims) == len(dims)
 
   # Ignore last dimension (core)
-  for dim in range(len(dims)):
-    if not ignore_dims[dim]:
-      dim_dist = abs(coord1[dim] - coord2[dim])
+  for dim in dist_include_dims:
+    c1 = coord1[dim]
+    c2 = coord2[dim]
+    dim_dist = c1 - c2
+    
+    if dim_dist == 0:
+      continue
+    elif dim_dist < 0:
+      dim_dist = -dim_dist
 
-      if wrap_dims[dim]:
-        # compute wraparound distance, take minimum
-        if coord1[dim] > coord2[dim]:
-          wrap_dist = dims[dim] - coord1[dim] + coord2[dim]
-        else:
-          wrap_dist = dims[dim] - coord2[dim] + coord1[dim]
+    if wrap_dims[dim]:
+      # compute wraparound distance, take minimum
+      wrap_dist = dims[dim] - dim_dist
 
-        dim_dist = min(dim_dist, wrap_dist)
+      dim_dist = dim_dist if dim_dist < wrap_dist else wrap_dist
 
-      dist += dim_dist
+    dist += dim_dist
 
   return dist
 
-def compute_distances(logical, network):
-  assert logical.nranks == network.nranks
+def compute_distances(logical, network, neighbour_lists):
+  #assert logical.nranks == network.nranks
 
   max_neighbour_dist = 0.0
   sum_neighbour_dist = 0.0
   total_neighbours = 0
+  
+  net_dims = network.dims
+  net_wrap_dims = network.wrap_dims
+  net_include_dims = network.dist_include_dims
 
-  for rank in range(logical.nranks):
-    ns = []
-    cs = logical.rank2coord[rank]
-    for ncs in neighbours(cs, logical.dims, [True] * len(logical.dims)):
-      n_rank = logical.coord2rank[ncs]
-      assert rank != n_rank
-      dist = net_coord_dist(network.rank2coord[rank], network.rank2coord[n_rank], network)
-      ns.append((n_rank, ncs, dist))
+  for rank in xrange(logical.nranks):
+    #ns = []
+    coords = network.rank2coord[rank]
+    for n_rank in neighbour_lists[rank]:
+      #assert rank != n_rank
+      dist = coord_dist(coords, network.rank2coord[n_rank], net_dims,
+                        net_wrap_dims, net_include_dims)
+                      
+      #ns.append((n_rank, ncs, dist))
 
       max_neighbour_dist = max(max_neighbour_dist, dist)
       sum_neighbour_dist += dist
       total_neighbours += 1
 
-    if DEBUG and False:
-      print "%d %s neighbours: %s" % (rank, str(cs), str(ns))
+    #if DEBUG and False:
+    #  print "%d %s neighbours: %s" % (rank, str(cs), str(ns))
 
   return max_neighbour_dist, sum_neighbour_dist, total_neighbours
 
@@ -307,8 +337,10 @@ def main():
         dist = net_coord_dist(network.rank2coord[rank1], network.rank2coord[rank2], network)
         print "%d <-> %d distance: %f" % (rank1, rank2, dist)
 
+  neighbour_lists = compute_neighbour_lists(logical, False)
+
   max_neighbour_dist, sum_neighbour_dist, total_neighbours = \
-                            compute_distances(logical, network)
+                            compute_distances(logical, network, neighbour_lists)
 
   print "Max Neighbour Distance: %f" % max_neighbour_dist
   print "Sum of Neighbour Distances: %f" % (sum_neighbour_dist)
