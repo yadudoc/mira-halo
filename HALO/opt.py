@@ -63,7 +63,7 @@ def main():
   network = NetworkMapping(network_dims, nranks, BGQ_NET_DIM_IS_TORUS, BGQ_NET_DIM_SAME_NODE, rank2net)
 
 
-  anneal(logical, network, 100000)
+  anneal(logical, network, 2000000)
 
 
 def anneal(logical, network, niters):
@@ -84,7 +84,7 @@ def anneal(logical, network, niters):
 
     curr_rank2net = network.rank2coord
     
-    nswaps = max(1, int(10 * temp))
+    nswaps = max(1, int(5 * temp))
 
     new_rank2net = network.rank2coord[:]
 
@@ -105,7 +105,7 @@ def anneal(logical, network, niters):
       # Number from 0.0 to 1.0 - higher is better
       relative = dist / curr_dist
 
-      threshold = temp * (1.0 - (1.0 - relative) * 10)
+      threshold = temp * (0.5 - (1.0 - relative) * 25)
       if DEBUG:
         print >> sys.stderr, "Relative: %f" % relative
         print >> sys.stderr, "Chance of acceptance: %f" % threshold
@@ -132,10 +132,16 @@ def calc_temp(i, n):
 
   cycle = i / CYCLE_LENGTH
   total_cycles = (n - 1) / CYCLE_LENGTH + 1
+  frac_cycle = float(total_cycles - cycle)
 
-  cycle_temp = 0.5 * float(total_cycles - cycle) / total_cycles
+  cycle_temp = frac_cycle / total_cycles
+
+  #c = 0.05
+  #cycle_temp = c / (cycle_frac + c)
   
-  return cycle_temp + cycle_temp * (CYCLE_LENGTH - (i % CYCLE_LENGTH)) / float(CYCLE_LENGTH)
+  temp = cycle_temp * (CYCLE_LENGTH - (i % CYCLE_LENGTH)) / float(CYCLE_LENGTH)
+
+  return temp ** 3
  
 
 def average_distance(logical, network):
