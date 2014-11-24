@@ -8,15 +8,17 @@ from mapping import NetworkMapping
 from mapping import BGQ_NET_DIM_IS_TORUS, BGQ_NET_DIM_SAME_NODE
 
 def usage():
-  print >> sys.stderr, "Usage: opt.py <nranks> <network dims> <logical dims> <nsteps>\n"
+  print >> sys.stderr, "Usage: opt.py <nranks> <network dims> <logical dims> <nsteps> <logical mapping output> <network mapping output>\n"
   print >> sys.stderr, "    nranks: total number of MPI ranks"
   print >> sys.stderr, "    network dims: comma-separated list of network dim sizes"
   print >> sys.stderr, "    logical dims: comma-separated list of logical dim sizes"
   print >> sys.stderr, "    nsteps: number of annealing steps"
+  print >> sys.stderr, "    logical mapping output: output file with logical coordinates of ranks"
+  print >> sys.stderr, "    network mapping output: output file with network coordinates of ranks"
   sys.exit(1)
 
 def main():
-  if (len(sys.argv) != 5):
+  if (len(sys.argv) != 7):
     usage()
 
   try:
@@ -63,7 +65,13 @@ def main():
     print >> sys.stderr, "Invalid nsteps: %s" % sys.argv[4]
     usage()
 
+  logical_out = open(sys.argv[5], 'w')
+  network_out = open(sys.argv[6], 'w')
+
   logical = mapping.compute_logical_mapping(logical_dims, nranks)
+
+  mapping.write_mapping(logical_out, logical.rank2coord)
+  logical_out.close()
   
   rank2net = random_rank2net(network_size, network_dims)
   
@@ -72,6 +80,9 @@ def main():
   neighbour_lists = mapping.compute_neighbour_lists(logical, False)
 
   anneal(logical, network, neighbour_lists, nsteps)
+  
+  mapping.write_mapping(network_out, network.rank2coord)
+  network_out.close()
 
 def anneal(logical, network, neighbour_lists, niters):
   curr_dist = average_distance(logical, network, neighbour_lists)
@@ -144,7 +155,7 @@ def calc_temp(i, n):
   
   temp = cycle_temp * (CYCLE_LENGTH - (i % CYCLE_LENGTH)) / float(CYCLE_LENGTH)
 
-  return temp ** 3
+  return temp ** 2.5
  
 
 def average_distance(logical, network, neighbour_lists):
