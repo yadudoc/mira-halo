@@ -22,6 +22,7 @@
 #define NDIMS 3         // Cartesian mesh dimension
 #define Hz 850.e6      // CPU clock rate, in Hz
 #define LENGTH 1024      // message size, in doubles
+#define DUPES 1        // Number of duplicate messages to send
 #define L3CACHE 32     // last level cache in MB, used to flash the cache before each test
 
 #define REQSPERDIM 4 // Max number of simultaneous requests per dimension
@@ -84,13 +85,13 @@ void durand(double *seed, int *npts, double *x);
 int main( int argc, char *argv[] )
 {
     int rc;
-    int taskid, ntasks, i, j;
+    int taskid, ntasks, i, j, d;
     double sb[NDIMS][2][LENGTH], rb[NDIMS][2][LENGTH]; // buffers: 2 displacements in each dimension
     halo_time_t t1, t2, tdelay;
     int dims[NDIMS], periods[NDIMS], reorder;
     MPI_Comm comm_cart;
-    MPI_Request req[REQSPERDIM*NDIMS];
-    MPI_Status  stt[REQSPERDIM*NDIMS];
+    MPI_Request req[REQSPERDIM*NDIMS*DUPES];
+    MPI_Status  stt[REQSPERDIM*NDIMS*DUPES];
     double seed, delay;
     int one;
     useconds_t udelay;
@@ -184,18 +185,24 @@ int main( int argc, char *argv[] )
 
     for ( i = 0; i < NDIMS; i++ )
     {
-        rc = MPI_Sendrecv( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, MPI_STATUS_IGNORE );
-        assert(rc == MPI_SUCCESS);
-        rc = MPI_Sendrecv( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 1, &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 1, comm_cart, MPI_STATUS_IGNORE );
-        assert(rc == MPI_SUCCESS);
+        for ( d = 0; d < DUPES; d++ )
+        {
+          rc = MPI_Sendrecv( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, MPI_STATUS_IGNORE );
+          assert(rc == MPI_SUCCESS);
+        }
+        for ( d = 0; d < DUPES; d++ )
+        {
+          rc = MPI_Sendrecv( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 1, &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 1, comm_cart, MPI_STATUS_IGNORE );
+          assert(rc == MPI_SUCCESS);
+        }
     }
 
     rc = MPI_Barrier( comm_cart );
     assert(rc == MPI_SUCCESS);
     halo_timer(&t2);
 
-    if( taskid == 0 ) fprintf( stderr, "Sendrecv no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
+    if( taskid == 0 ) fprintf( stderr, "Sendrecv no delay for %dx%d doubles: %lld pclks, %18.12lf microseconds\n",
+        DUPES, LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
     //////////// Test Sendrecv with delay ////////////////////
     memcpy( trg, src, LB );
@@ -208,18 +215,24 @@ int main( int argc, char *argv[] )
 
     for ( i = 0; i < NDIMS; i++ )
     {
-        rc = MPI_Sendrecv( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, MPI_STATUS_IGNORE );
-        assert(rc == MPI_SUCCESS);
-        rc = MPI_Sendrecv( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 1, &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 1, comm_cart, MPI_STATUS_IGNORE );
-        assert(rc == MPI_SUCCESS);
+        for ( d = 0; d < DUPES; d++ )
+        {
+            rc = MPI_Sendrecv( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, MPI_STATUS_IGNORE );
+            assert(rc == MPI_SUCCESS);
+        }
+        for ( d = 0; d < DUPES; d++ )
+        {
+            rc = MPI_Sendrecv( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 1, &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 1, comm_cart, MPI_STATUS_IGNORE );
+            assert(rc == MPI_SUCCESS);
+        }
     }
 
     rc = MPI_Barrier( comm_cart );
     assert(rc == MPI_SUCCESS);
     halo_timer(&t2);
 
-    if( taskid == 0 ) fprintf( stderr, "Sendrecv wt delay time for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2)) ) );
+    if( taskid == 0 ) fprintf( stderr, "Sendrecv wt delay time for %dx%d doubles: %lld pclks, %18.12lf microseconds\n",
+        DUPES, LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2)) ) );
 
 
     ///////////// Test ISend - Recv - Barrier without delay //////////////////
@@ -233,10 +246,13 @@ int main( int argc, char *argv[] )
     {
         for ( j = 0; j < 2; j++ ) // displacement
         {
-            rc = MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] );
-            assert(rc == MPI_SUCCESS);
-            rc = MPI_Recv ( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, MPI_STATUS_IGNORE );
-            assert(rc == MPI_SUCCESS);
+            for ( d = 0; d < DUPES; d++ )
+            {
+                rc = MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] );
+                assert(rc == MPI_SUCCESS);
+                rc = MPI_Recv ( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, MPI_STATUS_IGNORE );
+                assert(rc == MPI_SUCCESS);
+            }
             rc = MPI_Barrier( comm_cart );
             assert(rc == MPI_SUCCESS);
         }
@@ -246,8 +262,8 @@ int main( int argc, char *argv[] )
     assert(rc == MPI_SUCCESS);
     halo_timer(&t2);
 
-    if( taskid == 0 ) fprintf( stderr, "Isend-recv no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
+    if( taskid == 0 ) fprintf( stderr, "Isend-recv no delay for %dx%d doubles: %lld pclks, %18.12lf microseconds\n",
+        DUPES, LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
     ///////////// Test ISend - Recv - Barrier with delay //////////////////
     memcpy( trg, src, LB );
@@ -262,10 +278,13 @@ int main( int argc, char *argv[] )
     {
         for ( j = 0; j < 2; j++ ) // displacement
         {
-            rc = MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] );
-            assert(rc == MPI_SUCCESS);
-            rc = MPI_Recv ( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, MPI_STATUS_IGNORE );
-            assert(rc == MPI_SUCCESS);
+            for ( d = 0; d < DUPES; d++ )
+            {
+                rc = MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] );
+                assert(rc == MPI_SUCCESS);
+                rc = MPI_Recv ( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, MPI_STATUS_IGNORE );
+                assert(rc == MPI_SUCCESS);
+            }
             rc = MPI_Barrier( comm_cart );
             assert(rc == MPI_SUCCESS);
         }
@@ -275,8 +294,8 @@ int main( int argc, char *argv[] )
     assert(rc == MPI_SUCCESS);
     halo_timer(&t2);
 
-    if( taskid == 0 ) fprintf( stderr, "Isend-recv wt delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2))));
+    if( taskid == 0 ) fprintf( stderr, "Isend-recv wt delay for %dx%d doubles: %lld pclks, %18.12lf microseconds\n",
+        DUPES, LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2))));
 
     ///////////// Test ISend - Recv - Wait without delay //////////////////
     memcpy( trg, src, LB );
@@ -289,9 +308,12 @@ int main( int argc, char *argv[] )
     {
         for ( j = 0; j < 2; j++ ) // displacement
         {
-            rc = MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] );
-            rc = MPI_Irecv( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, &req[1] );
-            rc = MPI_Waitall( 2, &req[0], &stt[0] );
+            for ( d = 0; d < DUPES; d++ )
+            {
+                rc = MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[d * 2] );
+                rc = MPI_Irecv( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, &req[d * 2 + 1] );
+            }
+            rc = MPI_Waitall( 2 * DUPES, &req[0], &stt[0] );
             assert(rc == MPI_SUCCESS);
         }
     }
@@ -300,8 +322,8 @@ int main( int argc, char *argv[] )
     assert(rc == MPI_SUCCESS);
     halo_timer(&t2);
 
-    if( taskid == 0 ) fprintf( stderr, "Isend-Irecv no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
+    if( taskid == 0 ) fprintf( stderr, "Isend-Irecv no delay for %dx%d doubles: %lld pclks, %18.12lf microseconds\n",
+        DUPES, LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
 
     ///////////// Test ISend - Recv - Wait with delay //////////////////
@@ -317,11 +339,14 @@ int main( int argc, char *argv[] )
     {
         for ( j = 0; j < 2; j++ ) // displacement
         {
-            rc = MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[0] );
-            assert(rc == MPI_SUCCESS);
-            rc = MPI_Irecv( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, &req[1] );
-            assert(rc == MPI_SUCCESS);
-            rc = MPI_Waitall( 2, &req[0], &stt[0] );
+            for ( d = 0; d < DUPES; d++ )
+            {
+                rc = MPI_Isend( &sb[i][j][0], LENGTH, MPI_DOUBLE, rank_dst[j][i], 0, comm_cart, &req[d * 2] );
+                assert(rc == MPI_SUCCESS);
+                rc = MPI_Irecv( &rb[i][j][0], LENGTH, MPI_DOUBLE, rank_src[j][i], 0, comm_cart, &req[d * 2 + 1] );
+                assert(rc == MPI_SUCCESS);
+            }
+            rc = MPI_Waitall( 2 * DUPES, &req[0], &stt[0] );
             assert(rc == MPI_SUCCESS);
         }
     }
@@ -330,8 +355,8 @@ int main( int argc, char *argv[] )
     assert(rc == MPI_SUCCESS);
     halo_timer(&t2);
 
-    if( taskid == 0 ) fprintf( stderr, "Isend-Irecv wt delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2)) ));
+    if( taskid == 0 ) fprintf( stderr, "Isend-Irecv wt delay for %dx%d doubles: %lld pclks, %18.12lf microseconds\n",
+        DUPES, LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2)) ));
 
     ///////////// Test ISend - Recv - Wait all 6 without delay //////////////////
     memcpy( trg, src, LB );
@@ -342,26 +367,32 @@ int main( int argc, char *argv[] )
 
     for ( i = 0; i < NDIMS; i++ )
     {
-        rc = MPI_Isend( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, comm_cart, &req[i*4+0] );
-        assert(rc == MPI_SUCCESS);
-        rc = MPI_Irecv( &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, &req[i*4+1] );
-        assert(rc == MPI_SUCCESS);
+        for ( d = 0; d < DUPES; d++ )
+        {
+            rc = MPI_Isend( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, comm_cart, &req[4 * (i * DUPES + d)] );
+            assert(rc == MPI_SUCCESS);
+            rc = MPI_Irecv( &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, &req[4 * (i * DUPES + d) + 1] );
+            assert(rc == MPI_SUCCESS);
+        }
 
-        rc = MPI_Isend( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 0, comm_cart, &req[i*4+2] );
-        assert(rc == MPI_SUCCESS);
-        rc = MPI_Irecv( &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 0, comm_cart, &req[i*4+3] );
-        assert(rc == MPI_SUCCESS);
+        for ( d = 0; d < DUPES; d++ )
+        {
+            rc = MPI_Isend( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 0, comm_cart, &req[4 * (i * DUPES + d) + 2] );
+            assert(rc == MPI_SUCCESS);
+            rc = MPI_Irecv( &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 0, comm_cart, &req[4 * (i * DUPES + d) + 3] );
+            assert(rc == MPI_SUCCESS);
+        }
     }
 
-    rc = MPI_Waitall( 4*NDIMS, &req[0], &stt[0] );
+    rc = MPI_Waitall( 4 * NDIMS * DUPES, &req[0], &stt[0] );
     assert(rc == MPI_SUCCESS);
 
     rc = MPI_Barrier( comm_cart );
     assert(rc == MPI_SUCCESS);
     halo_timer(&t2);
 
-    if( taskid == 0 ) fprintf( stderr, "12 at a time no delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
+    if( taskid == 0 ) fprintf( stderr, "12 at a time no delay for %dx%d doubles: %lld pclks, %18.12lf microseconds\n",
+        DUPES, LENGTH, halo_time_ticks(halo_time_diff(t1, t2)), halo_time_us(halo_time_diff(t1, t2)) );
 
     ///////////// Test ISend - Recv - Wait all 6 with delay //////////////////
     memcpy( trg, src, LB );
@@ -374,26 +405,32 @@ int main( int argc, char *argv[] )
 
     for ( i = 0; i < NDIMS; i++ )
     {
-        rc = MPI_Isend( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, comm_cart, &req[i*4+0] );
-        assert(rc == MPI_SUCCESS);
-        rc = MPI_Irecv( &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, &req[i*4+1] );
-        assert(rc == MPI_SUCCESS);
+        for ( d = 0; d < DUPES; d++ )
+        {
+            rc = MPI_Isend( &sb[i][0][0], LENGTH, MPI_DOUBLE, rank_dst[0][i], 0, comm_cart, &req[4 * (i * DUPES + d)] );
+            assert(rc == MPI_SUCCESS);
+            rc = MPI_Irecv( &rb[i][0][0], LENGTH, MPI_DOUBLE, rank_src[0][i], 0, comm_cart, &req[4 * (i * DUPES + d) + 1] );
+            assert(rc == MPI_SUCCESS);
+        }
 
-        rc = MPI_Isend( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 0, comm_cart, &req[i*4+2] );
-        assert(rc == MPI_SUCCESS);
-        rc = MPI_Irecv( &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 0, comm_cart, &req[i*4+3] );
-        assert(rc == MPI_SUCCESS);
+        for ( d = 0; d < DUPES; d++ )
+        {
+            rc = MPI_Isend( &sb[i][1][0], LENGTH, MPI_DOUBLE, rank_dst[1][i], 0, comm_cart, &req[4 * (i * DUPES + d) + 2] );
+            assert(rc == MPI_SUCCESS);
+            rc = MPI_Irecv( &rb[i][1][0], LENGTH, MPI_DOUBLE, rank_src[1][i], 0, comm_cart, &req[4 * (i * DUPES + d) + 3] );
+            assert(rc == MPI_SUCCESS);
+        }
     }
 
-    rc = MPI_Waitall( 4*NDIMS, &req[0], &stt[0] );
+    rc = MPI_Waitall( 4 * NDIMS* DUPES, &req[0], &stt[0] );
     assert(rc == MPI_SUCCESS);
 
     rc = MPI_Barrier( comm_cart );
     assert(rc == MPI_SUCCESS);
     halo_timer(&t2);
 
-    if( taskid == 0 ) fprintf( stderr, "12 at a time wt delay for %6d doubles: %lld pclks, %18.12lf microseconds\n",
-        LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2)) ) );
+    if( taskid == 0 ) fprintf( stderr, "12 at a time wt delay for %dx%d doubles: %lld pclks, %18.12lf microseconds\n",
+        DUPES, LENGTH, halo_time_ticks(halo_time_diff(tdelay, halo_time_diff(t1, t2))), halo_time_us(halo_time_diff(tdelay, halo_time_diff(t1, t2)) ) );
 
     rc = MPI_Finalize();
     assert(rc == MPI_SUCCESS);
