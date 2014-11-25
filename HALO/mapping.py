@@ -114,6 +114,10 @@ def load_mapping_file(mapping_file, wrap_dims, same_node_dims):
 
   return NetworkMapping(net_dims, exp_ranks, wrap_dims, same_node_dims, rank2net)
 
+def write_mapping(out, rank2coord):
+  for rank, coord in enumerate(rank2coord):
+    out.write(' '.join(map(str, coord)) + "\n")
+
 def dims_from_string(dim_str):
   """
   returns nranks, dimension size list
@@ -281,6 +285,7 @@ def compute_distances(logical, network, neighbour_lists):
     #  print "%d %s neighbours: %s" % (rank, str(cs), str(ns))
 
   return max_neighbour_dist, sum_neighbour_dist, total_neighbours
+
 
 def usage():
   print >> sys.stderr, "Usage: mapping.py <nranks> <mapping file> <dims>\n"
