@@ -81,7 +81,7 @@ def main():
   logical_out.close()
   
   rank2net, _ = mapping.basic_mapping(network_dims, network_size)
-  if maximise:
+  if maximise or True:
     # Start off with a bad (randomised) mapping
     random.shuffle(rank2net)
   
