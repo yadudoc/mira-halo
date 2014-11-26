@@ -1,7 +1,7 @@
 #FF      = mpixlf90
 
 ifeq ($(HALO_SYS),)
-	HALO_SYS := gnu
+	HALO_SYS := bgq
 endif
 
 ifeq ($(HALO_SYS),crayxe6-gnu)
@@ -13,8 +13,10 @@ else ifeq ($(HALO_SYS),crayxe6-cray)
 	CC     = cc
 	LD     = $(CC)
 else ifeq ($(HALO_SYS),bgq)
-	FF     = /bgsys/drivers/ppcfloor/comm/fast/bin/mpixlf77
-	CC     = /bgsys/drivers/ppcfloor/comm/fast/bin/mpixlc
+#FF     = /bgsys/drivers/ppcfloor/comm/fast/bin/mpixlf77
+#CC     = /bgsys/drivers/ppcfloor/comm/fast/bin/mpixlc
+	FF     = /soft/compilers/wrappers/xl/mpixlf77
+	CC     = /soft/compilers/wrappers/xl/mpixlc
 	LD     = $(CC)
 else ifeq ($(HALO_SYS),gnu)
 	FF     = mpif90
@@ -48,7 +50,7 @@ else ifeq ($(HALO_SYS),crayxe6-cray)
         CFLAGS += -DHALO_TIMER_CLOCK_REALTIME -DFTN_UNDERSCORE
 	LIB +=
 else ifeq ($(HALO_SYS),bgq)
-        CFLAGS += -Wall -DHALO_TIMER_BGQ_TIMEBASE -DHALO_BGQ
+        CFLAGS += -DHALO_TIMER_BGQ_TIMEBASE -DHALO_BGQ
 	LIB += -L$(HOME)/lib -ltimebase
 else ifeq ($(HALO_SYS),gnu)
         CFLAGS += -DHALO_TIMER_CLOCK_REALTIME -DFTN_UNDERSCORE
@@ -72,7 +74,7 @@ all: grid
 
 grid: $(OBJS)
 	$(LD) $(LDFLAGS) -o $(TARGET) $(OBJS) $(LIB)
-	
+
 clean:
 	rm -f $(TARGET) $(OBJS)
 
