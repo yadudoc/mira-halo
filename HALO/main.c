@@ -83,7 +83,7 @@ void durand(double *seed, int *npts, double *x);
 #endif
 
 //TODO: Mainloop should be 50
-int MAINLOOP = 10;  // 50 loops of 120ms = 60s 
+int MAINLOOP = 5;  // 50 loops of 120ms = 60s 
 
 int main( int argc, char *argv[] )
 {
@@ -91,10 +91,10 @@ int main( int argc, char *argv[] )
     int taskid, ntasks, i, j;
     int datalength = LENGTH;
     if (argc != 2){
-      fprintf(stderr, "Missing arg for data length");
+      fprintf(stderr, "Missing args for data length");
     }else{
       datalength = atoi(argv[1]);
-      fprintf(stderr, "datalength set to %d", datalength);
+      fprintf(stderr, "datalength args set to %d", datalength);
     }
 
     int mainloopindex = 0;
