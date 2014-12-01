@@ -1,0 +1,28 @@
+N = bytes per message
+M = num messages
+L = logical neighbours per rank = 10
+
+n = nodes
+R = ranks per node = 16
+P = physical neighbours per node = 10
+
+d = average distance
+
+t = time taken
+
+bytes_per_rank = N * M * L
+bytes_per_node = bytes_per_rank * R
+total_bytes_transmitted = bytes_per_node * n * d
+num_links = n * P
+
+bytes_transmitted_per_link = total_bytes_transmitted / num_links
+  = (N * M * L * R * n * d) / (n * P)
+  = (N * M * L * R * d) / P
+
+Since P = L, this simplifies to
+  = N * M * R * d
+
+
+max_bandwidth_per_link = 1.8 GB/s * 2 = 3.6e9 B/s
+used_bandwidth_per_link = bytes_transmitted_per_link / t
+    = N * M * R * d / t
