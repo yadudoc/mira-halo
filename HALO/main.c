@@ -22,7 +22,7 @@
 #define NDIMS 5         // Cartesian mesh dimension
 #define Hz 850.e6      // CPU clock rate, in Hz
 #define DUPES 8        // Number of duplicate messages to send
-#define LENGTH 1024    // message size, in doubles
+//#define LENGTH 1024    // message size, in doubles
 #define L3CACHE 32     // last level cache in MB, used to flash the cache before each test
 
 #define REQSPERDIM 4   // Max number of simultaneous requests per dimension
@@ -83,20 +83,19 @@ void durand(double *seed, int *npts, double *x);
 #endif
 
 //TODO: Mainloop should be 50
-int MAINLOOP = 5;  // 50 loops of 120ms = 60s 
+int MAINLOOP = 50;  // 50 loops of 120ms = 60s 
 
 int main( int argc, char *argv[] )
 {
     int rc, d;
     int taskid, ntasks, i, j;
-    int datalength = LENGTH;
+    int datalength; //= LENGTH;
     if (argc != 2){
       fprintf(stderr, "Missing args for data length");
+      exit(-1);
     }else{
       datalength = atoi(argv[1]);
-      fprintf(stderr, "datalength args set to %d", datalength);
     }
-
     int mainloopindex = 0;
 
     double sb[NDIMS][2][datalength];
@@ -124,6 +123,8 @@ int main( int argc, char *argv[] )
       rb[i][1] = malloc(sizeof(double)*datalength);
     }
     */
+    if ( taskid == 0 ) fprintf(stderr, "datalength args set to %d", datalength);
+    datalength = datalength / DUPES ;
 
     LB = L3CACHE * 1024 * 1024;
     src = (char *)malloc( LB );
@@ -212,7 +213,7 @@ int main( int argc, char *argv[] )
     
     // MAINOUTERLOOP
     for ( mainloopindex = 0 ; mainloopindex < MAINLOOP ; mainloopindex++ ){
-      usleep(150000); // sleep for 150 ms 
+      usleep(150); // sleep for 150 us get results faster
     ///////////// Test Sendrecv without delay //////////////////
     memcpy( trg, src, LB );
 
