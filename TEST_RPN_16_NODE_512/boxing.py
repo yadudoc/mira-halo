@@ -41,24 +41,39 @@ def boxing_mapping(ofile):
     App dimensions are 32x32x8
     Phy dimensions are 4x4x4x4x2x16
     '''
+    target = {}
     for A in range(0, 32, 4):            # INCR 4
         for B in range(0, 32, 2):         # INCR 2
             for C in range(0, 8, 2):        # INCR 2
-                #print origin[A,B,C],  " :  ", A, B, C
-                a = A%16 # E = A/16
-                print a/4, (B/2)%4, int(C/2), int(B/8), int(A/16), ( (a%4 * 4) + ( B%2 * 2) + (C%2) )
-    #pp.pprint(y)
-    #pp.pprint(origin[0,0:4,0:4,0:4,0:2,0:8])
+                #print A/4, B/2, C/2
 
-    '''
+                a = (A/4) % 4
+                b = (B/2) % 4
+                c = C/2
+                d = (B/2) / 4
+                e = 1 if (A/4) > 3 else 0
+
+                #print a, b, c, d, e
+
+                slice = origin[A:A+4, B:B+2, C:C+2]
+                items = np.reshape(slice, (16), order='C')
+                for core,item in enumerate(items):
+                    target[item] = "{0} {1} {2} {3} {4} {5}".format(a,b,c,d,e,core)
+                    #print "target[{0}] = {1}".format(item, target[item])
+                #print origin[A:A+4,B:B+2,C:C+2]
+
+
     for index in range(0,8192):
-        location = np.where(origin==index)
-        fd.write('{0} {1} {2} {3} {4} {5}\n'.format(location[0][0], location[1][0], location[2][0], location[3][0], location[4][0], location[5][0]))
-        print location[0][0], location[1][0], location[2][0], location[3][0], location[4][0], location[5][0]
+        print index, target[index]
+        fd.write('{0}\n'.format(target[index]))
+        #fd.write('{0} {1} {2} {3} {4} {5}\n'.format(location[0][0], location[1][0], location[2][0], location[3][0], location[4][0], location[5][0]))
+        #print location[0][0], location[1][0], location[2][0], location[3][0], location[4][0], location[5][0]
     fd.close
-    '''
 
-boxing_mapping("foo");
+    return
+
+
+boxing_mapping("box.txt");
 
 #regular_mapping("regular_mapping.txt");
 #line_mapping("linear_mapping.txt");
