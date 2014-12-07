@@ -4,6 +4,7 @@
 #ERRFILES=(362529.error 362530.error 362531.error 362532.error 362533.error 362534.error)
 
 DATA=(368013.error  368015.error  368014.error  368016.error  368017.error  368018.error  368019.error  368020.error  373058.error  373055.error  373057.error  373054.error  373059.error)
+DATA=(368013.error  368014.error  368017.error  368019.error  373058.error  373057.error  373059.error 368015.error  368016.error  368018.error  368020.error  373055.error  373054.error  376883.error)
 declare -a strings=("Sendrecv no delay" "Sendrecv wt delay" "Isend-recv no delay" "Isend-recv wt delay" "Isend-Irecv no delay" "Isend-Irecv wt delay" "12 at a time no delay" "12 at a time wt delay")
 
 

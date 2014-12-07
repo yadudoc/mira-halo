@@ -1,6 +1,6 @@
 #!/bin/bash
 #COBALT -n 512
-#COBALT -t 01:59:00
+#COBALT -t 01:00:00
 #COBALT -A ExM
 #COBALT -q prod-short
 

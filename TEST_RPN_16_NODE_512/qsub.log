@@ -22,3 +22,9 @@
    qsub cobalt_script.sh sliced_mappings.txt
 ** Project 'exm'; job rerouted to queue 'prod-short'
 368020
+   qsub cobalt_script.sh best_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+376817
+   qsub cobalt_script.sh best_mapping.txt
+** Project 'exm'; job rerouted to queue 'prod-short'
+376883
