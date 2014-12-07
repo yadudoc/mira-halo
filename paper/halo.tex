@@ -43,6 +43,14 @@ Timothy G. Armstrong\IEEEauthorrefmark{1}}
 
 \begin{abstract}
 Abstract != Introduction.
+
+Many High Performance Computing(HPC) applications involve application domain decompositions that
+involve nearest neighbour communication. Halo exchange is a nearest neighbour exchange pattern.
+In this paper we examine the impact of the different placements of task within the network topology
+and develop models for the network performance of mapping strategies.
+
+% TODO : Using insights from the model we generate mappings that outperform the default mappings.
+
 [TODO]
 \end{abstract}
 
@@ -57,16 +65,31 @@ A common special case is when a multi-dimensional cartesian space is
 decomposed into subdomains of equal size.  For example, in the three-dimensional
 case, a 8x8x8 cube might be decomposed into 256 2x1x1 cubes for execution on 256 processors.
 
+% Objective
 This paper explores the problem of mapping such multi-dimensional cartesian
 halo exchange communications onto parallel computers with hypercube or
-torus networks.
+torus networks. A typical computation job on a leadership class machine would
+utilize several hundreds to thousands of cores, as a result there are a large number of
+possible mappings to the physical hardware that could be chosen. We seek to understand
+what aspects of the mappings have an impact on performance and how to quantify them so
+that the impact these mappings have on performance can modelled. Mapping strategies
+are a very cheap optimisation which requires no code changes to the application
+and as our empirical studies show, these mapping stategies have significantly
+different network performance characteristics. There are no studies to the best
+of our knowledge that attempts to model the impact of mapping performance on
+HPC systems.
 
-% Objective
+% What does this paper contribute:
+1. An analytical model that describes the perfomance on Halo exchange with different mappings
+2. A nearly worst and optimal mapping.
+The rest of the paper is organised as follows :
 
-
-% Justification
-% Background
 % Guidance
+The rest of the paper is organised as follows: Section 2, provides background information on
+the HPC system topologies and BlueGene/Q in particular. Section 3, describes mapping strategies.
+Section 4, develops the analytical model and Section 5, details the experiment design for empirical
+validation of the model.
+
 % Summary conclusions
 
 \section{High-Performance Computer Networks}
@@ -156,6 +179,15 @@ Since we have a complex set of operations on several hundreds of nodes, there is
 We use MPI barriers to synchronise all tasks before and after measurements
 
 \section{Experimental Design}
+
+\label{sect:3D Halo plot}
+\begin{figure}
+  \center
+  \includegraphics[width=0.6\textwidth]{3D_512_all_mappings.png}
+  \caption{3D halo exchange on 512 nodes with 16 RPN}
+    \label{fig:3D halo exchange on 512 nodes with 16 RPN}
+\end{figure}
+
 
 \section{Results}
 
