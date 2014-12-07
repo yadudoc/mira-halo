@@ -3,17 +3,11 @@
 declare -a strings=("Sendrecv no delay" "Sendrecv wt delay" "Isend-recv no delay" "Isend-recv wt delay" "Isend-Irecv no delay" "Isend-Irecv wt delay" "12 at a time no delay" "12 at a time wt delay")
 
 DATA=(368005.error  368007.error  368006.error  368008.error  368009.error  368010.error  368011.error  368012.error  370055.error  370054.error)
-
+DATA=(376884.error)
 for d in ${DATA[*]}
 do
     grep "for" $d > $d.data
-done
-
-#ERRFILES=(368005.error.data) # 368006.error.data  368007.error.data  368008.error.data  368009.error.data  368010.error.data  368011.error.data  368012.error.data)
-#ERRFILES=(368005.error.data  368006.error.data  368007.error.data  368008.error.data  368009.error.data  368010.error.data  368011.error.data  368012.error.data)
-ERRFILES=($(echo *error.data))
-for errfile in ${ERRFILES[*]}
-do
+    errfile="$d.data"
     mapping="$(cat ${errfile%.error.data}.cobaltlog | grep "qsub" | awk '{print $NF}')"
     CSV=${mapping%.txt}.csv
     avgdist=$(./measure_mapping.py 8192 $mapping 8,8,8,8,2 | grep "Average" | awk '{print $NF}')
