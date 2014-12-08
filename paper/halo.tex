@@ -333,7 +333,7 @@ for i = 1 to niters do
   nswaps := calc_swaps(temp, nranks)
   new_mapping := random_swap(mapping, nswaps)
   new_dist := avg_dist(new_mapping)
-  if new_dist > dist or 
+  if new_dist > dist or
      accept(dist, new_dist, temp) then
     mapping := new_mapping
     dist := new_dist
@@ -423,49 +423,77 @@ Sample from the mapping for 5D application of dimensions 8x8x8x8x2 to network of
 \subsection{Metrics for measuring a mapping}
 
 In the earlier sections we have introduced several different mapping strategies, each with different characteristics which could
-impact the network performance. To qualify a mapping and its effect on network performance it is important to be able to quantify
-these mappings. The most promising metric is average distance between neighbors \textbf{N\textsubscript{steps}}, because it is directly correlated to the
-amount of network traffic - the number of times a network packet must traverse
-a torus network link.
-We assume that the distance the distance between two ranks is 0 if they are on the same node, for every other case we calculate
-the shortest distance between the nodes.
+impact the network performance. To relate the impact of a mapping on network performance it is important to device a metric that
+captures the aspects of a mapping that could affect the network. Mappings determine the amount of intranode communication versus
+the communication that must go over the network, and over what links these communication occurs.
 
-Let the torus network be of \textbf{D} dimensions, and let \textbf{N\textsubscript{nodes}} be the number of nodes in the partition, then
-the total number links available for halo exchange is :
+While a direct path with the manhattan distance between neighbors would be chosen when message sizes are small and deterministic routing
+protocol are in place, more interesting network effect become apparent only when message sizes increase. Once message sizes exceed 4Kb
+rendezvous protocol is used by the network which involves complex routing logic to avoid hotspots, and increase network utilization for
+a penalty in latency. Since it is difficult to model these dynamic systems, we will assume that the rendezvous protocol will balance
+the network load evenly such that the messages flowing over every link is similar.
+
+
+The average distance between neighbors can easily be calculated by taking the average of the manhattan distance of all pairs of neighbors.
+We assume that the distance between two ranks on the same node is 0, since intranode messaging does not contribute to network traffic.
+This average distance \textbf{N\textsubscript{steps}}, can now be treated as a proxy for average network traffic flowing over any particular 
+
+
+
+Let the torus network be of \textbf{D} dimensions, and let \textbf{N\textsubscript{ranks}} be the number of ranks in the partition.
+The total logical neighbors involved in halo exchange is :
 \begin{equation}
-  Links = N_{nodes} * 2 * D
+  T_{neighbors} = N_{ranks} * 2 * D
 \end{equation}
 
 Consider every pair of neighbor nodes (u,v), the manhattan distance between nodes u,v is calculated by the distance function \textbf{dist\textsubscript{(u,v)}}.
 The average number of messages flowing through any link is given by:
 
 \begin{equation}
-  N_{steps} = \frac{ \sum\limits_{u,v} dist_{u,v} } {Links}
+  N_{steps} = \frac{ \sum\limits_{u,v} dist_{u,v} } {T_neighbors}
 \end{equation}
 
 The average distance for the various mappings for the 3D and 5D case are provided in table
 
 
 \begin{table}
-  \caption{Average distance for mappings}
+  \caption{Average distance for mappings from 8x8x8x8x2 domain to 4x4x4x4x2x16 topology}
   {\footnotesize
     \begin{tabular}{| l | l | p{1.5cm} |}
     \hline
-    Protocol   &  Max Msg Size  & Routing\\ \hline
-
+    Mapping         & Avg. Distance & Max Dist\\ \hline
+    regular         & 1.050000 & 3.000000\\ \hline
+    linear          & 1.450000 & 3.000000\\ \hline
+    reversed        & 1.450000 & 3.000000\\ \hline
+    random          & 4.504980 & 9.000000\\ \hline
+    skewed regular  & 1.100000 & 3.000000\\ \hline
+    skewed reversed & 1.450000 & 3.000000\\ \hline
+    optimal         & 0.600000 & 1.000000\\ \hline
+    de-optimised    & --       & --      \\ \hline
     \hline
     \end{tabular}
-
-
-%    \begin{tabular}{ l | l | p{1.5cm} |}
-%    \hline
-%    Mapping    &  Avg. Distance & Max. Distance\\ \hline
-%
-%    \end{tabular}
-
   }
 \end{table}
 
+
+\begin{table}
+  \caption{Average distance for mappings from 32x32x8 domain to 4x4x4x4x2x16 topology}
+  {\footnotesize
+    \begin{tabular}{| l | l | p{1.5cm} |}
+    \hline
+    Mapping         & Avg. Distance & Max Dist\\ \hline
+    regular         & 1.145833 & 4.000000\\ \hline
+    linear          & 1.625000 & 4.000000\\ \hline
+    reversed        & 1.625000 & 4.000000\\ \hline
+    random          & 4.499023 & 9.000000\\ \hline
+    skewed regular  & 0.979167 & 4.000000\\ \hline
+    skewed reversed & 1.645833 & 4.000000\\ \hline
+    optimal         & 0.479167 & 2.000000\\ \hline
+    de-optimised    & 6.530436 & 9.000000\\ \hline
+    \hline
+    \end{tabular}
+  }
+\end{table}
 
 
 
@@ -497,17 +525,16 @@ use a model that assumes that traffic is distributed fairly evenly
 throughout the network and that communication throughput is limited
 by the aggregate capacity of the network's links. 
 
-We arrived at our model for $t_b$ based on two assumptions.
+We arrived at our model for \textbf{t\textsubscript{b}} based on two assumptions.
 We first assume that the limiting factor on transfer throughput will be
 the most trafficked link on the network - the one that the most bytes
 must transit during the halo exchange.  Finding the most trafficked
 link and determining the number of bytes transferred is not feasible for our
 simple model, because it would require simulating network load and
-the Blue Gene/Q adaptive routing algorithms.  However, if we make a
-second assumption that traffic is distributed fairly evenly
-across the network because of the halo exchange pattern and adaptive routing,
-the maximum number of bytes transiting a link will be closely
-correlated with the average number of bytes transiting a link.
+the Blue Gene/Q adaptive routing algorithms. We make a second assumption
+that traffic is distributed fairly evenly across the network because of
+the halo exchange pattern and adaptive routing, the maximum number of bytes
+transiting a link will be closely correlated with the average number of bytes transiting a link.
 
 On an HPC system such as BlueGene/Q or Cray XE6, each node has multiple duplex links to it's neighbors.
 If the application on every node attempts to exchange messages with every neighbor, we can assume that
@@ -523,17 +550,21 @@ minimize N\textsubscript{steps} below one. There are constant costs involved in 
 and t\textsubscript{c} is an experimentally calibrated constant that is a catch-all for the various constant costs
 of network communication using MPI. N is the message size in bytes that are exchanged between neighbors.
 
+The network load balancing provided by the rendezvous protocol comes with an added cost, which has to be
+accounted for from experimental data. The memory reads, cache misses that occur as the message buffers exceed
+the sizes of the caches etc are not accounted for. We will use an experimentally calibrated constant \textbf{$\alpha$}
+which will represent the additional costs of messaging that has not been taken into account in the model.
+
 A simple analytical model determines the time to completion, T of a complete halo exchange operation,
 from the variables defined above as follows:
-
 \begin{equation}
-  T = t_c + (N_{steps} * N_{procs} * N * t_b)
+  T = t_c + (N_{steps} * N_{procs} * N * t_b * \alpha)
 \end{equation}
 
-Since we have a complex set of operations on several hundreds of nodes, there is a cost for synchonisation.
-We use MPI barriers to synchronise all tasks before and after measurements
 
 \section{Experimental Design}
+
+
 
 \label{sect:3D Halo plot}
 \begin{figure}
