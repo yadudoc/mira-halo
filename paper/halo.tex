@@ -208,7 +208,7 @@ network where this mapping would retain nearness between all neighbors. However 
 in the application domain and network or the dimensionality do not match, this mapping scheme will not perform as well.
 
 Sample from the mapping file :
-\begin{lstlisting}
+\begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 0 0 0 0 0 0
     ...
 0 0 0 0 0 15
@@ -226,7 +226,7 @@ As a result the neighboring ranks in the application domain along a dimension ar
 one hop away.
 
 Sample from the mapping file :
-\begin{lstlisting}
+\begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 0 0 0 0 0 0
 1 0 0 0 0 0
 2 0 0 0 0 0
@@ -252,7 +252,7 @@ A,B,C,D,E,T or along the reverse order. The regular ordering places the neighbor
 ordering places each rank on different nodes in the skewed ordering.
 
 Sample from the mapping for regular ordering:
-\begin{lstlisting}
+\begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 0 0 0 0 0 0
   ...
 0 0 0 0 0 15
@@ -265,7 +265,7 @@ Sample from the mapping for regular ordering:
 \end{lstlisting}
 
 Sample from the mapping for reversed ordering:
-\begin{lstlisting}
+\begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 0 0 0 0 0 0
 2 0 0 0 0 0
 1 0 0 0 0 0
@@ -294,7 +294,6 @@ dimensions 4x4x4x4x2 with 16 ranks per node have an average distance of 4.0035 \
 The diameter of network is the sum of the halves of the length of each dimension : 9.
 
 
-
 \subsection{Deoptimized Mappings from Simulated Annealing}
 In order to cover an even wider range of mappings, we tried to
 devise mappings that were worse than the random mapping.
@@ -309,7 +308,8 @@ We selected to use simulated annealing~\cite{Press2007} because of the
 simplicity and effectiveness of this family of heuristics.
 Pseudocode for the simulated annealing algorithm used follows:
 
-\begin{lstlisting}[basicstyle=\ttfamily,columns=fixed]
+% Minor style change
+\begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 mapping := random_mapping()
 dist := average_distance(mapping)
 for i = 1 to n do
@@ -347,7 +347,7 @@ is accepted.
 
 Using this approach for upwards of 1 million iterations,
 we were able to produce mappings that had average distance substantially
-higher than the randomized mapping. 
+higher than the randomized mapping.
 \timnote{fill in numbers}
 
 \timnote{I will write this up}
