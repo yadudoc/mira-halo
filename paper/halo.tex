@@ -236,6 +236,26 @@ with the goal of maximizing average distance.
 
 \section{Models for Network Communication}
 
+There are a wide range of possible models that could be used to
+estimate network communication performance for a complex network
+such as those on BlueGene/Q or Cray XE6.  These models range from
+full-fidelity simulations that directly simulate packet routing, to
+simplified models that estimate performance based on simplifying
+assumptions.  These simplified models are often very useful for
+understanding and prediction, but typically have a limited domain
+of applicability.  For example, network models that ignore congestion
+can be suitable for modeling single point-to-point transfers, but are
+unsuitable for modeling many simultaneous transfers over a shared network.
+
+For halo exchange, we can simplify the model by exploiting the
+symmetry of the communication pattern, in which each MPI rank sends
+and receives the same amount of data simplifies the model.  However,
+network congestion effects are significant because many data transfers
+take place concurrently.  For this reason, we use a model that assumes
+that traffic is distributed fairly evenly throughout the network and
+that communication throughput is limited by the aggregate capacity
+of the network.
+
 On an HPC system such as BlueGene/Q or Cray XE6, each node has multiple duplex links to it's neighbors.
 If the application on every node attempts to exchange messages with every neighbor, we can assume that
 every link on the network will see similar traffic. Thus we, consider a single link and it's bandwidth
