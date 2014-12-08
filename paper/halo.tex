@@ -24,7 +24,7 @@
 \title{Mapping HALO Exchange onto Toruses and Stuff}
 
 \author{\IEEEauthorblockN{
-Yadu Nand\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}\IEEEauthorrefmark{3},
+Yadu N. Babuji\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}\IEEEauthorrefmark{3},
 Timothy G. Armstrong\IEEEauthorrefmark{1}}
   \IEEEauthorblockA{
   \IEEEauthorrefmark{1}Dept. of Computer Science,
@@ -42,14 +42,18 @@ Timothy G. Armstrong\IEEEauthorrefmark{1}}
 
 
 \begin{abstract}
-Abstract != Introduction.
+% Motivation
+Many High Performance Computing (HPC) applications involve application domain decompositions that involve nearest neighbour communication.
+Halo exchange is a common nearest neighbor communication pattern used for solving PDE's and thus applying to a wide range of HPC applications.
+% Problem statement % Approach
+Empirical results show that different task placement strategies in Halo exchange codes can have as much as 7.5x performance difference.
+We develop an analytical model to understand the impact of task placements withing a network topology on performance and guide selection of
+optimal mappings.
+% Results
+Analytic model comes with x percentage of empirical results with a max error of E.
+Identified optimal and pessimal mappings.
+% Conclusions
 
-Many High Performance Computing(HPC) applications involve application domain decompositions that
-involve nearest neighbour communication. Halo exchange is a nearest neighbour exchange pattern.
-In this paper we examine the impact of the different placements of task within the network topology
-and develop models for the network performance of mapping strategies.
-
-% TODO : Using insights from the model we generate mappings that outperform the default mappings.
 
 [TODO]
 \end{abstract}
@@ -80,10 +84,11 @@ of our knowledge that attempts to model the impact of mapping performance on
 HPC systems.
 
 % What does this paper contribute:
-1. An analytical model that describes the perfomance on Halo exchange with different mappings
-2. A nearly worst and optimal mapping.
-The rest of the paper is organised as follows :
+TODO\\
+1. An analytical model that describes the perfomance on Halo exchange with different mappings\\
+2. A nearly worst and optimal mapping.\\
 
+The rest of the paper is organised as follows :
 % Guidance
 The rest of the paper is organised as follows: Section 2, provides background information on
 the HPC system topologies and BlueGene/Q in particular. Section 3, describes mapping strategies.
@@ -106,51 +111,87 @@ dimensions supprted.
 % Routing protocols on the BG/Q
 % Direct routing
 % Adaptive routing
+\subsection{Blue Gene/Q 5D torus network}
 
-We are using Message Passing Interface (MPI) to implement the messaging and synchronization aspects of the HALO exchange code,
-and hence the performance observed from running the application would be influenced by the behavior of MPI due to it's
-various protocols on the BlueGene/Q. There are four protocols supported by the MPI implementation used BlueGene/Q.
-The protocol utilized by MPI is determined by the size of the message that is being sent. The data sizes at which the switch to
-different protocol occurs is configurable, but for our experiments we are using the defaults on BlueGene/Q. 
+The BlueGene/Q is a 3rd generation massively parallel supercomputer from IBM. The BlueGene/Q implements a 5 dimensional torus with upto 16K nodes.
+To support the 5 dimensional torus each compute node has 10 bi-directional duplex links. There is a separate 11th link for IO. Each of the 10 links
+operate at a bandwidth of 2GB/s \cite{BGQ_RedBook_2013}. After accounting for 10\% overhead in message headers 1.8GB/s is available for raw data per link in one-direction.
+The 5D torus network provides high nearest neighbor bandwidth as well bisection bandwidth while decreasing the maximum number of hops to reach
+the furthest nodes. The dimensions on the network are labelled as A,B,C,D,E and the cores on the node using T. The E dimension is limited to a length
+of 2, while A,B,C,D dimensions can be multiples of 4 to remain torus. The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}
+while the worst point-to-point network latency is expected to be under 3$\mu$s. 
 
-\begin{center}
+% The BGQ routing protocols
+The BlueGene/Q implements two routing protocols for point-to-point communication.
+Deterministic routing is designed for small messages, where packets sent between two nodes take the same direct path.
+This routing method is prone to creating hotspots when traffic between several nodes cross on some node.
+Adaptive routing determines the route for packets at the runtime taking current network loads into consideration.
+This routing mechanism balances the network load for a penalty in latency.
+
+
+\subsection{Message Passing Interface(MPI)}
+The Message Passing Interface (MPI) is a standard for message-passing in HPC applications.
+We use MPI to implement the messaging and synchronization aspects of the HALO exchange code,
+and hence the performance observed from running the application would be influenced by the behavior of MPI due to it's various protocols on the BlueGene/Q.
+There are four protocols supported by the MPI implementation used BlueGene/Q.
+The protocol utilized by MPI is determined by the size of the message that is being sent.
+The data sizes at which the switch to different protocol occurs is configurable, but for our experiments we use the defaults on BlueGene/Q.
+
+% Add note on : Intranode latency implemented as in-memory copy
+% Large message copies as RDMA copy.
+MPICH2 Nemesis.
+
+\begin{table}
+  \caption{MPI Protocol default thresholds}
     \begin{tabular}{ | l | l | l | p{2cm} |}
     \hline
-    Protocol   & Min Data Limit & Max Data Limit & Routing \\ \hline
-    Immediate  &              0 &            112 & Direct\\ \hline
-    Short      &            113 &            496 & Direct\\ \hline
-    Eager      &            497 &           2048 & Direct\\ \hline
-    Rendezvous &           2048 &      unlimited & Adaptive\\ \hline
+    Protocol   & Min Data Limit & Max Data Limit & Routing\\ \hline
+    Immediate  &             0B &           112B & Direct\\ \hline
+    Short      &           113B &           496B & Direct\\ \hline
+    Eager      &           497B &          4096B & Direct\\ \hline
+    Rendezvous &          4096B &      unlimited & Adaptive\\ \hline
     \hline
     \end{tabular}
-\end{center}
+\end{table}
 
-We're going to cite Swift/T~\cite{SwiftT_2013} and include an illustration
-(see Figure~\ref{fig:task-data}).
+\section{Mapping Strategies}
 
-\label{sect:ddt-model}
-\begin{figure}
-  \center
-  \includegraphics[width=0.325\textwidth]{fig/task-data}
-  \caption{This is a figure.
-    \label{fig:task-data}}
-\end{figure}
+Different classes of HPC systems provide different mechanisms and varying levels of control on task placement.
+The MPI framework gives finegrained control of placement of tasks via a mapping file when such functionality
+is supported by the hardware. On BlueGene/Q systems from IBM, the mapping files allow you to determine where
+each MPI rank is placed within a machine partition. On Cray XE6 machines, which do not have the notion of
+isolated machine partitions, the mapping functionalities only give the flexibility of choosing the node on
+which a set of ranks will execute on, but not the physical proximity of the nodes with relation to each other.
+The Cray XE6 does not guarantee isolation of the network from the traffic generated by other users and it
+also cannot guarantee that the location of nodes with relation to the rest of the nodes would remain constant
+across multiple runs. As a result BlueGene/Q systems can offer far greater control on task placements, and
+better guarantees on reproducible results.
+
+With the focus on BlueGene/Q systems here's a broad outline of different mapping strategies we have examined:
+
+\subsection{Regular/Default Mapping}
+The default mapping involves ranks being assigned in increasing order along the dimensions T, E, D, C, B, A.
+Assuming that we assign 16 ranks with one rank per core, the first 16 ranks from the application domain will
+be on the node with address (0 0 0 0 0) and so on. Since the ranks in the application domain are assigned in
+some increasing order, nodes along a particular dimension will be grouped on each node. This mapping works
+very well when the dimensionality of the application domain and that of the partition match. For eg, if the
+application domain were 4x4x4x4x2 and we were running one rank per node, there is a one to one mapping to the
+network where this mapping would retain nearness between all neighbors. However when the length of dimensions
+in the application domain and network or the dimensionality do not match, this mapping scheme might not be
+optimal.
+
+\subsection{Linear Mapping}
+Linear mapping refers to placing ranks along nodes in the increasing order of dimensions A, B, C, D, E, T.
+As a result the neighboring ranks in the application domain along a dimension are places on nodes atleast
+one hop away.
+
+\subsection{Skewed Mapping}
+
+\subsection{Random Mapping}
+\subsection{Mappings from Simulated Annealing}
+\subsection{Mappings from }
 
 
-\label{sect:Analytic-model}
-\begin{figure}
-  \center
-  \includegraphics[width=0.325\textwidth]{fig/Analytic_regular_no_congestion_170_304_304.png}
-  \caption{This is a figure.
-    \label{fig:Analytic_regular_no_congestion_170_304_304.png}}
-\end{figure}
-
-\section{High-Performance Computer Networks}
-
-\subsection{Blue Gene/Q 5D torus}
-RedBook~\cite{BGQ_RedBook_2013}
-
-\subsection{Cray Gemini 3D torus}
 
 \section{Models for Network Communication}
 

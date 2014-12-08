@@ -1,16 +1,14 @@
 \begin{thebibliography}{1}
 
+\bibitem{BGQ_Interconnect_2012}
+N.~E. Dong~Chen.
+\newblock {\em The IBM Blue Gene/Q Interconnection Fabric}.
+\newblock IEEE Computer Society, 2012.
+
 \bibitem{BGQ_RedBook_2013}
 M.~Gilge.
 \newblock {\em IBM System Blue Gene Solution Blue Gene/Q Application
   Development, Second Edition}.
 \newblock IBM Redbooks, 2013.
-
-\bibitem{SwiftT_2013}
-J.~M. Wozniak, T.~G. Armstrong, M.~Wilde, D.~S. Katz, E.~Lusk, and I.~T.
-  Foster.
-\newblock {Swift/T}: Large-scale application composition via distributed-memory
-  data flow processing.
-\newblock In {\em Proc. CCGrid '13}.
 
 \end{thebibliography}

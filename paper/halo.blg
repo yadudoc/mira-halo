@@ -3,46 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: halo.aux
 The style file: abbrv.bst
 Database file #1: halo.bib
-Warning--empty year in SwiftT_2013
 You've used 2 entries,
             2118 wiz_defined-function locations,
-            507 strings with 4078 characters,
-and the built_in function-call counts, 632 in all, are:
-= -- 49
-> -- 40
+            508 strings with 3971 characters,
+and the built_in function-call counts, 452 in all, are:
+= -- 38
+> -- 14
 < -- 0
-+ -- 16
-- -- 14
-* -- 42
-:= -- 115
++ -- 7
+- -- 4
+* -- 18
+:= -- 85
 add.period$ -- 6
 call.type$ -- 2
-change.case$ -- 12
+change.case$ -- 6
 chr.to.int$ -- 0
-cite$ -- 3
-duplicate$ -- 26
-empty$ -- 51
-format.name$ -- 14
-if$ -- 125
+cite$ -- 2
+duplicate$ -- 24
+empty$ -- 45
+format.name$ -- 4
+if$ -- 93
 int.to.chr$ -- 0
 int.to.str$ -- 2
-missing$ -- 3
+missing$ -- 4
 newline$ -- 13
 num.names$ -- 4
-pop$ -- 23
+pop$ -- 16
 preamble$ -- 1
-purify$ -- 11
+purify$ -- 6
 quote$ -- 0
 skip$ -- 12
 stack$ -- 0
-substring$ -- 10
-swap$ -- 3
+substring$ -- 11
+swap$ -- 2
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 6
-warning$ -- 1
+type$ -- 4
+warning$ -- 0
 while$ -- 4
 width$ -- 3
-write$ -- 21
-(There was 1 warning)
+write$ -- 22

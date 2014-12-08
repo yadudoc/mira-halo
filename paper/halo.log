@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.4.28)  7 DEC 2014 09:42
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.4.28)  7 DEC 2014 19:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -413,45 +413,28 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 41.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (32.8037pt too wide) in paragraph at lines 117--126
- [] 
+Underfull \hbox (badness 10000) in paragraph at lines 87--90
+
  []
 
-<fig/task-data.pdf, id=1, 355.3275pt x 237.88875pt>
-File: fig/task-data.pdf Graphic file (type pdf)
- <use fig/task-data.pdf>
-Package pdftex.def Info: fig/task-data.pdf used on input line 134.
-(pdftex.def)             Requested size: 167.69843pt x 112.27597pt.
-
-<fig/Analytic_regular_no_congestion_170_304_304.png, id=2, 1734.48pt x 922.8879
-pt>
-File: fig/Analytic_regular_no_congestion_170_304_304.png Graphic file (type png
-)
- <use fig/Analytic_regular_no_congestion_170_304_304.png>
-Package pdftex.def Info: fig/Analytic_regular_no_congestion_170_304_304.png use
-d on input line 143.
-(pdftex.def)             Requested size: 167.69843pt x 89.22429pt.
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 Non-PDF special ignored!
 
 ]
-<3D_512_all_mappings.png, id=14, 1734.48pt x 922.8879pt>
+<3D_512_all_mappings.png, id=12, 1734.48pt x 922.8879pt>
 File: 3D_512_all_mappings.png Graphic file (type png)
 
 <use 3D_512_all_mappings.png>
-Package pdftex.def Info: 3D_512_all_mappings.png used on input line 186.
+Package pdftex.def Info: 3D_512_all_mappings.png used on input line 227.
 (pdftex.def)             Requested size: 309.60315pt x 164.7326pt.
 
-Overfull \hbox (57.60315pt too wide) in paragraph at lines 186--187
+Overfull \hbox (57.60315pt too wide) in paragraph at lines 227--228
  [] 
  []
 
-(./halo.bbl
-Underfull \vbox (badness 5607) has occurred while \output is active []
-
-)
+(./halo.bbl [2])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -463,13 +446,14 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[2 <./fig/task-data.pdf> <./fig/Analytic_regular_no_congestion_170_304_304.png>
+[3
+
  <./3D_512_all_mappings.png>] (./halo.aux) ) 
 Here is how much of TeX's memory you used:
- 4952 strings out of 495028
- 74579 string characters out of 6181497
- 139443 words of memory out of 5000000
- 8072 multiletter control sequences out of 15000+600000
+ 4939 strings out of 495028
+ 74139 string characters out of 6181497
+ 138409 words of memory out of 5000000
+ 8062 multiletter control sequences out of 15000+600000
  115231 words of font info for 137 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  38i,15n,43p,246b,367s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -483,10 +467,10 @@ re/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/
 utmri8a.pfb>
-Output written on halo.pdf (2 pages, 353335 bytes).
+Output written on halo.pdf (3 pages, 280143 bytes).
 PDF statistics:
- 66 PDF objects out of 1000 (max. 8388607)
- 43 compressed objects within 1 object stream
+ 54 PDF objects out of 1000 (max. 8388607)
+ 37 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
