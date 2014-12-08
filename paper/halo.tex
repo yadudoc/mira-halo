@@ -320,12 +320,12 @@ of the search space, where large perturbations are made and negative
 moves are sometimes accepted to allow the algorithm to escape local
 minima of the function being optimized.  Over time, the algorithm
 transitions to fine-tuning, with smaller perturbations made and negative moves
-accepted less frequently.
+accepted less frequently.  Pseudocode for the algorithm is shown in
+Figure~\ref{fig:anneal_pseudocode}.
 
-Pseudocode for the algorithm is as follows:
-
-% Minor style change
-\begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
+\begin{figure}
+  {\footnotesize
+  \begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 mapping := random_mapping(app_topo, net_topo)
 dist := average_distance(mapping)
 for i = 1 to niters do
@@ -339,8 +339,12 @@ for i = 1 to niters do
     dist := new_dist
   end
 end
-\end{lstlisting}
-
+  \end{lstlisting}
+  }
+  \caption{Pseudocode halo exchange algorithm with concurrent sends and
+           receives to all neighbours.}
+    \label{fig:anneal_pseudocode}
+\end{figure}
 
 The algorithm has several inputs and has several subprocedures,
 which we will describe informally.
@@ -613,16 +617,16 @@ the time to completion will be higher when duplicate messages are sent as there 
 If the caches were indeed affecting the network performance, at higher data sizes, the Halo runs with duplicates should outperform
 a run without duplicates.
 
-The results show that at higher data sizes, the time to completion is unaffected by the using duplicate messages of smaller size to avoid caching effects.
-The plots of these two cases are shown in fig \ref{fig:caching_figure_vs_without}. From this we conclude that caching effects are negligible and can be ignored.
-
-\label{sect:caching_figure}
 \begin{figure}
   \center
   \includegraphics[width=0.5\textwidth]{regular_vs_cache_duplicates.png}
   \caption{Regular mapping with 8 duplicates and without}
     \label{fig:caching_figure_vs_without}
 \end{figure}
+
+The results show that at higher data sizes, the time to completion is unaffected by the using duplicate messages of smaller size to avoid caching effects.
+The plots of these two cases are shown in fig \ref{fig:caching_figure_vs_without}. From this we conclude that caching effects are negligible and can be ignored.
+
 
 
 The analytical model described in Section \ref{model}, is informed by the nature of the target system
@@ -631,8 +635,6 @@ results from
 % What machine do we run on
 %
 
-
-\label{sect:5D Halo plot}
 \begin{figure}
   \center
   \includegraphics[width=0.51\textwidth]{5D_512_most_mappings_2.png}
@@ -641,7 +643,6 @@ results from
 \end{figure}
 
 
-\label{sect:3D Halo plot}
 \begin{figure}
   \center
   \includegraphics[width=0.51\textwidth]{3D_512_all_mappings.png}
