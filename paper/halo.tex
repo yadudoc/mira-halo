@@ -299,12 +299,56 @@ The diameter of network is the sum of the halves of the length of each dimension
 In order to cover an even wider range of mappings, we tried to
 devise mappings that were worse than the random mapping.
 We observe that it is impossible for a mapping to have
-average distance of $>8$, because the maximum possible distance
-in a 5D torus partition of 4x4x4x4x2 is 8.  \timnote{E dimension?}.
+average distance of $>9$, because the maximum possible distance
+in a 5D torus partition of 4x4x4x4x2 is 9.
 
 In order to devise mappings we high average distance, we resorted
-to using a simulated annealing algorithm to optimize mappings
-with the goal of maximizing average distance.
+to a heuristic optimization algorithm that began with a random mapping
+and iteratively perturbed it with the goal of maximizing average distance.  
+We selected to use simulated annealing~\cite{Press2007} because of the
+simplicity and effectiveness of this family of heuristics.
+Pseudocode for the simulated annealing algorithm used follows:
+
+\begin{lstlisting}[basicstyle=\ttfamily,columns=fixed]
+mapping := random_mapping()
+dist := average_distance(mapping)
+for i = 1 to n do
+  temp := calc_temp(i, n)
+  nswaps := calc_swaps(temp, nranks)
+  new_mapping := random_swap(mapping, nswaps)
+  new_dist := average_distance(new_mapping)
+  if new_dist > dist or 
+     accept(dist, new_dist, temp) then
+    mapping := new_mapping
+    dist := new_dist
+  end
+end
+\end{lstlisting}
+
+\texttt{average\_distance} computes the average distance between
+neighbours for the mapping.  \texttt{random\_swap} randomly
+selects \texttt{nswaps} pairs of ranks and swaps them.
+
+The \texttt{calc\_temp} function returns a temperature that
+decreases from 1 to 0 during the course of the annealing process.
+The basic trajectory followed is cubic decrease: $(1 - i/n)^3$.
+Additional cycles of raising and lowering the temperature are also
+applied to diverge from this basic trajectory.
+
+The \texttt{calc\_swaps} function swaps up to 2\% of ranks, swapping more at higher
+temperatures:
+$$calc\_swaps(temp, nranks) = max(1, \lfloor 0.02 * temp * nranks \rfloor)$$
+
+\texttt{accept} decides whether to accept a mapping that has lower
+average distance, which can the algorithm escape a local maximum.
+This is randomized based on a random value $p$ between 0 and 1.
+If $temp * (0.5 - (1.0 - new\_dist/dist) * 25) > p$, the new mapping
+is accepted.
+
+Using this approach for upwards of 1 million iterations,
+we were able to produce mappings that had average distance substantially
+higher than the randomized mapping. 
+\timnote{fill in numbers}
 
 \timnote{I will write this up}
 \begin{itemize}
@@ -313,6 +357,7 @@ with the goal of maximizing average distance.
   \item Randomly swap
   \item Include algorithm listing?
 \end{itemize}
+
 
 \subsection{Topology aware box partitioned Mapping}
 
@@ -394,7 +439,7 @@ unsuitable for modeling many simultaneous transfers over a shared network.
 
 For halo exchange, we can simplify the model by exploiting the
 symmetry of the communication pattern, in which each MPI rank sends
-and receives the same amount of data simplifies the model.  However,
+and receives the same amount of data.  However,
 network congestion effects are significant because many data transfers
 take place concurrently.  For this reason, we use a model that assumes
 that traffic is distributed fairly evenly throughout the network and
