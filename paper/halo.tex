@@ -416,12 +416,38 @@ the total number links available for halo exchange is :
   Links = N_{nodes} * 2 * D
 \end{equation}
 
-Consider every pair of neighbor nodes (u,v), the distance between nodes u,v is given by the distance function \textbf{dist\textsubscript{(u,v)}}.
+Consider every pair of neighbor nodes (u,v), the manhattan distance between nodes u,v is calculated by the distance function \textbf{dist\textsubscript{(u,v)}}.
 The average number of messages flowing through any link is given by:
 
 \begin{equation}
   N_{steps} = \frac{ \sum\limits_{u,v} dist_{u,v} } {Links}
 \end{equation}
+
+The average distance for the various mappings for the 3D and 5D case are provided in table
+
+
+\begin{table}
+  \caption{Average distance for mappings}
+  {\footnotesize
+    \begin{tabular}{| l | l | p{1.5cm} |}
+    \hline
+    Protocol   &  Max Msg Size  & Routing\\ \hline
+
+    \hline
+    \end{tabular}
+
+
+%    \begin{tabular}{ l | l | p{1.5cm} |}
+%    \hline
+%    Mapping    &  Avg. Distance & Max. Distance\\ \hline
+%
+%    \end{tabular}
+
+  }
+\end{table}
+
+
+
 
 
 \section{Models for Network Communication}
