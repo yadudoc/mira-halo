@@ -13,6 +13,7 @@
 \usepackage{subcaption}
 \usepackage{xspace}
 \usepackage{url}
+\usepackage{listings}
 
 \begin{document}
 
@@ -32,6 +33,7 @@
 \definecolor{darkgreen2}{rgb}{0,0.35,0}
 \definecolor{darkgreen}{rgb}{0,0.5,0}
 \newcommand{\timnote}[1]{ {\textcolor{maroon} { Tim: #1 }}}
+\newcommand{\todo}[1]{ {\textcolor{red} { TODO: #1 }}}
 
 
 \title{Mapping HALO Exchange onto Toruses and Stuff}
@@ -69,8 +71,8 @@ Analytic model comes with x percentage of empirical results with a max error of 
 Identified optimal and pessimal mappings.
 % Conclusions
 
+\todo{Complete the Abstract}
 
-[TODO]
 \end{abstract}
 
 \section{Introduction}
@@ -99,7 +101,7 @@ of our knowledge that attempts to model the impact of mapping performance on
 HPC systems.
 
 % What does this paper contribute:
-TODO\\
+\todo{Add following points with text}\\
 1. An analytical model that describes the perfomance on Halo exchange with different mappings\\
 2. A nearly worst and optimal mapping.\\
 
@@ -137,6 +139,8 @@ A,B,C,D,E.  The location of a compute node in a job can be specified
 by its A,B,C,D,E coordinates, while the location of a core is specified
 with an additional dimension, T. The E dimension is limited to a length
 of 2, while A,B,C,D dimensions can be multiples of 4 to remain torus.
+One rack on the BlueGene/Q is a torus network of dimensions 4x4x4x4x2.
+Larger partitions are created by combining multiple racks to form a torus network.
 \timnote{Not sure what last sentence means.}  The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}
 while the worst point-to-point network latency is expected to be under 3$\mu$s. 
 
@@ -203,17 +207,47 @@ application domain were 4x4x4x4x2 and we were running one rank per node, there i
 network where this mapping would retain nearness between all neighbors. However when the length of dimensions
 in the application domain and network or the dimensionality do not match, this mapping scheme will not perform as well.
 
+Sample from the mapping file :
+\begin{lstlisting}
+0 0 0 0 0 0
+    ...
+0 0 0 0 0 16
+0 0 0 0 1 0
+    ...
+0 0 0 0 1 16
+0 0 0 1 1 0
+    ...
+0 0 0 1 1 16
+\end{lstlisting}
+
 \subsection{Linear Mapping}
 Linear mapping refers to placing ranks along nodes in the increasing order of dimensions A, B, C, D, E, T.
 As a result the neighboring ranks in the application domain along a dimension are places on nodes atleast
 one hop away.
 
+Sample from the mapping file :
+\begin{lstlisting}
+0 0 0 0 0 0
+1 0 0 0 0 0
+2 0 0 0 0 0
+3 0 0 0 0 0
+0 1 0 0 0 0
+1 1 0 0 0 0
+2 1 0 0 0 0
+3 1 0 0 0 0
+0 2 0 0 0 0
+\end{lstlisting}
+
 \subsection{Skewed Mapping}
 
 Skewed mapping uses a modified order of task placement along a dimension.
-With linear mapping the nearest neighbors along say dimension A are only one hop away along A+ or A-.
+With linear mapping the nearest neighbors along, say dimension A are only one hop away along A+ or A-.
 Skewed mapping uses an alternate ordering on task placement to ensure that one of the neighbors is atleast
-2 hops away. This alternate ordering is shown in Fig. \ref{fig:Skewed layout for 4 Nodes in 1D}
+2 hops away. This alternate ordering is shown in Fig. \ref{fig:Skewed layout for 4 Nodes in 1D}.
+Since the network is torus, the maximum distance possible along any dimension is the length along
+the dimension divided by two. However, since there are 5 dimensions on a Blue Gene/Q creating a skew along different
+dimensions can create mappings in which the nearest neighbors are not only separated by hops along a dimension but
+along different dimensions.
 
 \label{sect:Skewed mapping in 1D}
 \begin{figure}
