@@ -187,10 +187,24 @@ one hop away.
 
 \subsection{Skewed Mapping}
 
+Skewed mapping uses a modified order of task placement along a dimension.
+With linear mapping the nearest neighbors along say dimension A are only one hop away along A+ or A-.
+Skewed mapping uses an alternate ordering on task placement to ensure that one of the neighbors is atleast
+2 hops away. This alternate ordering is shown in Fig. \ref{fig:Skewed layout for 4 Nodes in 1D}
+
+\label{sect:Skewed mapping in 1D}
+\begin{figure}
+  \center
+  \includegraphics[width=0.5\textwidth]{skewed_layout_cropped.pdf}
+  \caption{Skewed layout for 4 Nodes in 1D}
+    \label{fig:Skewed layout for 4 Nodes in 1D}
+\end{figure}
+
+
 \subsection{Random Mapping}
 \subsection{Mappings from Simulated Annealing}
-\subsection{Mappings from }
 
+\subsection{Box partitioned Mapping }
 
 
 \section{Models for Network Communication}
