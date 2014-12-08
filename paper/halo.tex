@@ -190,9 +190,6 @@ MPICH2 Nemesis.
 \end{table}
 
 \section{Mapping Strategies}
-
-\timnote{Include a few example lines of mapping file?}
-
 Different classes of HPC systems provide different mechanisms and varying levels of control on task placement.
 The MPI framework gives finegrained control of placement of tasks via a mapping file when such functionality
 is supported by the hardware. On BlueGene/Q systems from IBM, the mapping files allow you to determine where
@@ -204,7 +201,11 @@ also cannot guarantee that the location of nodes with relation to the rest of th
 across multiple runs. As a result BlueGene/Q systems can offer far greater control on task placements, and
 better guarantees on reproducible results.
 
-With the focus on BlueGene/Q systems here's a broad outline of different mapping strategies we have examined:
+The BlueGene/Q mapping file follows a simple text format, with one
+line per MPI rank.  The $i$th line in the file gives the A,B,C,D,E,T
+coordinates of MPI rank $i$ as space-separated integers.
+
+With the focus on BlueGene/Q systems we will outline a range of different mapping strategies we have examined.
 
 \subsection{Regular/Default Mapping}
 The default mapping involves ranks being assigned in increasing order along the dimensions T, E, D, C, B, A.
