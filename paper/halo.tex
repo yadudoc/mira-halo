@@ -60,7 +60,7 @@ Timothy G. Armstrong\titlenote{todo}\\
 
 \begin{abstract}
 % Motivation
-Many High Performance Computing (HPC) applications involve application domain decompositions that involve nearest neighbour communication.
+Many High Performance Computing (HPC) applications involve application domain decompositions that involve nearest neighbor communication.
 Halo exchange is a common nearest neighbor communication pattern used for solving PDE's and thus applying to a wide range of HPC applications.
 % Problem statement % Approach
 Empirical results show that different task placement strategies in Halo exchange codes can have as much as 7.5x performance difference.
@@ -348,7 +348,7 @@ describing the application and network topology, respectively.
 \texttt{random\_mapping} initializes a random mapping, as described
 in Section~\ref{sect:random} using the topology information.
 \texttt{avg\_dist} computes the average distance between
-application neighbours (i.e. ranks that exchange messages in
+application neighbors (i.e. ranks that exchange messages in
 halo exchange) for the mapping.
 
 \texttt{random\_swap} randomly selects \texttt{nswaps} pairs of ranks
@@ -421,7 +421,9 @@ Sample from the mapping for 5D application of dimensions 8x8x8x8x2 to network of
 
 In the earlier sections we have introduced several different mapping strategies, each with different characteristics which could
 impact the network performance. To qualify a mapping and its effect on network performance it is important to be able to quantify
-these mappings. The most promising metric is average distance between neighbors \textbf{N\textsubscript{steps}}.
+these mappings. The most promising metric is average distance between neighbors \textbf{N\textsubscript{steps}}, because it is directly correlated to the
+amount of network traffic - the number of times a network packet must traverse
+a torus network link.
 We assume that the distance the distance between two ranks is 0 if they are on the same node, for every other case we calculate
 the shortest distance between the nodes.
 
