@@ -1,4 +1,4 @@
-\documentclass[conference,10pt]{IEEEtran}
+\documentclass{acm_proc_article-sp}
 \usepackage{fancyhdr}
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -20,26 +20,41 @@
 \setlength{\pdfpageheight}{\paperheight}
 \setlength{\pdfpagewidth}{\paperwidth}
 
+\definecolor{darkblue}{rgb}{0,0,0.7}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{orange}{rgb}{0.7,0.5,0.0}
+\definecolor{brown}{rgb}{0.8,0.4,0.0}
+
+\definecolor{teal}{rgb}{0.06,0.3,0.3}
+\definecolor{maroon}{rgb}{0.5,0.0,0.25}
+\definecolor{darkblue}{rgb}{0.0,0.2,0.75}
+\definecolor{darkred}{rgb}{0.7,0.0,0.0}
+\definecolor{darkgreen2}{rgb}{0,0.35,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\newcommand{\timnote}[1]{ {\textcolor{maroon} { Tim: #1 }}}
+
 
 \title{Mapping HALO Exchange onto Toruses and Stuff}
 
-\author{\IEEEauthorblockN{
-Yadu N. Babuji\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}\IEEEauthorrefmark{3},
-Timothy G. Armstrong\IEEEauthorrefmark{1}}
-  \IEEEauthorblockA{
-  \IEEEauthorrefmark{1}Dept. of Computer Science,
-    University of Chicago,
-    Chicago, IL, USA}
-  \IEEEauthorblockA{\IEEEauthorrefmark{2}Mathematics and Computer Science Division,
-    Argonne National Laboratory,
-    Argonne, IL, USA}
-  \IEEEauthorblockA{\IEEEauthorrefmark{3}Computation Institute,
-    University of Chicago and Argonne National Laboratory,
-    Chicago, IL, USA}
+\numberofauthors{2}
+
+\author{
+% 1st. author
+\alignauthor
+Yadu Nand Babuji\titlenote{todo}\\
+       \affaddr{Dept. of Computer Science,}\\
+       \affaddr{University of Chicago,}\\
+       \affaddr{Chicago, IL, USA}\\
+       \email{yadunand@uchicago.edu}
+% 2nd. author
+\alignauthor
+Timothy G. Armstrong\titlenote{todo}\\
+       \affaddr{Dept. of Computer Science,}\\
+       \affaddr{University of Chicago,}\\
+       \affaddr{Chicago, IL, USA}\\
+       \email{tga@uchicago.edu}
 }
-
 \maketitle
-
 
 \begin{abstract}
 % Motivation
@@ -113,18 +128,23 @@ dimensions supprted.
 % Adaptive routing
 \subsection{Blue Gene/Q 5D torus network}
 
-The BlueGene/Q is a 3rd generation massively parallel supercomputer from IBM. The BlueGene/Q implements a 5 dimensional torus with upto 16K nodes.
+The BlueGene/Q is a 3rd generation massively parallel supercomputer from IBM. The BlueGene/Q implements a 5 dimensional torus with up to 16K nodes.
 To support the 5 dimensional torus each compute node has 10 bi-directional duplex links. There is a separate 11th link for IO. Each of the 10 links
 operate at a bandwidth of 2GB/s \cite{BGQ_RedBook_2013}. After accounting for 10\% overhead in message headers 1.8GB/s is available for raw data per link in one-direction.
 The 5D torus network provides high nearest neighbor bandwidth as well bisection bandwidth while decreasing the maximum number of hops to reach
-the furthest nodes. The dimensions on the network are labelled as A,B,C,D,E and the cores on the node using T. The E dimension is limited to a length
-of 2, while A,B,C,D dimensions can be multiples of 4 to remain torus. The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}
+the furthest nodes. The five dimensions on the network are labelled as
+A,B,C,D,E.  The location of a compute node in a job can be specified
+by its A,B,C,D,E coordinates, while the location of a core is specified
+with an additional dimension, T. The E dimension is limited to a length
+of 2, while A,B,C,D dimensions can be multiples of 4 to remain torus.
+\timnote{Not sure what last sentence means.}  The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}
 while the worst point-to-point network latency is expected to be under 3$\mu$s. 
 
 % The BGQ routing protocols
 The BlueGene/Q implements two routing protocols for point-to-point communication.
-Deterministic routing is designed for small messages, where packets sent between two nodes take the same direct path.
-This routing method is prone to creating hotspots when traffic between several nodes cross on some node.
+Deterministic routing is designed for small messages, where packets sent between two nodes always follow the same direct path.
+This routing method is simple and has overhead but can result in hotspots
+when traffic between several nodes cross on some node.
 Adaptive routing determines the route for packets at the runtime taking current network loads into consideration.
 This routing mechanism balances the network load for a penalty in latency.
 
@@ -132,7 +152,7 @@ This routing mechanism balances the network load for a penalty in latency.
 \subsection{Message Passing Interface(MPI)}
 The Message Passing Interface (MPI) is a standard for message-passing in HPC applications.
 We use MPI to implement the messaging and synchronization aspects of the HALO exchange code,
-and hence the performance observed from running the application would be influenced by the behavior of MPI due to it's various protocols on the BlueGene/Q.
+and hence the performance observed from running the application would be influenced by the behavior of MPI due to its various protocols on the BlueGene/Q.
 There are four protocols supported by the MPI implementation used BlueGene/Q.
 The protocol utilized by MPI is determined by the size of the message that is being sent.
 The data sizes at which the switch to different protocol occurs is configurable, but for our experiments we use the defaults on BlueGene/Q.
@@ -143,18 +163,22 @@ MPICH2 Nemesis.
 
 \begin{table}
   \caption{MPI Protocol default thresholds}
-    \begin{tabular}{ | l | l | l | p{2cm} |}
+  {\footnotesize
+    \begin{tabular}{ | l | l | l | p{1.5cm} |}
     \hline
-    Protocol   & Min Data Limit & Max Data Limit & Routing\\ \hline
+    Protocol   & Min Msg Size   & Max Msg Size  & Routing\\ \hline
     Immediate  &             0B &           112B & Direct\\ \hline
     Short      &           113B &           496B & Direct\\ \hline
     Eager      &           497B &          4096B & Direct\\ \hline
     Rendezvous &          4096B &      unlimited & Adaptive\\ \hline
     \hline
     \end{tabular}
+  }
 \end{table}
 
 \section{Mapping Strategies}
+
+\timnote{Include a few example lines of mapping file?}
 
 Different classes of HPC systems provide different mechanisms and varying levels of control on task placement.
 The MPI framework gives finegrained control of placement of tasks via a mapping file when such functionality
@@ -177,8 +201,7 @@ some increasing order, nodes along a particular dimension will be grouped on eac
 very well when the dimensionality of the application domain and that of the partition match. For eg, if the
 application domain were 4x4x4x4x2 and we were running one rank per node, there is a one to one mapping to the
 network where this mapping would retain nearness between all neighbors. However when the length of dimensions
-in the application domain and network or the dimensionality do not match, this mapping scheme might not be
-optimal.
+in the application domain and network or the dimensionality do not match, this mapping scheme will not perform as well.
 
 \subsection{Linear Mapping}
 Linear mapping refers to placing ranks along nodes in the increasing order of dimensions A, B, C, D, E, T.
@@ -202,7 +225,27 @@ Skewed mapping uses an alternate ordering on task placement to ensure that one o
 
 
 \subsection{Random Mapping}
-\subsection{Mappings from Simulated Annealing}
+
+\subsection{Deoptimized Mappings from Simulated Annealing}
+In order to cover an even wider range of mappings, we tried to
+devise mappings that were worse than the random mapping.
+We observe that it is impossible for a mapping to have
+average distance of $>8$, because the maximum possible distance
+in a 5D torus partition of 4x4x4x4x2 is 8.  \timnote{E dimension?}.
+
+In order to devise mappings we high average distance, we resorted
+to using a simulated annealing algorithm to optimize mappings
+with the goal of maximizing average distance.
+
+\timnote{I will write this up}
+\begin{itemize}
+  \item Simulated annealing -explain
+  \item Random mapping is starting point
+  \item Randomly swap 
+  \item Include algorithm listing?
+\end{itemize}
+
+\subsection{Mappings from }
 
 \subsection{Box partitioned Mapping }
 
