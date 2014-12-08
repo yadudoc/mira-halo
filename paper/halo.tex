@@ -140,8 +140,8 @@ by its A,B,C,D,E coordinates, while the location of a core is specified
 with an additional dimension, T. The E dimension is limited to a length
 of 2, while A,B,C,D dimensions can be multiples of 4 to remain torus.
 One rack on the BlueGene/Q is a torus network of dimensions 4x4x4x4x2.
-Larger partitions are created by combining multiple racks to form a torus network.
-\timnote{Not sure what last sentence means.}  The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}
+Larger torus networks are formed by combining these 4x4x4x4x2 racks.
+The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}
 while the worst point-to-point network latency is expected to be under 3$\mu$s. 
 
 % The BGQ routing protocols
@@ -158,15 +158,24 @@ The Message Passing Interface (MPI) is a standard for message-passing in HPC app
 We use MPI to implement the messaging and synchronization aspects of the HALO exchange code,
 and hence the performance observed from running the application would be influenced by the behavior of MPI due to its various protocols on the BlueGene/Q.
 There are four protocols supported by the MPI implementation used BlueGene/Q.
-The protocol utilized by MPI is determined by the size of the message that is being sent.
-The data sizes at which the switch to different protocol occurs is configurable, but for our experiments we use the defaults on BlueGene/Q.
+The protocol utilized by MPI is determined by the size of the message that is being sent.  The short and immediate protocols are used for very short
+messages that can fit in a single network packet.  The rendezvous
+protocol is used for longer messages where receiver buffer space may
+be insufficient to store the message and where more complex adaptive
+routing protocols may be beneficial.  The eager protocol
+is used for medium length messages that require multiple packets,
+but where the overhead of the rendezvous protocol outweighs any
+benefits.
+The data sizes at which the switch to different protocol occurs is configurable, but for our experiments we use the defaults on BlueGene/Q, which are 
+listed in Table~\ref{table:bgq_protocols}.
 
 % Add note on : Intranode latency implemented as in-memory copy
 % Large message copies as RDMA copy.
 MPICH2 Nemesis.
 
 \begin{table}
-  \caption{MPI Protocol default thresholds}
+  \caption{MPI Protocol default thresholds
+    \label{table:bgq_protocols}}
   {\footnotesize
     \begin{tabular}{ | l | l | l | p{1.5cm} |}
     \hline
