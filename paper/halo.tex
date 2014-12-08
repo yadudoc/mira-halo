@@ -1,4 +1,4 @@
-\documentclass[conference,10pt]{IEEEtran}
+\documentclass{acm_proc_article-sp}
 \usepackage{fancyhdr}
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -23,23 +23,25 @@
 
 \title{Mapping HALO Exchange onto Toruses and Stuff}
 
-\author{\IEEEauthorblockN{
-Yadu N. Babuji\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}\IEEEauthorrefmark{3},
-Timothy G. Armstrong\IEEEauthorrefmark{1}}
-  \IEEEauthorblockA{
-  \IEEEauthorrefmark{1}Dept. of Computer Science,
-    University of Chicago,
-    Chicago, IL, USA}
-  \IEEEauthorblockA{\IEEEauthorrefmark{2}Mathematics and Computer Science Division,
-    Argonne National Laboratory,
-    Argonne, IL, USA}
-  \IEEEauthorblockA{\IEEEauthorrefmark{3}Computation Institute,
-    University of Chicago and Argonne National Laboratory,
-    Chicago, IL, USA}
+\numberofauthors{2}
+
+\author{
+% 1st. author
+\alignauthor
+Yadu Nand Babuji\titlenote{todo}\\
+       \affaddr{Dept. of Computer Science,}\\
+       \affaddr{University of Chicago,}\\
+       \affaddr{Chicago, IL, USA}\\
+       \email{yadunand@uchicago.edu}
+% 2nd. author
+\alignauthor
+Timothy G. Armstrong\titlenote{todo}\\
+       \affaddr{Dept. of Computer Science,}\\
+       \affaddr{University of Chicago,}\\
+       \affaddr{Chicago, IL, USA}\\
+       \email{tga@uchicago.edu}
 }
-
 \maketitle
-
 
 \begin{abstract}
 % Motivation
@@ -113,7 +115,7 @@ dimensions supprted.
 % Adaptive routing
 \subsection{Blue Gene/Q 5D torus network}
 
-The BlueGene/Q is a 3rd generation massively parallel supercomputer from IBM. The BlueGene/Q implements a 5 dimensional torus with upto 16K nodes.
+The BlueGene/Q is a 3rd generation massively parallel supercomputer from IBM. The BlueGene/Q implements a 5 dimensional torus with up to 16K nodes.
 To support the 5 dimensional torus each compute node has 10 bi-directional duplex links. There is a separate 11th link for IO. Each of the 10 links
 operate at a bandwidth of 2GB/s \cite{BGQ_RedBook_2013}. After accounting for 10\% overhead in message headers 1.8GB/s is available for raw data per link in one-direction.
 The 5D torus network provides high nearest neighbor bandwidth as well bisection bandwidth while decreasing the maximum number of hops to reach
