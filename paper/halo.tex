@@ -264,22 +264,17 @@ along different dimensions.
 In order to cover an even wider range of mappings, we tried to
 devise mappings that were worse than the random mapping.
 We observe that it is impossible for a mapping to have
-average distance of $>8$, because the maximum possible distance
-in a 5D torus partition of 4x4x4x4x2 is 8.  \timnote{E dimension?}.
+average distance of $>9$, because the maximum possible distance
+in a 5D torus partition of 4x4x4x4x2 is 9.
 
 In order to devise mappings we high average distance, we resorted
-to using a simulated annealing algorithm to optimize mappings
-with the goal of maximizing average distance.
+to a heuristic optimization algorithm that began with a random mapping
+and iteratively perturbed it with the goal of maximizing average distance.  
+We selected to use simulated annealing~\cite{Press2007} because of the
+simplicity and effectiveness of this family of heuristics.
+Pseudocode for the simulated annealing algorithm used follows:
 
-\timnote{I will write this up}
-\begin{itemize}
-  \item Simulated annealing -explain
-  \item Random mapping is starting point
-  \item Randomly swap 
-  \item Include algorithm listing?
-\end{itemize}
-
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\ttfamily,columns=fixed]
 mapping := random_mapping()
 dist := average_distance(mapping)
 for i = 1 to n do
@@ -307,13 +302,19 @@ applied to diverge from this basic trajectory.
 
 The \texttt{calc\_swaps} function swaps up to 2\% of ranks, swapping more at higher
 temperatures:
-$$calc\_swaps(temp, nranks) = max(1, int(0.02 * temp * nranks))$$
+$$calc\_swaps(temp, nranks) = max(1, \lfloor 0.02 * temp * nranks \rfloor)$$
 
 \texttt{accept} decides whether to accept a mapping that has lower
 average distance, which can the algorithm escape a local maximum.
 This is randomized based on a random value $p$ between 0 and 1.
 If $temp * (0.5 - (1.0 - new\_dist/dist) * 25) > p$, the new mapping
 is accepted.
+
+Using this approach for upwards of 1 million iterations,
+we were able to produce mappings that had average distance substantially
+higher than the randomized mapping. 
+\timnote{fill in numbers}
+
 
 \subsection{Mappings from }
 
