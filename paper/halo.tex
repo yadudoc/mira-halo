@@ -145,15 +145,17 @@ MPICH2 Nemesis.
 
 \begin{table}
   \caption{MPI Protocol default thresholds}
-    \begin{tabular}{ | l | l | l | p{2cm} |}
+  {\footnotesize
+    \begin{tabular}{ | l | l | l | p{1.5cm} |}
     \hline
-    Protocol   & Min Data Limit & Max Data Limit & Routing\\ \hline
+    Protocol   & Min Msg Size   & Max Msg Size  & Routing\\ \hline
     Immediate  &             0B &           112B & Direct\\ \hline
     Short      &           113B &           496B & Direct\\ \hline
     Eager      &           497B &          4096B & Direct\\ \hline
     Rendezvous &          4096B &      unlimited & Adaptive\\ \hline
     \hline
     \end{tabular}
+  }
 \end{table}
 
 \section{Mapping Strategies}
