@@ -300,10 +300,13 @@ In order to cover an even wider range of mappings, we tried to
 devise mappings that were worse than the random mapping.
 We can obtain an absolute upper bound on average distance of
 $9$, because the maximum possible distance in a 5D torus
-partition of 4x4x4x4x2 is 9.  However, we were unsuccessful
-in attempts to achieve a lower upper bound or devise mappings
-with average distance greater than the $~4.5$ average distance
-obtained with random mapping.
+partition of 4x4x4x4x2 is 9.  It is unclear to us whether
+mappings with average distance of $9$ exist, and under what
+circumstances they might exist: we were unsuccessful in
+attempts to reduce this upper bound.  We were also
+unsuccessful in directly devising mappings
+with average distance significantly greater than the $~4.5$ average
+distance obtained with random mapping.
 
 In order to discover mappings with high average distance, we used
 a heuristic optimization algorithm that began with a random mapping
@@ -443,6 +446,10 @@ The average number of messages flowing through any link is given by:
 
 \section{Models for Network Communication}
 
+\timnote{Maybe this discussion should be moved further down -
+it mainly pertains to $t_b$?  Do we also need to discuss the startup
+time/different protocols here?}
+
 There are a wide range of possible models that could be used to
 estimate network communication performance for a complex network
 such as those on BlueGene/Q or Cray XE6.  These models range from
@@ -454,14 +461,27 @@ of applicability.  For example, network models that ignore congestion
 can be suitable for modeling single point-to-point transfers, but are
 unsuitable for modeling many simultaneous transfers over a shared network.
 
-For halo exchange, we can simplify the model by exploiting the
+For halo exchange, we need a model that captures multiple
+simultaneous data transfers contending for shared resources: we
+expect that many of these messages will need to transit the
+same network links.  We can, however, simplify the model by exploiting the
 symmetry of the communication pattern, in which each MPI rank sends
-and receives the same amount of data.  However,
-network congestion effects are significant because many data transfers
-take place concurrently.  For this reason, we use a model that assumes
-that traffic is distributed fairly evenly throughout the network and
-that communication throughput is limited by the aggregate capacity
-of the network's links.
+and receives the same amount of data. For this reason, we chose to
+use a model that assumes that traffic is distributed fairly evenly
+throughout the network and that communication throughput is limited
+by the aggregate capacity of the network's links. 
+
+We arrived at our model for $t_b$ based on two assumptions.
+We first assume that the limiting factor on transfer throughput will be
+the most trafficked link on the network - the one that the most bytes
+must transit during the halo exchange.  Finding the most trafficked
+link and determining the number of bytes transferred is not feasible for our
+simple model, because it would require simulating network load and
+the Blue Gene/Q adaptive routing algorithms.  However, if we make a
+second assumption that traffic is distributed fairly evenly
+across the network because of the halo exchange pattern and adaptive routing,
+the maximum number of bytes transiting a link will be closely
+correlated with the average number of bytes transiting a link.
 
 On an HPC system such as BlueGene/Q or Cray XE6, each node has multiple duplex links to it's neighbors.
 If the application on every node attempts to exchange messages with every neighbor, we can assume that
