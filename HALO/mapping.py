@@ -178,6 +178,8 @@ def compute_neighbour_lists(logical, bothways):
 def neighbours(coords, dims, wrap_dims):
   """
   Compute neighbours of coordinate.  Returns list of coordinates.
+  Note that this list may include duplicates if the neighbour is
+  a neighbour in more than one dimension.
   coords: coordinates of rank
   dims: dimension sizes
   wrap_dims: list of which dimensions wrap around
@@ -189,12 +191,9 @@ def neighbours(coords, dims, wrap_dims):
   for dim in range(len(dims)):
     coord = coords[dim]
 
-    if (dims[dim] > 2):
+    if (dims[dim] >= 2):
       # Two potential neighbours in this dimension
       incs = [-1, 1]
-    elif (dims[dim] == 2):
-      # One neighbour in this dimension
-      incs = [1]
     else:
       assert dims[dim] == 1
       # No neighbours in this dimension
