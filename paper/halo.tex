@@ -498,7 +498,7 @@ The average distance for the various mappings for the 3D and 5D case are provide
 
 
 
-\section{Models for Network Communication}
+\section{Models for Network Communication}\label{model}
 
 \timnote{Maybe this discussion should be moved further down -
 it mainly pertains to $t_b$?  Do we also need to discuss the startup
@@ -563,6 +563,63 @@ from the variables defined above as follows:
 
 
 \section{Experimental Design}
+
+Empirical studies are necessary to gauge the effectiveness validity of models. Considerable efforts have
+been taken to ensure that the experiments are fair and are an accurate reproduction of the Halo exchange pattern
+in real world scenarios. The experiments have been repeated multiple time on different partitions on the machine
+to ensure that partition specific effects do not influence results, however we have not been able to reproduce
+results on different machines of the same architecture due to time limitations.
+
+Since we are only interested in the network performance aspect of the halo exchange code, we only measure
+the time taken to complete halo exchanges. The pseudocode for the halo exchange is listed below:
+
+\begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
+MPI_Comm comm_cart
+
+for dim = 1 to N_dims do:
+    MPI_Cart_Shift (comm_cart, dim,  1, rank_src[0][dim], rank_dst[0][dim]
+    MPI_Cart_Shift (comm_cart, dim, -1, rank_src[1][dim], rank_dst[1][dim]
+end
+
+MPI_Barrier(comm_cart)
+halo_timer(begin)
+for dim = 1 to N_dims do
+    # Send/recv message along dim+
+    MPI_Isend(send_buffer, datalength, desination_ranks[0][dim], comm_cart)
+    MPI_Irecv(send_buffer, datalength, source_ranks[0][dim], comm_cart)
+    # Send/recv message along dim-
+    MPI_Isend(send_buffer, datalength, desination_ranks[0][dim], comm_cart)
+    MPI_Irecv(send_buffer, datalength, source_ranks[0][dim], comm_cart)
+end
+MPI_Barrier(comm_cart)
+halo_timer(end)
+\end{lstlisting}
+
+To determine whether the network performance is affected by the send/receive message buffers overflowing from the
+L3 caches, we designed an experiment which sent \textbf{DUPES} number of messages each with $\frac{datalength}{DUPES}$
+message size. The runs were compared against a run with DUPES=1. The expected result is that for smaller datasizes
+the time to completion will be higher when duplicate messages are sent as there is the added startup cost for \textbf{DUPES} times the original messages.
+If the caches were indeed affecting the network performance, at higher data sizes, the Halo runs with duplicates should outperform
+a run without duplicates.
+
+The results show that at higher data sizes, the time to completion is unaffected by the using duplicate messages of smaller size to avoid caching effects.
+The plots of these two cases are shown in fig \ref{fig:caching_figure_vs_without}. From this we conclude that caching effects are negligible and can be ignored.
+
+\label{sect:caching_figure}
+\begin{figure}
+  \center
+  \includegraphics[width=0.5\textwidth]{regular_vs_cache_duplicates.png}
+  \caption{Regular mapping with 8 duplicates and without}
+    \label{fig:caching_figure_vs_without}
+\end{figure}
+
+
+The analytical model described in Section \ref{model}, is informed by the nature of the target system
+and the domain decomposition of the application. The value of a model is in the ability to predict the
+results from 
+% What machine do we run on
+% 
+
 
 
 
