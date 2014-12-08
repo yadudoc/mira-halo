@@ -279,6 +279,42 @@ with the goal of maximizing average distance.
   \item Include algorithm listing?
 \end{itemize}
 
+\begin{lstlisting}
+mapping := random_mapping()
+dist := average_distance(mapping)
+for i = 1 to n do
+  temp := calc_temp(i, n)
+  nswaps := calc_swaps(temp, nranks)
+  new_mapping := random_swap(mapping, nswaps)
+  new_dist := average_distance(new_mapping)
+  if new_dist > dist or 
+     accept(dist, new_dist, temp) then
+    mapping := new_mapping
+    dist := new_dist
+  end
+end
+\end{lstlisting}
+
+\texttt{average\_distance} computes the average distance between
+neighbours for the mapping.  \texttt{random\_swap} randomly
+selects \texttt{nswaps} pairs of ranks and swaps them.
+
+The \texttt{calc\_temp} function returns a temperature that
+decreases from 1 to 0 during the course of the annealing process.
+The basic trajectory followed is cubic decrease: $(1 - i/n)^3$.
+Additional cycles of raising and lowering the temperature are also
+applied to diverge from this basic trajectory.
+
+The \texttt{calc\_swaps} function swaps up to 2\% of ranks, swapping more at higher
+temperatures:
+$$calc\_swaps(temp, nranks) = max(1, int(0.02 * temp * nranks))$$
+
+\texttt{accept} decides whether to accept a mapping that has lower
+average distance, which can the algorithm escape a local maximum.
+This is randomized based on a random value $p$ between 0 and 1.
+If $temp * (0.5 - (1.0 - new\_dist/dist) * 25) > p$, the new mapping
+is accepted.
+
 \subsection{Mappings from }
 
 \subsection{Box partitioned Mapping }
