@@ -8,7 +8,7 @@ import sys
 
 data = np.loadtxt(open("results.csv","r"),delimiter=", ", dtype=str)
 
-SearchString="12 at a time wt delay"
+SearchString="12 at a time no delay"
 #SearchString="12 at a time no delay"
 #linear_mapping   =  [ int(row[0])*8 for row in data if row[1] ==  SearchString and row[0] == "linear_mapping"]
 
@@ -40,7 +40,8 @@ reversed_data =  [ row for row in data if row[1] ==  SearchString and row[0] == 
 skewed1_data  =  [ row for row in data if row[1] ==  SearchString and row[0] == "skewed1_mapping"]
 skewed2_data  =  [ row for row in data if row[1] ==  SearchString and row[0] == "skewed2_mapping"]
 sliced_data   =  [ row for row in data if row[1] ==  SearchString and row[0] == "sliced_mappings"]
-
+optimal_data  =  [ row for row in data if row[1] ==  SearchString and row[0] == "optimal_mapping"]
+print "optimal : ", len(optimal_data)
 # Use map instead ?
 LOG=True
 if LOG :
@@ -54,6 +55,7 @@ if LOG :
     skewed1_mapping =[ math.log(float(row[2]),2) for row in mod_list(skewed1_data) ]
     skewed2_mapping =[ math.log(float(row[2]),2) for row in mod_list(skewed2_data) ]
     sliced_mapping =[ math.log(float(row[2]),2) for row in mod_list(sliced_data) ]
+    optimal_mapping =[ math.log(float(row[2]),2) for row in mod_list(optimal_data) ]
 else:
     linear_mapping =  [ float(row[2]) for row in mod_list(linear_data) ]
     random1_mapping = [ float(row[2]) for row in mod_list(random1_data) ]
@@ -65,6 +67,7 @@ else:
     skewed1_mapping =[ float(row[2]) for row in mod_list(skewed1_data) ]
     skewed2_mapping =[ float(row[2]) for row in mod_list(skewed2_data) ]
     sliced_mapping =[ float(row[2]) for row in mod_list(sliced_data) ]
+    optimal_mapping =[ float(row[2]) for row in mod_list(optimal_data) ]
 
 #Log 2 scale
 maxdist_data = [ item+3 for item in range(0,23) ]
@@ -80,9 +83,13 @@ def model_f(logdata):
         return logdata
 
 # Measured from data
-Ts_Immed = 170
-Ts_Short = 304
-Ts_Rendz = 304
+# We use the default/regular mapping sampes as baseline
+baseline_data = [ float(row[2]) for row in mod_list(regular_data) ]
+
+Ts_Immed = baseline_data[0]
+Ts_Short = baseline_data[4]
+Ts_Eager = baseline_data[9]
+Ts_Rendz = baseline_data[9]
 
 def no_congestion_model(logdata, Nsteps ):
     Tb = math.pow(10,6) / ( 1.8 * math.pow(2,30) )
@@ -103,17 +110,19 @@ def node_model(logdata, Nsteps ):
     # one along every link.
     Tb = math.pow(10,6) / ( 1.8 * math.pow(2,30) )
     N  = math.pow(2, logdata)
+
+    Const = 1
     if N < 112 :
         Ts = Ts_Immed
-    elif N < 496 :
-        Ts = Ts_Immed
-    else:
-        Ts = Ts_Immed
+    elif N < 497 :
+        Ts = Ts_Short
+    elif N <= 4096 :
+        Ts = Ts_Short # Eager
+    elif N > 4096 :
+        Ts = Ts_Rendz
+        Const = 7
 
-    foo = 0
-    if N > 32768 :
-        foo = (N - 32768) * 8 * 16 * Tb * Nsteps
-    return  Ts + Nsteps * N*16*Tb + foo
+    return  Ts + Nsteps * N*16*Tb * Const
     #return Nsteps * (Ts + N*16*Tb)
 
 def model_node(Nsteps):
@@ -121,31 +130,6 @@ def model_node(Nsteps):
 
 
 Ndims = 5
-def congestion_model(logdata, Nsteps):
-    Tb = math.pow(10,6) / ( 1.8 * math.pow(2,30) )
-    N  = math.pow(2, logdata)
-    Prob=0.5
-    Totalcapacity=512*(Ndims*2) * 2 *(1.8 * math.pow(2,30))/math.pow(10,6) # X bytes per us
-    Totalload= Nsteps * (N * (512 * (Ndims*2) * 2))
-    print "Totalcapacity : ", Totalcapacity
-    print "Totalload     : ", Totalload
-    if N < 112 :
-        Ts = Ts_Immed
-        Prob=0
-    elif N < 496 :
-        Ts = Ts_Short
-        Prob=0
-    else:
-        if Totalload > Totalcapacity:
-            prob = Totalload - Totalcapacity / Totalload
-        else:
-            prob = 0
-        Ts = Ts_Rendz
-
-    return  Ts + Nsteps * N*16*Tb + Prob*( 2*N*16*Tb)
-    #return Nsteps * (Ts + N*16*Tb)
-
-#model_no_congestion = [ math.log(no_congestion_model(d, regular_steps ), 2) for d in maxdist_data ]
 
 def model_no_congestion(Nsteps):
     return [ math.log(no_congestion_model(d, Nsteps ), 2) for d in maxdist_data ]
@@ -210,35 +194,48 @@ def mappings_plotter ():
     data_axes = ['8B','16B','32B','64B','128B','256B', '512B', '1KB', '2KB', '4KB', '8KB', '16KB','32KB','64KB','128KB','256KB', '512KB', '1MB',
                  '2MB', '4MB', '8MB', '16MB','32MB']
 
-    line_regular   = plt.plot(maxdist_data, regular_mapping , '--bd', label="Regular mapping")
-    line_skewed1   = plt.plot(maxdist_data, skewed1_mapping , '--co', label="Skewed mapping1")
-    line_skewed2   = plt.plot(maxdist_data, skewed2_mapping , '--g*', label="Skewed mapping2")
+    line_optimal   = plt.plot(maxdist_data, optimal_mapping , '-gd', label="Optimal mapping")
+    plt.setp(line_optimal, alpha=0.8, antialiased=True, linewidth=2.0)
+    line_regular   = plt.plot(maxdist_data, regular_mapping , '-bd', label="Regular mapping")
+    plt.setp(line_regular, alpha=0.8, antialiased=True, linewidth=2.0)
+    line_skewed1   = plt.plot(maxdist_data, skewed1_mapping , '--c*', label="Skewed mapping1")
+    plt.setp(line_skewed1, alpha=0.8, antialiased=True,  linewidth=2.0)
+    #line_skewed2   = plt.plot(maxdist_data, skewed2_mapping , '--gv', label="Skewed mapping2")
     line_linear    = plt.plot(maxdist_data, linear_mapping ,  '--y*', label="Linear mapping")
-    line_reversed  = plt.plot(maxdist_data, reversed_mapping , '--m^', label="Reversed mapping")
-    line_rand4     = plt.plot(maxdist_data, random2_mapping , '-.bp', label="Random mapping4")
-    line_rand3     = plt.plot(maxdist_data, random2_mapping , '-.ch', label="Random mapping3")
-    line_rand2     = plt.plot(maxdist_data, random2_mapping , '--r.', label="Random mapping2")
+    #line_reversed  = plt.plot(maxdist_data, reversed_mapping , '--m^', label="Reversed mapping")
+    #line_rand4     = plt.plot(maxdist_data, random2_mapping , '-bp', label="Random mapping4")
+    #plt.setp(line_rand4, alpha=1.0, antialiased=True,  linewidth=2.0)
+    #line_rand3     = plt.plot(maxdist_data, random2_mapping , '-cd', label="Random mapping3")
+    #plt.setp(line_rand3, alpha=1.0, antialiased=True,  linewidth=2.0, marker='+')
+    line_rand2     = plt.plot(maxdist_data, random2_mapping , '-.rs', label="Random mapping2")
+    plt.setp(line_rand2, alpha=1.0, antialiased=True,  linewidth=2.0)
     line_rand1     = plt.plot(maxdist_data, random1_mapping , '--ko', label="Random mapping1")
+    plt.setp(line_rand1, alpha=1.0, antialiased=True,  linewidth=2.0)
+    #line_worst     = plt.plot(maxdist_data, worst_mapping , '-rd', label="Pessimal mapping")
+    #plt.setp(line_worst, alpha=1.0, antialiased=True,  linewidth=2.0)
     #err_plot.set_xlabel('time (s)')
     # Make the y-axis label and tick labels match the line color.
     plt.xticks(maxdist_data, data_axes, rotation=45)
     plt.title('Time to complete halo exchange - 512 Nodes, RPN 16, 5D application matrix')
-    plt.legend(bbox_to_anchor=(0., 1.02, 1., .202), loc=3,
-               ncol=2, mode="expand", borderaxespad=0.5)
+    #plt.legend(bbox_to_anchor=(0., 1.02, 1., .202), loc=3, ncol=2, mode="expand", borderaxespad=0.5)
+    plt.legend(loc=2, ncol=1, borderaxespad=2)
     plt.show()
 
-print  [ float(row[2]) for row in mod_list(random1_data) ]
+#print  [ float(row[2]) for row in mod_list(optimal_data) ]
+#print  [ float(row[2]) for row in mod_list(random1_data) ]
 
-#mappings_plotter()
+mappings_plotter()
+exit()
+plotter("Optimal mapping", optimal_mapping, float(optimal_data[0][3]))
 plotter("Regular mapping", regular_mapping, float(regular_data[0][3]))
-#plotter("Linear mapping", linear_mapping, float(linear_data[0][3]))
-#plotter("Random mapping 1", random1_mapping, float(random1_data[0][3]))
-#plotter("Random mapping 2", random2_mapping, float(random2_data[0][3]))
+plotter("Linear mapping", linear_mapping, float(linear_data[0][3]))
+plotter("Random mapping 1", random1_mapping, float(random1_data[0][3]))
+plotter("Random mapping 2", random2_mapping, float(random2_data[0][3]))
 #plotter("Random mapping 3", random3_mapping, float(random3_data[0][3]))
 #plotter("Random mapping 4", random4_mapping, float(random4_data[0][3]))
-#plotter("Skewed mapping 1", skewed1_mapping, float(skewed1_data[0][3]))
+plotter("Skewed mapping 1", skewed1_mapping, float(skewed1_data[0][3]))
 #plotter("Skewed mapping 2", skewed2_mapping, float(skewed2_data[0][3]))
-#plotter("Reversed mapping", reversed_mapping, float(reversed_data[0][3]))
+plotter("Reversed mapping", reversed_mapping, float(reversed_data[0][3]))
 
 
 
@@ -251,4 +248,3 @@ plotter("Regular mapping", regular_mapping, float(regular_data[0][3]))
 #plt.title('Time to complete halo exchange Analytical model with no-congestion (' + SearchString + ')')
 #plt.title('Time to complete halo exchange - 512 Nodes, RPN 16, 5D application matrix(' + SearchString + ')')
 exit()
-

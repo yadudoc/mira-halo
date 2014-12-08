@@ -5,8 +5,8 @@ import sys
 
 BGQ_NET_DIMS = 5
 BGQ_NET_DIM_IS_TORUS = [ True ] * (BGQ_NET_DIMS + 1)
-# Count ABCD dimensions, ignore E nodeboard link, and T core dimension
-BGQ_NET_DIM_SAME_NODE = [ False, False, False, False, True, True ]
+# Count ABCDE dimensions, and T core dimension
+BGQ_NET_DIM_SAME_NODE = [ False, False, False, False, False, True ]
 
 DEBUG = False
 PAIRWISE_DEBUG = False
