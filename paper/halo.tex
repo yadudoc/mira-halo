@@ -86,6 +86,15 @@ update information about the state of the boundary between subdomains.
 A common special case is when a multi-dimensional cartesian space is
 decomposed into subdomains of equal size.  For example, in the three-dimensional
 case, a 8x8x8 cube might be decomposed into 256 2x1x1 cubes for execution on 256 processors.
+Figure~\ref{fig:halo-illustration} illustrates the two-dimensional case on 8
+processors.
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.475\textwidth]{fig/halo-illustration}
+  \caption{Halo exchange for a 2D cartesian domain on 8 processors}
+    \label{fig:halo-illustration}
+\end{figure}
 
 % Objective
 This paper explores the problem of mapping such multi-dimensional cartesian
