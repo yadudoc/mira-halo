@@ -226,10 +226,16 @@ The University of Chicago \\
 \begin{equation}
   N_{steps} = \frac{ \sum\limits_{u,v} dist_{u,v} } {T_{neighbors}}
 \end{equation} \\
-\item Time to complete a halo exchange:
+\item Time to complete a halo exchange T with N bytes per message
 \begin{equation}
   T = t_c + (N_{steps} * N_{procs} * N * t_b * \alpha)
 \end{equation}
+\item Model parameters:
+\begin{itemize}
+  \item $t_c$: constant start-up time
+  \item $t_b$: time to transmit byte given ideal link utilization
+  \item $\alpha$: link utilization factor
+\end{itemize}
 %\item $t_c$, and $\alpha$ are calibrated from experimental data. t_b is calculated from machine specifications.
 \end{itemize}
 \end{frame}
