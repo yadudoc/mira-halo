@@ -694,12 +694,28 @@ results from
 
 \section{Results}
 
-There were three major experimental setups discussed in Section~\ref{sect:experimental design}. The 
+The insights gained from the experiments outlined in Section~\ref{sect:experimental design} has driver the development of
+the Analytical model for the performance of halo exchange. The results from these experiments are described below:
 
-The results show that at higher data sizes, the time to completion is unaffected by the using duplicate messages of smaller size to avoid caching effects.
-The plots of these two cases are shown in Figure~\ref{fig:caching_figure_vs_without}. From this we conclude that caching effects are negligible and can be ignored.
+The experiments to study caching effects, show that at higher data sizes the time to completion is unaffected by using duplicate messages of smaller sizes.
+If caching effects played any significant role in performance sending multiple duplicate messages that fit in the L3 cache would have outperformed larger messages that do not fit in L3 cache. The plots of these two cases are shown in Figure~\ref{fig:caching_figure_vs_without}. We see that sending duplicate messages of smaller size has added startup costs but at
+higher data sizes cache optimised  duplicate messages do not perform better, from this we conclude that caching effects are negligible and can be ignored.
 
-The plots are Figure~\ref{fig:5D_linear_mapping}, Figure~\ref{fig:5D_optimal_mapping}, foo
+The latency experiments used a modified regular mapping in which two ranks were transposed to nodes that are diamtrically apart.
+This introduced a negligible increase in average distance but increased the maximum distance between neighbors from 3 to 9.
+The results from this experiment in Figure~\ref{fig:regular_vs_maxdist} show that increasing the distance does not add any measurable latency penalty.
+
+Plot of the different mappings discussed in Section~\ref{sect:mapping} indicate that increasing the halo exchange message length consistenty affects performance.
+Figure~\ref{fig:5D halo exchange on 512 nodes with 16 RPN} and figure~\ref{fig:3D halo exchange on 512 nodes with 16 RPN} are plots of all mappings for the 5D application and 3D application respectively.
+
+% Limitation of the model
+% We use the average distance which does not capture the worst performing link.
+% Determining the worst perfoming link is hard.
+% Our pessimal results need not be the absolute worst mapping, the simulated annealing could be stuck on a local maxima.
+% We have not verified the model on a different network topology or a different machine.
+
+
+\todo{Discuss how well the analytical model matches the experimental data}
 
 \begin{figure}
   \center
@@ -815,8 +831,11 @@ The plots are Figure~\ref{fig:5D_linear_mapping}, Figure~\ref{fig:5D_optimal_map
     \label{fig:3D_skewed_reversed}
 \end{figure}
 
-
 \section{Conclusion}
+
+% What we did in the paper
+% Success in developing a reasonable understanding of the problem
+% Future work
 
 
 \bibliographystyle{abbrv}
