@@ -16,7 +16,7 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass{beamer}
-
+%\usepackage{listings}
 \mode<presentation> {
 
 % The Beamer class comes with a number of default slide themes
@@ -75,7 +75,7 @@
 
 %\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
 }
-
+\usepackage{listings}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 
@@ -113,7 +113,7 @@ The University of Chicago \\
 \begin{frame}
 \frametitle{Why is task placements in Halo exchange interesting ?}
 \begin{itemize}
-\item Halo exchange is a very common nearest neighbor communication pattern
+\item Halo exchange is a common nearest neighbor communication pattern
 \item Solving PDEs require halo exchange
 \item Task placements can affect halo exchange performance by upto 7.5x
 \item Cheap optimisations with no code change
@@ -216,58 +216,155 @@ The University of Chicago \\
 %------------------------------------------------
 
 
-
-%  \includegraphics[width=0.75\textwidth]{mappings/3d_linear.png}
-%
-%  
-%  \includegraphics[width=0.75\textwidth]{mappings/3d_skewed_reversed.png}
+%================================================
+\section{Plots of Analytical Model and Experimental Data}
 
 %------------------------------------------------
-\section{Plots of Analytical Model and Experimental Data}
-\begin{frame}
+\begin{frame}[fragile]
 \begin{figure}
 \caption{5D Linear mapping}
-  \includegraphics[width=0.7\textwidth]{../mappings/5d_linear_model.png}
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+    \includegraphics[width=1\textwidth]{../mappings/5d_linear_model.png}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+\lstset{title=Mapping sample}
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
+0 0 0 0 0 0
+1 0 0 0 0 0
+2 0 0 0 0 0
+3 0 0 0 0 0
+0 1 0 0 0 0
+1 1 0 0 0 0
+2 1 0 0 0 0
+3 1 0 0 0 0
+0 2 0 0 0 0
+\end{lstlisting}
+  \end{column}
+
+\end{columns}
 \end{figure}
 \end{frame}
+%------------------------------------------------
 
 
-\begin{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]
 \begin{figure}
 \caption{5D Optimal mapping}
-  \includegraphics[width=0.7\textwidth]{../mappings/5d_optimal_model.png}
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+    \includegraphics[width=1\textwidth]{../mappings/5d_optimal_model.png}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+\lstset{title=Mapping sample}
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
+0 0 0 0 0 0
+0 0 0 0 1 0
+0 0 0 0 0 1
+0 0 0 0 1 1
+0 0 0 1 0 0
+0 0 0 1 1 0
+0 0 0 1 0 1
+0 0 0 1 1 1
+\end{lstlisting}
+  \end{column}
+\end{columns}
 \end{figure}
 \end{frame}
+%------------------------------------------------
 
 
+%------------------------------------------------
 \begin{frame}
 \begin{figure}
 \caption{5D Random mapping}
-  \includegraphics[width=0.7\textwidth]{../mappings/5d_random_model.png}
+    \includegraphics[width=0.75\textwidth]{../mappings/5d_random_model.png}
 \end{figure}
 \end{frame}
+%------------------------------------------------
 
-\begin{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]
 \begin{figure}
 \caption{5D Regular mapping}
-  \includegraphics[width=0.7\textwidth]{../mappings/5d_regular_model.png}
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+    \includegraphics[width=1\textwidth]{../mappings/5d_regular_model.png}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+\lstset{title=Mapping sample}
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
+0 0 0 0 0 0
+    ...
+0 0 0 0 0 15
+0 0 0 0 1 0
+    ...
+0 0 0 0 1 15
+0 0 0 1 1 0
+    ...
+0 0 0 1 1 15
+\end{lstlisting}
+  \end{column}
+\end{columns}
 \end{figure}
 \end{frame}
+%------------------------------------------------
+\iffalse
 
 \begin{frame}
 \begin{figure}
 \caption{5D Reversed mapping}
- \includegraphics[width=0.7\textwidth]{../mappings/5d_reversed_model.png}
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+    \includegraphics[width=1\textwidth]{../mappings/5d_reversed_model.png}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+\lstset{title=Mapping sample}
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
+0 0 0 0 0 0
+2 0 0 0 0 0
+1 0 0 0 0 0
+3 0 0 0 0 0
+0 2 0 0 0 0
+2 2 0 0 0 0
+1 2 0 0 0 0
+3 2 0 0 0 0
+\end{lstlisting}
+  \end{column}
+\end{columns}
 \end{figure}
 \end{frame}
 
 \begin{frame}
 \begin{figure}
 \caption{5D Skewed Regular}
-\includegraphics[width=0.7\textwidth]{../mappings/5d_skewed_regular.png}
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+    \includegraphics[width=1\textwidth]{../mappings/5d_skewed_regular.png}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+\lstset{title=Mapping sample}
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
+0 0 0 0 0 0
+  ...
+0 0 0 0 0 15
+0 0 0 0 1 0
+  ...
+0 0 0 0 1 15
+0 0 0 2 0 0
+  ...
+0 0 0 2 0 15
+\end{lstlisting}
+  \end{column}
+\end{columns}
 \end{figure}
 \end{frame}
 
+\fi
+%----------------------------------------------------------------------------------
 \begin{frame}
 \begin{figure}
 \caption{3D Optimal mapping}
