@@ -141,7 +141,7 @@ with an additional dimension, T. The E dimension is limited to a length
 of 2, while A,B,C,D dimensions can be multiples of 4 to remain torus.
 One rack on the BlueGene/Q is a torus network of dimensions 4x4x4x4x2.
 Larger torus networks are formed by combining these 4x4x4x4x2 racks.
-The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}
+The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}, 
 while the worst point-to-point network latency is expected to be under 3$\mu$s. 
 
 % The BGQ routing protocols
@@ -189,7 +189,7 @@ MPICH2 Nemesis.
   }
 \end{table}
 
-\section{Mapping Strategies}
+\section{Mapping Strategies}\label{sect:mapping}
 Different classes of HPC systems provide different mechanisms and varying levels of control on task placement.
 The MPI framework gives finegrained control of placement of tasks via a mapping file when such functionality
 is supported by the hardware. On BlueGene/Q systems from IBM, the mapping files allow you to determine where
@@ -510,9 +510,7 @@ The average distance for the various mappings for the 3D and 5D case are provide
 \end{table}
 
 
-
-
-\section{Models for Network Communication}\label{model}
+\section{Analytical Model for Network Communication}\label{sect:model}
 
 \timnote{Maybe this discussion should be moved further down -
 it mainly pertains to $t_b$?  Do we also need to discuss the startup
@@ -576,7 +574,7 @@ from the variables defined above as follows:
 \end{equation}
 
 
-\section{Experimental Design}
+\section{Experimental Design}\label{sect:experimental design}
 
 Empirical studies are necessary to gauge the effectiveness validity of models. Considerable efforts have
 been taken to ensure that the experiments are fair and are an accurate reproduction of the Halo exchange pattern
@@ -584,7 +582,7 @@ in real world scenarios. The experiments have been repeated multiple time on dif
 to ensure that partition specific effects do not influence results, however we have not been able to reproduce
 results on different machines of the same architecture due to time limitations.
 
-\begin{figure*}[ht]
+\begin{figure*}[HT]
   {\footnotesize
   \begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 MPI_Comm comm_cart
@@ -611,7 +609,7 @@ MPI_Barrier(comm_cart)
 halo_timer(end)
   \end{lstlisting}
   }
-  \caption{Pseudocode of halo exchange algorithm with concurrent sends and
+  \caption{Pseudocode halo exchange algorithm with concurrent sends and
            receives to all neighbours.}
     \label{fig:halo_pseudocode}
 \end{figure*}
@@ -619,13 +617,33 @@ halo_timer(end)
 Since we are only interested in the network performance aspect of the halo exchange code, we only measure
 the time taken to complete halo exchanges. The pseudocode for the halo exchange is listed in Figure~\ref{fig:halo_pseudocode}.
 
+\subsection{Latency}
+On the BlueGene/Q, the latency between the closest node and the farthest node is estimated to be under 3$\mu$s\cite{BGQ_Interconnect_2012}.
+Since halo exchange is a collective operation, the entire operation is only as fast as the worst performer in the entire operation.
+In the analytical model described in Section\ref{sect:model}, we assume that latency does not play a role.
+This assumption is experimentally tested by comparing the time to completion of halo exchanged between the default mapping and a modified
+mapping which has just two ranks interchanged to nodes that span the diameter of the torus. This results in the an increase in maximum distance
+from 3.0 to 9.0 and increase of 0.003 for the average distance between neighbors.
 
+\subsection{Cache effects}
 To determine whether the network performance is affected by the send/receive message buffers overflowing from the
 L3 caches, we designed an experiment which sent \textbf{DUPES} number of messages each with $\frac{datalength}{DUPES}$
 message size. The runs were compared against a run with DUPES=1. The expected result is that for smaller datasizes
 the time to completion will be higher when duplicate messages are sent as there is the added startup cost for \textbf{DUPES} times the original messages.
 If the caches were indeed affecting the network performance, at higher data sizes, the Halo runs with duplicates should outperform
 a run without duplicates.
+
+\subsection{Task placement within Mappings for 3D and 5D application domains}
+We've described eight different mapping schemes in Section \ref{sect:mapping}.
+To study the network performance of the halo exchange codes, they are exercised using varying levels of data lengths for message exchanged between neighbors.
+Multiples of 2 ranging from 8B to 32Mb,  are chosen as data sizes as they are representative of the various phases of MPI messaging protocols, and cover
+a reasonable swath of datasizes that real world application might use. The hardware partitions chosen are 512 Node partitions of 4x4x4x4x2 shape. This
+is one rack on the BlueGene/Q, and is comparable to partition sizes used by HPC applications.
+
+The Halo exchange code itself measures the performance of various blocking and non-blocking MPI send and recv primitives and combinations.
+For our experiments we will only consider MPI\_Isend and MPI\_Irecv primitives with no artificial delay introduced after the barrier.
+The pseudocode for the halo exchange is listed here \ref{fig:halo_pseudocode}.
+Evaluating the performance of the different MPI primitives with randomised delay options is beyond the scope of this paper.
 
 \begin{figure}
   \center
@@ -634,12 +652,7 @@ a run without duplicates.
     \label{fig:caching_figure_vs_without}
 \end{figure}
 
-The results show that at higher data sizes, the time to completion is unaffected by the using duplicate messages of smaller size to avoid caching effects.
-The plots of these two cases are shown in fig \ref{fig:caching_figure_vs_without}. From this we conclude that caching effects are negligible and can be ignored.
-
-
-
-The analytical model described in Section \ref{model}, is informed by the nature of the target system
+The analytical model described in Section \ref{sect:model}, is informed by the nature of the target system
 and the domain decomposition of the application. The value of a model is in the ability to predict the
 results from
 % What machine do we run on
@@ -661,16 +674,19 @@ results from
 \end{figure}
 
 
-
-
 \section{Results}
+
+There were three major experimental setups discussed in Section \ref{sect:experimental design}. The 
+
+The results show that at higher data sizes, the time to completion is unaffected by the using duplicate messages of smaller size to avoid caching effects.
+The plots of these two cases are shown in fig \ref{fig:caching_figure_vs_without}. From this we conclude that caching effects are negligible and can be ignored.
 
 The plots are  \ref{fig:5D_linear_mapping}, \ref{fig:5D_optimal_mapping}, foo
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_linear_model.png}
-  \caption{Analytic model vs Experimental data for Linear mapping}
+  \caption{Analytic model vs Experimental data for Linear mapping(5D)}
     \label{fig:5D_linear_mapping}
 \end{figure}
 
@@ -678,46 +694,101 @@ The plots are  \ref{fig:5D_linear_mapping}, \ref{fig:5D_optimal_mapping}, foo
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_optimal_model.png}
-  \caption{Analytic model vs Experimental data for Optimal mapping}
+  \caption{Analytic model vs Experimental data for Optimal mapping(5D)}
     \label{fig:5D_optimal_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_random_model.png}
-  \caption{Analytic model vs Experimental data for Random mapping}
+  \caption{Analytic model vs Experimental data for Random mapping(5D)}
     \label{fig:5D_random _mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_regular_model.png}
-  \caption{Analytic model vs Experimental data for Regular mapping}
+  \caption{Analytic model vs Experimental data for Regular mapping(5D)}
     \label{fig:5D regular mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_reversed_model.png}
-  \caption{Analytic model vs Experimental data for Reversed mapping}
+  \caption{Analytic model vs Experimental data for Reversed mapping(5D)}
     \label{fig:5D_reversed_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_skewed_regular.png}
-  \caption{Analytic model vs Experimental data for Skewed regular mapping}
+  \caption{Analytic model vs Experimental data for Skewed regular mapping(5D)}
     \label{fig:5D_skewed_regular_mapping }
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_skewed_reversed.png}
-  \caption{Analytic model vs Experimental data for Skewed reversed mapping}
+  \caption{Analytic model vs Experimental data for Skewed reversed mapping(5D)}
     \label{fig:5D_skewed_reversed_mapping }
 \end{figure}
 
 
+\clearpage
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_linear.png}
+  \caption{Analytic model vs Experimental data for Linear mapping(3D)}
+    \label{fig:3D_linear_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_optimal.png}
+  \caption{Analytic model vs Experimental data for Optimal mapping(3D)}
+    \label{fig:3D_optimal_mapping }
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_pessimal.png}
+  \caption{Analytic model vs Experimental data for Pessimal mapping(3D)}
+    \label{fig:3D_pessimal_mapping }
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_random.png}
+  \caption{Analytic model vs Experimental data for Random mapping(3D)}
+    \label{fig:3D_random_mapping }
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_regular.png}
+  \caption{Analytic model vs Experimental data for Regular mapping(3D)}
+    \label{fig:3D_regular_mapping }
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_reversed.png}
+  \caption{Analytic model vs Experimental data for Reversed mapping(3D)}
+    \label{fig:3D_reversed_mapping }
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_skewed_regular.png}
+  \caption{Analytic model vs Experimental data for Skewed regular mapping(3D)}
+    \label{fig:3D_skewed_regular }
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.45\textwidth]{mappings/3d_skewed_reversed.png}
+  \caption{Analytic model vs Experimental data for Skewed reversed mapping(3D)}
+    \label{fig:3D_skewed_reversed }
+\end{figure}
 
 
 \section{Conclusion}
