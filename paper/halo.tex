@@ -92,7 +92,7 @@ processors.
 \begin{figure}
   \center
   \includegraphics[width=0.475\textwidth]{fig/halo-illustration}
-  \caption{Halo exchange for a 2D cartesian domain on 8 processors}
+  \caption{Halo exchange for a 2D cartesian domain with wraparound on 8 processors}
     \label{fig:halo-illustration}
 \end{figure}
 
@@ -637,10 +637,13 @@ from 3.0 to 9.0 and increase of 0.003 for the average distance between neighbors
 \subsection{Cache effects}
 To determine whether the network performance is affected by the send/receive message buffers overflowing from the
 L3 caches, we designed an experiment which sent \textbf{DUPES} number of messages each with $\frac{datalength}{DUPES}$
-message size. The runs were compared against a run with DUPES=1. The expected result is that for smaller datasizes
-the time to completion will be higher when duplicate messages are sent as there is the added startup cost for DUPES times the original messages.
-If the caches were indeed affecting the network performance, at higher data sizes, the Halo runs with duplicates should outperform
-a run without duplicates.
+message size. The runs were compared against a run with DUPES=1. 
+We expect that the added startup cost associated with the
+additional messages will lead to higher time to completion for short messages for
+$DUPES>1$.
+If L3 cache overflow was limiting halo exchange performance at higher data
+sizes, then we would expect that the Halo runs with $DUPES>1$ should outperform
+the runs with $DUPES=1$ because of the lower memory footprint.
 
 \subsection{Task placement within Mappings for 3D and 5D application domains}
 We've described eight different mapping schemes in Section~\ref{sect:mapping}.
