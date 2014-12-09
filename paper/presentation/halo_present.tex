@@ -1,0 +1,321 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Halo exchange on BG/Q]{Modeling halo exchange on the BlueGene/Q} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Yadu N. Babuji \& Timothy G. Armstrong} % Your name
+\institute[Dept. of Computer Science]
+{
+The University of Chicago \\
+\medskip
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{Halo Exchange - Intro} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+\begin{frame}
+\frametitle{Why is task placements in Halo exchange interesting ?}
+\begin{itemize}
+\item Halo exchange is a very common nearest neighbor communication pattern
+\item Solving PDEs require halo exchange
+\item Task placements can affect halo exchange performance by upto 7.5x
+\item Cheap optimisations with no code change
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\section{Contributions}
+\begin{frame}
+\frametitle{What did we do ?}
+\begin{itemize}
+\item We made an Analytical model from first principles to model the performance.
+\item Introduced a reasonably effective metric for mappings
+\item Experiments to study what factors affect performance
+\item Made nearly optimal and pessimal mappings
+\item Analysis and Plots!
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\section{Experiments}
+\begin{frame}
+\frametitle{What affects performance ?}
+\begin{itemize}
+\item Caching effects when message sizes do not fit in L3 cache ? (No)
+\item Does longer distances result in higher latency ? (Surprisingly No!)
+\item Higher overall traffic ?
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+
+%================================================
+\section{Experiment Plots}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Caching plots}
+\begin{figure}
+\caption{Caching effects}
+\includegraphics[width=0.8\linewidth]{../cache_duplicates_vs_regular.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Latency plots}
+\begin{figure}
+\caption{Latency effects}
+\includegraphics[width=0.8\linewidth]{../regular_vs_maxdist.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Overall traffic plots}
+\begin{figure}
+\caption{Increasing traffic}
+\includegraphics[width=0.8\linewidth]{../3D_512_all_mappings.png}
+\end{figure}
+\end{frame}
+%================================================
+%------------------------------------------------
+\section{Performance models}
+\begin{frame}
+\frametitle{Analytical model for Halo exchange performance}
+\begin{itemize}
+\item Total number of neighbors $T_{neighbors}$, D dimensionality of application.
+\begin{equation}
+  T_{neighbors} = N_{ranks} * 2 * D
+\end{equation} \\
+\item Average steps a message travels $N_{steps}$
+\begin{equation}
+  N_{steps} = \frac{ \sum\limits_{u,v} dist_{u,v} } {T_{neighbors}}
+\end{equation} \\
+\item Time to complete a halo exchange:
+\begin{equation}
+  T = t_c + (N_{steps} * N_{procs} * N * t_b * \alpha)
+\end{equation}
+%\item $t_c$, and $\alpha$ are calibrated from experimental data. t_b is calculated from machine specifications.
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\section{Mappings}
+\begin{frame}
+\frametitle{What mapping strategies did we try?}
+\begin{itemize}
+\item Regular/Default
+\item Skewed regular \& Skewed reversed
+\item Random
+\item Linear \& Reversed
+\item \textbf{Pessimal mapping generated by Simulated Annealing}
+\item \textbf{Optimal mapping by partitioning Application domains}
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+
+
+
+%  \includegraphics[width=0.75\textwidth]{mappings/3d_linear.png}
+%
+%  
+%  \includegraphics[width=0.75\textwidth]{mappings/3d_skewed_reversed.png}
+
+%------------------------------------------------
+\section{Analytical Model vs Experimental Data}
+\begin{frame}
+\begin{figure}
+\caption{5D Linear mapping}
+  \includegraphics[width=0.7\textwidth]{../mappings/5d_linear_model.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\begin{figure}
+\caption{5D Optimal mapping}
+  \includegraphics[width=0.7\textwidth]{../mappings/5d_optimal_model.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\begin{figure}
+\caption{5D Random mapping}
+  \includegraphics[width=0.7\textwidth]{../mappings/5d_random_model.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\caption{5D Regular mapping}
+  \includegraphics[width=0.7\textwidth]{../mappings/5d_regular_model.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\caption{5D Reversed mapping}
+ \includegraphics[width=0.7\textwidth]{../mappings/5d_reversed_model.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\caption{5D Skewed Regular}
+\includegraphics[width=0.7\textwidth]{../mappings/5d_skewed_regular.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\caption{3D Optimal mapping}
+  \includegraphics[width=0.7\textwidth]{../mappings/3d_optimal.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\caption{3D Pessimal mapping}
+  \includegraphics[width=0.7\textwidth]{../mappings/3d_pessimal.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\caption{3D Random mapping}
+  \includegraphics[width=0.7\textwidth]{../mappings/3d_random.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\caption{3D Regular mapping}
+  \includegraphics[width=0.7\textwidth]{../mappings/3d_regular.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\caption{3D Reversed mapping}
+  \includegraphics[width=0.7\textwidth]{../mappings/3d_reversed.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\caption{3D Skewed regular mapping}
+  \includegraphics[width=0.7\textwidth]{../mappings/3d_skewed_regular.png}
+\end{figure}
+\end{frame}
+
+
+
+%------------------------------------------------
+
+
+
+
+
+\end{document} 
