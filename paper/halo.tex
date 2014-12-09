@@ -645,9 +645,18 @@ For our experiments we will only consider MPI\_Isend and MPI\_Irecv primitives w
 The pseudocode for the halo exchange is listed here \ref{fig:halo_pseudocode}.
 Evaluating the performance of the different MPI primitives with randomised delay options is beyond the scope of this paper.
 
+
 \begin{figure}
   \center
-  \includegraphics[width=0.475\textwidth]{regular_vs_cache_duplicates.png}
+  \includegraphics[width=0.45\textwidth]{regular_vs_maxdist.png}
+  \caption{Regular mapping and Maxdist mapping}
+    \label{fig:regular_vs_maxdist}
+\end{figure}
+
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{regular_vs_cache_duplicates.png}
   \caption{Regular mapping with 8 duplicates and without}
     \label{fig:caching_figure_vs_without}
 \end{figure}
@@ -660,7 +669,7 @@ results from
 
 \begin{figure}
   \center
-  \includegraphics[width=0.475\textwidth]{5D_512_most_mappings_2.png}
+  \includegraphics[width=0.45\textwidth]{5D_512_most_mappings_2.png}
   \caption{5D halo exchange on 512 nodes with 16 RPN}
     \label{fig:5D halo exchange on 512 nodes with 16 RPN}
 \end{figure}
@@ -668,7 +677,7 @@ results from
 
 \begin{figure}
   \center
-  \includegraphics[width=0.51\textwidth]{3D_512_all_mappings.png}
+  \includegraphics[width=0.45\textwidth]{3D_512_all_mappings.png}
   \caption{3D halo exchange on 512 nodes with 16 RPN}
     \label{fig:3D halo exchange on 512 nodes with 16 RPN}
 \end{figure}
