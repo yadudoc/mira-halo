@@ -167,7 +167,7 @@ is used for medium length messages that require multiple packets,
 but where the overhead of the rendezvous protocol outweighs any
 benefits.
 The data sizes at which the switch to different protocol occurs is configurable, but for our experiments we use the defaults on BlueGene/Q, which are 
-listed in Table~\{table:bgq_protocols}.
+listed in Table~\ref{table:bgq_protocols}.
 
 % Add note on : Intranode latency implemented as in-memory copy
 % Large message copies as RDMA copy.
@@ -253,7 +253,7 @@ Sample from the mapping file :
 Skewed mapping uses a modified order of task placement along a dimension.
 With linear mapping the nearest neighbors along, say dimension A are only one hop away along A+ or A-.
 Skewed mapping uses an alternate ordering on task placement to ensure that one of the neighbors is atleast
-2 hops away. This alternate ordering is shown in Figure~\ref{fig:Skewed layout for 4 Nodes in 1D}.
+2 hops away. This alternate ordering is shown in Figure~\ref{fig:Skewed_layout_for_4_Nodes_in_1D}.
 Since the network is torus, the maximum distance possible along any dimension is the length along
 the dimension divided by two. However, since there are 5 dimensions on a Blue Gene/Q creating a skew along different
 dimensions can create mappings in which the nearest neighbors are not only separated by hops along a dimension but
