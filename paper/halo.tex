@@ -711,6 +711,51 @@ The results from this experiment in Figure~\ref{fig:regular_vs_maxdist} show tha
 Plot of the different mappings discussed in Section~\ref{sect:mapping} indicate that increasing the halo exchange message length consistenty affects performance.
 Figure~\ref{fig:5D halo exchange on 512 nodes with 16 RPN} and figure~\ref{fig:3D halo exchange on 512 nodes with 16 RPN} are plots of all mappings for the 5D application and 3D application respectively.
 
+
+
+\begin{table}
+  \caption{3D Experimental data vs Analytical model
+    \label{table:data vs model 3d}}
+  {\footnotesize
+    \begin{tabular}{ | l | l | l | p{1.5cm} |}
+    \hline
+    Mapping    &    Min Error\% &    Max Error\% & Avg abs Error\%\\ \hline
+    Optimal    &         -16.63 &          30.88 &         13.17\\ \hline
+    Regular    &          -0.49 &          36.68 &         15.31\\ \hline
+    Linear     &         -24.12 &          14.00 &         10.91\\ \hline
+    Reversed   &         -24.13 &          13.93 &         11.00\\ \hline
+    Skewed regular &      -0.39 &          39.57 &         19.81\\ \hline
+    Skewed reversed&     -20.52 &          18.44 &          7.04\\ \hline
+    Random  &            -53.60 &          23.63 &         27.41\\ \hline
+    Pessimal &           -50.07 &          38.67 &         28.79\\ \hline
+    \hline
+    \end{tabular}
+  }
+\end{table}
+
+
+\begin{table}
+  \caption{5D Experimental data vs Analytical model
+    \label{table:data vs model 5d}}
+  {\footnotesize
+    \begin{tabular}{ | l | l | l | p{1.5cm} |}
+    \hline
+    Mapping         &    Min Error\% &   Max Error\% & Avg abs Error\%\\ \hline
+    Optimal         &         -44.12 & 16.01 & 15.88\\ \hline
+    Regular         &         -0.41  & 32.42 & 17.07\\ \hline
+    Skewed regular  &         -0.68  & 30.98 & 16.96\\ \hline
+    Skewed reversed &         -9.31  & 17.69 & 8.99\\ \hline
+    Linear          &         -9.44  & 17.20 & 6.71\\ \hline
+    Reversed        &         -9.36  & 17.12 & 6.64\\ \hline
+    Random          &         -35.86 & 35.19 & 15.69\\ \hline
+
+    \hline
+    \end{tabular}
+  }
+\end{table}
+
+
+
 % Limitation of the model
 % We use the average distance which does not capture the worst performing link.
 % Determining the worst perfoming link is hard.
