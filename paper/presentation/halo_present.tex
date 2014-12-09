@@ -125,7 +125,8 @@ The University of Chicago \\
 \begin{figure}
   \centering
   \caption{Hurricane simulation using WRF software}
-    \animategraphics[loop,autoplay,width=0.45\linewidth]{12}{img/Typhoon_Mawar_2005_computer_simulation-frame}{0}{48}
+    %\animategraphics[loop,autoplay,width=0.45\linewidth]{12}{img/Typhoon_Mawar_2005_computer_simulation-frame}{0}{48}
+    \includegraphics[width=0.45\linewidth]{img/Typhoon_Mawar_2005_computer_simulation-frame24}
 
 \end{figure}
 \end{frame}
@@ -267,10 +268,11 @@ A B C D E T
 \begin{frame}
 \frametitle{Impact of Message Size on Performance}
 \begin{itemize}
-  \item Some hypotheses to evaluate:
+  \item Some hypotheses we evaluated:
   \begin{itemize}
     \item Longer distances resulting in higher latency?
     \item Caching effects when message buffers do not fit in L3 cache?
+    \item Different network protocols/routing algorithms
     \item Network congestion from increased traffic limits performance?
   \end{itemize}
 \end{itemize}
@@ -308,6 +310,25 @@ TODO: basic time vs. data size plot
 %\caption{Caching effects}
 \includegraphics[width=0.8\linewidth]{../cache_duplicates_vs_regular.png}
 \end{figure}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Blue Gene/Q Network protocols}
+\begin{itemize}
+    \item MPI protocol threshold values match experimental data
+\end{itemize}
+\begin{table}
+  \caption{MPI Protocol default thresholds
+    \label{table:bgq_protocols}}
+  {\footnotesize
+    \begin{tabular}{ | l | l | l | p{1.5cm} |}
+    \hline 
+    \input ../tables/protocols.tex
+    \end{tabular}
+  }
+\end{table}
 \end{frame}
 %------------------------------------------------
 

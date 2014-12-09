@@ -188,13 +188,8 @@ MPICH2 Nemesis.
     \label{table:bgq_protocols}}
   {\footnotesize
     \begin{tabular}{ | l | l | l | p{1.5cm} |}
-    \hline
-    Protocol   & Min Msg Size   & Max Msg Size  & Routing\\ \hline
-    Immediate  &             0B &           112B & Direct\\ \hline
-    Short      &           113B &           496B & Direct\\ \hline
-    Eager      &           497B &          4096B & Direct\\ \hline
-    Rendezvous &          4096B &      unlimited & Adaptive\\ \hline
-    \hline
+    \hline 
+    \input tables/protocols.tex
     \end{tabular}
   }
 \end{table}
