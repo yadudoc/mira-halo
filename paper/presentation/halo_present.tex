@@ -85,7 +85,7 @@
 
 \title[Halo exchange on BG/Q]{Modeling halo exchange on the BlueGene/Q} % The short title appears at the bottom of every slide, the full title is only on the title page
 
-\author{Yadu N. Babuji \& Timothy G. Armstrong} % Your name
+\author{Yadu N. Babuji \& Tim Armstrong} % Your name
 \institute[Dept. of Computer Science]
 {
 The University of Chicago \\
@@ -120,7 +120,7 @@ The University of Chicago \\
 \end{itemize}
 \begin{figure}
 \centering
-\caption{Halo exchange for a 2D cartesian domain on 8 processors}
+\caption{Halo exchange for a 2D cartesian domain with wraparound on 8 processors}
 \includegraphics[width=0.55\linewidth]{../fig/halo-illustration}
 \end{figure}
 \end{frame}
@@ -135,11 +135,24 @@ The University of Chicago \\
     \item Max 3$\mu$s latency, typically less
     \item Each node has (A, B, C, D, E) coordinates
     \item 10 network links to neighbours per node
+    \item Messages for non-neighbours routed via multiple links
     \item 1.8 GB/s usable bandwidth per direction per link
   \end{itemize}
 \end{itemize}
+\vspace{-1.0em}
 \centering
-\includegraphics[width=0.5\linewidth]{mira}
+\begin{figure}
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \caption{Blue Gene/Q Mira}
+    \includegraphics[width=0.9\linewidth]{mira}
+  \end{minipage}
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \caption{3-dimensional torus network for illustration}
+    \includegraphics[width=0.65\linewidth]{500px-2x2x2torus}
+  \end{minipage}
+\end{figure}
 \end{frame}
 %------------------------------------------------
 
@@ -213,10 +226,16 @@ The University of Chicago \\
 \begin{equation}
   N_{steps} = \frac{ \sum\limits_{u,v} dist_{u,v} } {T_{neighbors}}
 \end{equation} \\
-\item Time to complete a halo exchange:
+\item Time to complete a halo exchange T with N bytes per message
 \begin{equation}
   T = t_c + (N_{steps} * N_{procs} * N * t_b * \alpha)
 \end{equation}
+\item Model parameters:
+\begin{itemize}
+  \item $t_c$: constant start-up time
+  \item $t_b$: time to transmit byte given ideal link utilization
+  \item $\alpha$: link utilization factor
+\end{itemize}
 %\item $t_c$, and $\alpha$ are calibrated from experimental data. t_b is calculated from machine specifications.
 \end{itemize}
 \end{frame}
