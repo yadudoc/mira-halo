@@ -78,6 +78,7 @@
 \usepackage{listings}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{animate}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -111,17 +112,33 @@ The University of Chicago \\
 %------------------------------------------------
 \section{Halo Exchange - Intro} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 \begin{frame}
-\frametitle{Why is task placements in Halo exchange interesting ?}
+\frametitle{Domain decomposition in parallel applications}
 \begin{itemize}
-\item Halo exchange is a common nearest neighbor communication pattern
-\item Solving PDEs require halo exchange
-\item Task placements can affect halo exchange performance by upto 7.5x
-\item Cheap optimisations with no code change
+  \item Parallelizing an applications requires
+      \emph{decomposing} the problem into multiple subproblems
+  \item \emph{Domain decomposition} divides the application domain
+      between processors
+\end{itemize}
+\vspace{-1.0em}
+\begin{figure}
+  \centering
+  \caption{Hurricane simulation using WRF software}
+    \animategraphics[loop,autoplay,width=0.45\linewidth]{12}{img/Typhoon_Mawar_2005_computer_simulation-frame}{0}{48}
+
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Halo Exchange}
+\begin{itemize}
+  \item Halo exchange is a common nearest neighbor communication pattern
+        associated with domain decomposition
+  \item Boundary regions are periodically communicated to neighbors
 \end{itemize}
 \begin{figure}
-\centering
-\caption{Halo exchange for a 2D cartesian domain with wraparound on 8 processors}
-\includegraphics[width=0.55\linewidth]{../fig/halo-illustration}
+  \centering
+  \caption{Halo exchange for a 2D cartesian domain with wraparound on 8 processors}
+  \includegraphics[width=0.55\linewidth]{../fig/halo-illustration}
 \end{figure}
 \end{frame}
 
@@ -152,6 +169,26 @@ The University of Chicago \\
     \caption{3-dimensional torus network for illustration}
     \includegraphics[width=0.65\linewidth]{500px-2x2x2torus}
   \end{minipage}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Task placement in Halo exchange}
+\begin{itemize}
+\item Problem setup:
+  \begin{itemize}
+    \item Application domain decomposed with cartesian grid
+    \item Network topology - 5D torus
+    \item Task mapping from application rank to network coordinate
+  \end{itemize}
+\item Easy optimization - no algorithmic or code changes required
+\item Up to 7.5x difference in halo exchange time between mappings
+\end{itemize}
+\vspace{-1.0em}
+\begin{figure}
+  \centering
+%  \caption{Task mapping for halo exchange}
+  \includegraphics[width=0.75\linewidth]{../fig/halo-mapping}
 \end{figure}
 \end{frame}
 %------------------------------------------------
