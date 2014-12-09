@@ -111,6 +111,8 @@ The University of Chicago \\
 
 %------------------------------------------------
 \section{Halo Exchange - Intro} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+
+%------------------------------------------------
 \begin{frame}
 \frametitle{Domain decomposition in parallel applications}
 \begin{itemize}
@@ -127,7 +129,9 @@ The University of Chicago \\
 
 \end{figure}
 \end{frame}
+%------------------------------------------------
 
+%------------------------------------------------
 \begin{frame}
 \frametitle{Halo Exchange}
 \begin{itemize}
@@ -141,7 +145,9 @@ The University of Chicago \\
   \includegraphics[width=0.55\linewidth]{../fig/halo-illustration}
 \end{figure}
 \end{frame}
+%------------------------------------------------
 
+%------------------------------------------------
 \begin{frame}
 \frametitle{Blue Gene/Q Mira}
 \begin{itemize}
@@ -171,14 +177,16 @@ The University of Chicago \\
   \end{minipage}
 \end{figure}
 \end{frame}
+%------------------------------------------------
 
+%------------------------------------------------
 \begin{frame}
 \frametitle{Task placement in Halo exchange}
 \begin{itemize}
 \item Problem setup:
   \begin{itemize}
-    \item Application domain decomposed with cartesian grid
-    \item Network topology - 5D torus
+    \item Application domain decomposed with cartesian grid, e.g. 32x32x8
+    \item Network topology - 5D torus, e.g. 4x4x4x4x2 nodes, 16 cores/node
     \item Task mapping from application rank to network coordinate
   \end{itemize}
 \item Easy optimization - no algorithmic or code changes required
@@ -195,8 +203,39 @@ The University of Chicago \\
 
 %------------------------------------------------
 \section{Contributions}
+\begin{frame}[fragile]
+\frametitle{Goals}
+\begin{itemize}
+  \item Predict task mapping performance for halo exchange on Blue Gene/Q
+  \begin{itemize}
+    \item Map application rank to (A, B, C, D, E, T) network coordinates
+  \end{itemize}
+  \item Discover good (and bad) task mapping strategies
+\end{itemize}
+\begin{figure}
+  \centering
+  \caption{Blue Gene/Q mapping file sample}
+  \begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
+A B C D E T
+0 0 0 0 0 0
+0 0 0 0 0 1
+    ...
+0 0 0 0 0 15
+0 0 0 0 1 0
+0 0 0 0 1 1
+    ...
+0 0 0 0 1 15
+0 0 0 1 1 0
+    ...
+0 0 0 1 1 15
+  \end{lstlisting}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
 \begin{frame}
-\frametitle{What did we do ?}
+\frametitle{What did we do?}
 \begin{itemize}
 \item We made an Analytical model from first principles to model the performance.
 \item Introduced a reasonably effective metric for mappings
@@ -210,32 +249,50 @@ The University of Chicago \\
 %------------------------------------------------
 \section{Experiments}
 \begin{frame}
-\frametitle{What affects performance ?}
+\frametitle{Experiment Setup}
 \begin{itemize}
-\item Caching effects when message sizes do not fit in L3 cache ? (No)
-\item Does longer distances result in higher latency ? (Surprisingly No!)
-\item Higher overall traffic ?
+  \item 512 node partition of Blue Gene/Q Mira at Argonne - 4x4x4x4x2
+  \item 3D (32x32x8) and 5D (8x8x8x8x2) application domains with wraparound
+  \item Message sizes from 8 bytes to 16MB
+  \item Measured time for 6/10 concurrent sends and receives for 3D/5D
 \end{itemize}
+
+\centering
+\includegraphics[width=0.45\linewidth]{mira}
+
 \end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Impact of Message Size on Performance}
+\begin{itemize}
+  \item Some hypotheses to evaluate:
+  \begin{itemize}
+    \item Longer distances resulting in higher latency?
+    \item Caching effects when message buffers do not fit in L3 cache?
+    \item Network congestion from increased traffic limits performance?
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+TODO: basic time vs. data size plot
+\end{figure}
+\end{frame}
+
 %------------------------------------------------
 
 %================================================
 \section{Experiment Plots}
 %------------------------------------------------
 \begin{frame}
-\frametitle{Caching plots}
+\frametitle{Maximum distance and latency experiment}
+\begin{itemize}
+    \item Move one rank to furthers point in network from neighbor
+    \item Do longer distances result in higher latency? Surprisingly, no!
+\end{itemize}
 \begin{figure}
-\caption{Caching effects}
-\includegraphics[width=0.8\linewidth]{../cache_duplicates_vs_regular.png}
-\end{figure}
-\end{frame}
-%------------------------------------------------
-
-%------------------------------------------------
-\begin{frame}
-\frametitle{Latency plots}
-\begin{figure}
-\caption{Latency effects}
+%\caption{Latency effects}
 \includegraphics[width=0.8\linewidth]{../regular_vs_maxdist.png}
 \end{figure}
 \end{frame}
@@ -243,12 +300,17 @@ The University of Chicago \\
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Overall traffic plots}
+\frametitle{Caching effect experiments}
+\begin{itemize}
+    \item Caching effects when message buffers do not fit in L3 cache? No!
+\end{itemize}
 \begin{figure}
-\caption{Increasing traffic}
-\includegraphics[width=0.8\linewidth]{../3D_512_all_mappings.png}
+%\caption{Caching effects}
+\includegraphics[width=0.8\linewidth]{../cache_duplicates_vs_regular.png}
 \end{figure}
 \end{frame}
+%------------------------------------------------
+
 %================================================
 %------------------------------------------------
 \section{Performance models}
@@ -296,6 +358,16 @@ The University of Chicago \\
 
 %================================================
 \section{Plots of Analytical Model and Experimental Data}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Overall traffic plots}
+\begin{figure}
+%\caption{Increasing traffic}
+\includegraphics[width=0.8\linewidth]{../3D_512_all_mappings.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
 
 %------------------------------------------------
 \begin{frame}[fragile]
