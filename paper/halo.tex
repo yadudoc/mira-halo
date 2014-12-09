@@ -140,8 +140,8 @@ by its A,B,C,D,E coordinates, while the location of a core is specified
 with an additional dimension, T. The E dimension is limited to a length
 of 2, while A,B,C,D dimensions can be multiples of 4 to remain torus.
 One rack on the BlueGene/Q is a torus network of dimensions 4x4x4x4x2.
-Larger partitions are created by combining multiple racks to form a torus network.
-\timnote{Not sure what last sentence means.}  The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}
+Larger torus networks are formed by combining these 4x4x4x4x2 racks.
+The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}
 while the worst point-to-point network latency is expected to be under 3$\mu$s. 
 
 % The BGQ routing protocols
@@ -158,15 +158,24 @@ The Message Passing Interface (MPI) is a standard for message-passing in HPC app
 We use MPI to implement the messaging and synchronization aspects of the HALO exchange code,
 and hence the performance observed from running the application would be influenced by the behavior of MPI due to its various protocols on the BlueGene/Q.
 There are four protocols supported by the MPI implementation used BlueGene/Q.
-The protocol utilized by MPI is determined by the size of the message that is being sent.
-The data sizes at which the switch to different protocol occurs is configurable, but for our experiments we use the defaults on BlueGene/Q.
+The protocol utilized by MPI is determined by the size of the message that is being sent.  The short and immediate protocols are used for very short
+messages that can fit in a single network packet.  The rendezvous
+protocol is used for longer messages where receiver buffer space may
+be insufficient to store the message and where more complex adaptive
+routing protocols may be beneficial.  The eager protocol
+is used for medium length messages that require multiple packets,
+but where the overhead of the rendezvous protocol outweighs any
+benefits.
+The data sizes at which the switch to different protocol occurs is configurable, but for our experiments we use the defaults on BlueGene/Q, which are 
+listed in Table~\ref{table:bgq_protocols}.
 
 % Add note on : Intranode latency implemented as in-memory copy
 % Large message copies as RDMA copy.
 MPICH2 Nemesis.
 
 \begin{table}
-  \caption{MPI Protocol default thresholds}
+  \caption{MPI Protocol default thresholds
+    \label{table:bgq_protocols}}
   {\footnotesize
     \begin{tabular}{ | l | l | l | p{1.5cm} |}
     \hline
@@ -181,9 +190,6 @@ MPICH2 Nemesis.
 \end{table}
 
 \section{Mapping Strategies}
-
-\timnote{Include a few example lines of mapping file?}
-
 Different classes of HPC systems provide different mechanisms and varying levels of control on task placement.
 The MPI framework gives finegrained control of placement of tasks via a mapping file when such functionality
 is supported by the hardware. On BlueGene/Q systems from IBM, the mapping files allow you to determine where
@@ -195,7 +201,11 @@ also cannot guarantee that the location of nodes with relation to the rest of th
 across multiple runs. As a result BlueGene/Q systems can offer far greater control on task placements, and
 better guarantees on reproducible results.
 
-With the focus on BlueGene/Q systems here's a broad outline of different mapping strategies we have examined:
+The BlueGene/Q mapping file follows a simple text format, with one
+line per MPI rank.  The $i$th line in the file gives the A,B,C,D,E,T
+coordinates of MPI rank $i$ as space-separated integers.
+
+With the focus on BlueGene/Q systems we will outline a range of different mapping strategies we have examined.
 
 \subsection{Regular/Default Mapping}
 The default mapping involves ranks being assigned in increasing order along the dimensions T, E, D, C, B, A.
@@ -280,7 +290,7 @@ Sample from the mapping for reversed ordering:
 \label{sect:Skewed mapping in 1D}
 \begin{figure}
   \center
-  \includegraphics[width=0.5\textwidth]{skewed_layout_cropped.pdf}
+  \includegraphics[width=0.475\textwidth]{skewed_layout_cropped.pdf}
   \caption{Skewed layout for 4 Nodes in 1D}
     \label{fig:Skewed layout for 4 Nodes in 1D}
 \end{figure}
@@ -320,12 +330,12 @@ of the search space, where large perturbations are made and negative
 moves are sometimes accepted to allow the algorithm to escape local
 minima of the function being optimized.  Over time, the algorithm
 transitions to fine-tuning, with smaller perturbations made and negative moves
-accepted less frequently.
+accepted less frequently.  Pseudocode for the algorithm is shown in
+Figure~\ref{fig:anneal_pseudocode}.
 
-Pseudocode for the algorithm is as follows:
-
-% Minor style change
-\begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
+\begin{figure}
+  {\footnotesize
+  \begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 mapping := random_mapping(app_topo, net_topo)
 dist := average_distance(mapping)
 for i = 1 to niters do
@@ -339,8 +349,12 @@ for i = 1 to niters do
     dist := new_dist
   end
 end
-\end{lstlisting}
-
+  \end{lstlisting}
+  }
+  \caption{Pseudocode halo exchange algorithm with concurrent sends and
+           receives to all neighbours.}
+    \label{fig:anneal_pseudocode}
+\end{figure}
 
 The algorithm has several inputs and has several subprocedures,
 which we will describe informally.
@@ -469,7 +483,7 @@ The average distance for the various mappings for the 3D and 5D case are provide
     skewed regular  & 1.100000 & 3.000000\\ \hline
     skewed reversed & 1.450000 & 3.000000\\ \hline
     optimal         & 0.600000 & 1.000000\\ \hline
-    de-optimised    & --       & --      \\ \hline
+    de-optimized    & --       & --      \\ \hline
     \hline
     \end{tabular}
   }
@@ -489,7 +503,7 @@ The average distance for the various mappings for the 3D and 5D case are provide
     skewed regular  & 0.979167 & 4.000000\\ \hline
     skewed reversed & 1.645833 & 4.000000\\ \hline
     optimal         & 0.479167 & 2.000000\\ \hline
-    de-optimised    & 6.530436 & 9.000000\\ \hline
+    de-optimized    & 6.530436 & 9.000000\\ \hline
     \hline
     \end{tabular}
   }
@@ -570,11 +584,11 @@ in real world scenarios. The experiments have been repeated multiple time on dif
 to ensure that partition specific effects do not influence results, however we have not been able to reproduce
 results on different machines of the same architecture due to time limitations.
 
-Since we are only interested in the network performance aspect of the halo exchange code, we only measure
-the time taken to complete halo exchanges. The pseudocode for the halo exchange is listed below:
-
-\begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
+\begin{figure*}[ht]
+  {\footnotesize
+  \begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 MPI_Comm comm_cart
+MPI_Request req[4*N_dims]
 
 for dim = 1 to N_dims do:
     MPI_Cart_Shift (comm_cart, dim,  1, rank_src[0][dim], rank_dst[0][dim]
@@ -585,15 +599,26 @@ MPI_Barrier(comm_cart)
 halo_timer(begin)
 for dim = 1 to N_dims do
     # Send/recv message along dim+
-    MPI_Isend(send_buffer, datalength, desination_ranks[0][dim], comm_cart)
-    MPI_Irecv(send_buffer, datalength, source_ranks[0][dim], comm_cart)
+    MPI_Isend(send_buffer, datalength, destination_ranks[0][dim], comm_cart, req[i*4])
+    MPI_Irecv(send_buffer, datalength, source_ranks[0][dim], comm_cart, req[i*4+1])
     # Send/recv message along dim-
-    MPI_Isend(send_buffer, datalength, desination_ranks[0][dim], comm_cart)
-    MPI_Irecv(send_buffer, datalength, source_ranks[0][dim], comm_cart)
+    MPI_Isend(send_buffer, datalength, destination_ranks[0][dim], comm_cart, req[i*4+2])
+    MPI_Irecv(send_buffer, datalength, source_ranks[0][dim], comm_cart, req[i*4+3])
 end
+
+MPI_Waitall(4*N_dims, req)
 MPI_Barrier(comm_cart)
 halo_timer(end)
-\end{lstlisting}
+  \end{lstlisting}
+  }
+  \caption{Pseudocode of halo exchange algorithm with concurrent sends and
+           receives to all neighbours.}
+    \label{fig:halo_pseudocode}
+\end{figure*}
+
+Since we are only interested in the network performance aspect of the halo exchange code, we only measure
+the time taken to complete halo exchanges. The pseudocode for the halo exchange is listed in Figure~\ref{fig:halo_pseudocode}.
+
 
 To determine whether the network performance is affected by the send/receive message buffers overflowing from the
 L3 caches, we designed an experiment which sent \textbf{DUPES} number of messages each with $\frac{datalength}{DUPES}$
@@ -602,37 +627,106 @@ the time to completion will be higher when duplicate messages are sent as there 
 If the caches were indeed affecting the network performance, at higher data sizes, the Halo runs with duplicates should outperform
 a run without duplicates.
 
-The results show that at higher data sizes, the time to completion is unaffected by the using duplicate messages of smaller size to avoid caching effects.
-The plots of these two cases are shown in fig \ref{fig:caching_figure_vs_without}. From this we conclude that caching effects are negligible and can be ignored.
-
-\label{sect:caching_figure}
 \begin{figure}
   \center
-  \includegraphics[width=0.5\textwidth]{regular_vs_cache_duplicates.png}
+  \includegraphics[width=0.475\textwidth]{regular_vs_cache_duplicates.png}
   \caption{Regular mapping with 8 duplicates and without}
     \label{fig:caching_figure_vs_without}
 \end{figure}
 
+The results show that at higher data sizes, the time to completion is unaffected by the using duplicate messages of smaller size to avoid caching effects.
+The plots of these two cases are shown in fig \ref{fig:caching_figure_vs_without}. From this we conclude that caching effects are negligible and can be ignored.
+
+
 
 The analytical model described in Section \ref{model}, is informed by the nature of the target system
 and the domain decomposition of the application. The value of a model is in the ability to predict the
-results from 
+results from
 % What machine do we run on
-% 
+%
 
-
-
-
-\label{sect:3D Halo plot}
 \begin{figure}
   \center
-  \includegraphics[width=0.5\textwidth]{5D_512_most_mappings_2.png}
+  \includegraphics[width=0.475\textwidth]{5D_512_most_mappings_2.png}
   \caption{5D halo exchange on 512 nodes with 16 RPN}
+    \label{fig:5D halo exchange on 512 nodes with 16 RPN}
+\end{figure}
+
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.51\textwidth]{3D_512_all_mappings.png}
+  \caption{3D halo exchange on 512 nodes with 16 RPN}
     \label{fig:3D halo exchange on 512 nodes with 16 RPN}
 \end{figure}
 
 
+
+
 \section{Results}
+
+The plots are  \ref{fig:5D_linear_mapping}, \ref{fig:5D_optimal_mapping}, foo
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_linear_model.png}
+  \caption{Analytic model vs Experimental data for Linear mapping}
+    \label{fig:5D_linear_mapping}
+\end{figure}
+
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_optimal_model.png}
+  \caption{Analytic model vs Experimental data for Optimal mapping}
+    \label{fig:5D_optimal_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_random_model.png}
+  \caption{Analytic model vs Experimental data for Random mapping}
+    \label{fig:5D_random _mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_regular_model.png}
+  \caption{Analytic model vs Experimental data for Regular mapping}
+    \label{fig:5D regular mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_reversed_model.png}
+  \caption{Analytic model vs Experimental data for Reversed mapping}
+    \label{fig:5D_reversed_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_skewed_regular.png}
+  \caption{Analytic model vs Experimental data for Skewed regular mapping}
+    \label{fig:5D_skewed_regular_mapping }
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_skewed_reversed.png}
+  \caption{Analytic model vs Experimental data for Skewed reversed mapping}
+    \label{fig:5D_skewed_reversed_mapping }
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{fig/TEST_RPN_16_NODE_512_5D_LINK_UTIL}
+  \caption{Average link utilization during 5D Halo exchange for different
+          mappings
+    \label{fig:TEST_RPN_16_NODE_512_5D_LINK_UTIL}}
+\end{figure}
+\usepackage[all]{nowidow}
+
+
 
 \section{Conclusion}
 
