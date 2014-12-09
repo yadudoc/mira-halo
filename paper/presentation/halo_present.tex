@@ -239,6 +239,33 @@ The University of Chicago \\
 %------------------------------------------------
 \begin{frame}[fragile]
 \begin{figure}
+\caption{5D Regular mapping}
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+    \includegraphics[width=1\textwidth]{../mappings/5d_regular_model.png}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+\lstset{title=Mapping sample}
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
+0 0 0 0 0 0
+    ...
+0 0 0 0 0 15
+0 0 0 0 1 0
+    ...
+0 0 0 0 1 15
+0 0 0 1 1 0
+    ...
+0 0 0 1 1 15
+\end{lstlisting}
+  \end{column}
+\end{columns}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}[fragile]
+\begin{figure}
 \caption{5D Linear mapping}
 \begin{columns}
   \begin{column}{0.6\textwidth}
@@ -264,7 +291,67 @@ The University of Chicago \\
 \end{frame}
 %------------------------------------------------
 
+%------------------------------------------------
+\begin{frame}[fragile]
+\begin{figure}
+\caption{5D Skewed Regular}
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+    \includegraphics[width=1\textwidth]{../mappings/5d_skewed_regular.png}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+\lstset{title=Mapping sample}
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
+0 0 0 0 0 0
+  ...
+0 0 0 0 0 15
+0 0 0 0 1 0
+  ...
+0 0 0 0 1 15
+0 0 0 2 0 0
+  ...
+0 0 0 2 0 15
+\end{lstlisting}
+  \end{column}
+\end{columns}
+\end{figure}
+\end{frame}
+%------------------------------------------------
 
+%------------------------------------------------
+\begin{frame}[fragile]
+\begin{figure}
+\caption{5D Skewed Reversed}
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+    \includegraphics[width=1\textwidth]{../mappings/5d_skewed_reversed.png}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+\lstset{title=Mapping sample}
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
+0 0 0 0 0 0
+2 0 0 0 0 0
+1 0 0 0 0 0
+3 0 0 0 0 0
+0 2 0 0 0 0
+2 2 0 0 0 0
+1 2 0 0 0 0
+3 2 0 0 0 0
+\end{lstlisting}
+  \end{column}
+\end{columns}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\begin{figure}
+\caption{5D Random mapping}
+    \includegraphics[width=0.75\textwidth]{../mappings/5d_random_model.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
 
 %------------------------------------------------
 \begin{frame}[fragile]
@@ -294,22 +381,12 @@ The University of Chicago \\
 
 
 %------------------------------------------------
-\begin{frame}
-\begin{figure}
-\caption{5D Random mapping}
-    \includegraphics[width=0.75\textwidth]{../mappings/5d_random_model.png}
-\end{figure}
-\end{frame}
-%------------------------------------------------
-
-
-%------------------------------------------------
 \begin{frame}[fragile]
 \begin{figure}
-\caption{5D Regular mapping}
+\caption{3D Regular mapping}
 \begin{columns}
   \begin{column}{0.6\textwidth}
-    \includegraphics[width=1\textwidth]{../mappings/5d_regular_model.png}
+    \includegraphics[width=1\textwidth]{../mappings/3d_regular.png}
   \end{column}
   \begin{column}{0.3\textwidth}
 \lstset{title=Mapping sample}
@@ -329,38 +406,42 @@ The University of Chicago \\
 \end{figure}
 \end{frame}
 %------------------------------------------------
-\iffalse
 
-\begin{frame}
+%------------------------------------------------
+\begin{frame}[fragile]
 \begin{figure}
-\caption{5D Reversed mapping}
+\caption{3D Linear mapping}
 \begin{columns}
   \begin{column}{0.6\textwidth}
-    \includegraphics[width=1\textwidth]{../mappings/5d_reversed_model.png}
+    \includegraphics[width=1\textwidth]{../mappings/3d_linear.png}
   \end{column}
   \begin{column}{0.3\textwidth}
 \lstset{title=Mapping sample}
 \begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
 0 0 0 0 0 0
-2 0 0 0 0 0
 1 0 0 0 0 0
+2 0 0 0 0 0
 3 0 0 0 0 0
+0 1 0 0 0 0
+1 1 0 0 0 0
+2 1 0 0 0 0
+3 1 0 0 0 0
 0 2 0 0 0 0
-2 2 0 0 0 0
-1 2 0 0 0 0
-3 2 0 0 0 0
 \end{lstlisting}
   \end{column}
+
 \end{columns}
 \end{figure}
 \end{frame}
+%------------------------------------------------
 
-\begin{frame}
+%------------------------------------------------
+\begin{frame}[fragile]
 \begin{figure}
-\caption{5D Skewed Regular}
+\caption{3D Skewed Regular}
 \begin{columns}
   \begin{column}{0.6\textwidth}
-    \includegraphics[width=1\textwidth]{../mappings/5d_skewed_regular.png}
+    \includegraphics[width=1\textwidth]{../mappings/3d_skewed_regular.png}
   \end{column}
   \begin{column}{0.3\textwidth}
 \lstset{title=Mapping sample}
@@ -379,57 +460,77 @@ The University of Chicago \\
 \end{columns}
 \end{figure}
 \end{frame}
+%------------------------------------------------
 
-\fi
-%----------------------------------------------------------------------------------
-\begin{frame}
+%------------------------------------------------
+\begin{frame}[fragile]
 \begin{figure}
-\caption{3D Optimal mapping}
-  \includegraphics[width=0.7\textwidth]{../mappings/3d_optimal.png}
+\caption{3D Skewed Reversed}
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+    \includegraphics[width=1\textwidth]{../mappings/3d_skewed_reversed.png}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+\lstset{title=Mapping sample}
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
+0 0 0 0 0 0
+2 0 0 0 0 0
+1 0 0 0 0 0
+3 0 0 0 0 0
+0 2 0 0 0 0
+2 2 0 0 0 0
+1 2 0 0 0 0
+3 2 0 0 0 0
+\end{lstlisting}
+  \end{column}
+\end{columns}
 \end{figure}
 \end{frame}
+%------------------------------------------------
 
-\begin{frame}
-\begin{figure}
-\caption{3D Pessimal mapping}
-  \includegraphics[width=0.7\textwidth]{../mappings/3d_pessimal.png}
-\end{figure}
-\end{frame}
-
+%------------------------------------------------
 \begin{frame}
 \begin{figure}
 \caption{3D Random mapping}
-  \includegraphics[width=0.7\textwidth]{../mappings/3d_random.png}
+    \includegraphics[width=0.75\textwidth]{../mappings/3d_random.png}
 \end{figure}
 \end{frame}
-
-\begin{frame}
-\begin{figure}
-\caption{3D Regular mapping}
-  \includegraphics[width=0.7\textwidth]{../mappings/3d_regular.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\begin{figure}
-\caption{3D Reversed mapping}
-  \includegraphics[width=0.7\textwidth]{../mappings/3d_reversed.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-\begin{figure}
-\caption{3D Skewed regular mapping}
-  \includegraphics[width=0.7\textwidth]{../mappings/3d_skewed_regular.png}
-\end{figure}
-\end{frame}
-
-
-
 %------------------------------------------------
 
+%------------------------------------------------
+\begin{frame}[fragile]
+\begin{figure}
+\caption{3D Optimal mapping}
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+    \includegraphics[width=1\textwidth]{../mappings/3d_optimal.png}
+  \end{column}
+  \begin{column}{0.3\textwidth}
+\lstset{title=Mapping sample}
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
+0 0 0 0 0 0
+0 0 0 0 0 1
+0 0 1 0 0 0
+0 0 1 0 0 1
+0 0 2 0 0 0
+0 0 2 0 0 1
+0 0 3 0 0 0
+0 0 3 0 0 1
+\end{lstlisting}
+  \end{column}
+\end{columns}
+\end{figure}
+\end{frame}
+%------------------------------------------------
 
-
+%------------------------------------------------
+\begin{frame}[fragile]
+\begin{figure}
+\caption{3D Pessimal mapping}
+\includegraphics[width=0.75\textwidth]{../mappings/3d_pessimal.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
 
 
 \end{document} 
