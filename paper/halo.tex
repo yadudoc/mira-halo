@@ -455,6 +455,7 @@ rendezvous protocol is used by the network which involves complex routing logic 
 a penalty in latency. Since it is difficult to model these dynamic systems, we will assume that the rendezvous protocol will balance
 the network load evenly such that the messages flowing over every link is similar.
 
+\timnote{TODO: mention that Bhanot paper is misguided - hop count matters for bandwidth}~\cite{Bhanot_2005}
 
 The average distance between neighbors can easily be calculated by taking the average of the manhattan distance of all pairs of neighbors.
 We assume that the distance between two ranks on the same node is 0, since intranode messaging does not contribute to network traffic.
