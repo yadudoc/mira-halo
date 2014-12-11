@@ -159,9 +159,9 @@ The University of Chicago \\
   \begin{itemize}
     \item Each node has (A, B, C, D, E) coordinates
     \item Max 3$\mu$s latency, typically less
-    \item 10 network links to neighbours per node
+    \item 10 network links to neighbors per node
     \item 1.8 GB/s usable bandwidth per direction per link
-    \item Messages for non-neighbours routed via multiple links
+    \item Messages for non-neighbors routed via multiple links
   \end{itemize}
 \end{itemize}
 \vspace{-1.0em}
@@ -276,14 +276,10 @@ A B C D E T
 \begin{frame}
 \frametitle{Understanding halo exchange performance}
 \begin{itemize}
-  \item Potentially important factors:
-  \begin{itemize}
-    \item Different network protocols/routing algorithms
-    \item Longer distances resulting in higher latency?
-    \item Cache effects when message buffers do not fit in L3 cache?
-    \item Contention for network link bandwidth limits performance?
-    \item TODO: multiple network paths?
-  \end{itemize}
+  \item Different network protocols/routing algorithms
+  \item Longer distances resulting in higher latency?
+  \item Cache effects when message buffers do not fit in L3 cache?
+  \item Contention for network link bandwidth limits performance?
 \end{itemize}
 
 \begin{figure}
@@ -317,7 +313,7 @@ TODO: basic time vs. data size plot
 \frametitle{Maximum distance and latency experiment}
 \begin{itemize}
     \item Move one rank to furthest point in network from neighbor
-    \item Do longer distances result in higher latency? Surprisingly, no!a
+    \item Do longer distances result in higher latency? Surprisingly, no!
     \item Point-to-point latency not important to model
 \end{itemize}
 \begin{figure}
@@ -340,6 +336,26 @@ TODO: basic time vs. data size plot
 \end{figure}
 \end{frame}
 %------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{What is left?}
+\begin{itemize}
+  \item Contention for network link bandwidth limits performance?
+  \begin{itemize}
+    \item \textbf{Average distance between neighbors $\rightarrow$ \\*
+          overall network utilization during halo exchange}
+    \item Multiple network paths between neighbors $\rightarrow$
+           more usable bandwidth?
+    \item Network hotspots - difficult to model routing algorithms
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+TODO: basic time vs. data size plot
+\end{figure}
+\end{frame}
+
 
 %================================================
 %------------------------------------------------
