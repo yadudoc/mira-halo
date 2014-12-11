@@ -280,11 +280,11 @@ A B C D E T
   \item Different network protocols/routing algorithms
   \item Longer distances resulting in higher latency?
   \item Cache effects when message buffers do not fit in L3 cache?
-  \item Multiple transfers contending for network links bandwidth?
+  \item Multiple transfers contending for network link bandwidth?
 \end{itemize}
-
+\vspace{-0.5em}
 \begin{figure}
-%  \includegraphics[width=0.45\linewidth]{time_vs_data_regular.png}
+  \includegraphics[width=0.65\linewidth]{time_vs_data_regular.png}
 \end{figure}
 \end{frame}
 
@@ -347,20 +347,21 @@ A B C D E T
   \item \textbf{Contention for network link bandwidth limits performance?}
   \item First approximation (in model):
   \begin{itemize}
-    \item \textbf{Average distance between neighbors $\rightarrow$ \\*
-          overall network utilization during halo exchange}
+    \item Average distance between neighbors $\rightarrow$ \\*
+          overall network utilization during halo exchange 
+          %$\rightarrow$ slope of line
   \end{itemize}
   \item Possible additional effects (not in model):
   \begin{itemize}
     \item Multiple network paths between neighbors $\rightarrow$
            more usable bandwidth?
-    \item Bottlenecks on specific links - interactions
+    \item Per-link bottlenecks - interactions
           between individual messages?
   \end{itemize}
 \end{itemize}
-
+\vspace{-0.5em}
 \begin{figure}
-%\includegraphics[width=0.5\linewidth]{time_vs_data_regular.png}
+\includegraphics[width=0.5\linewidth]{time_vs_data_regular.png}
 \end{figure}
 \end{frame}
 
