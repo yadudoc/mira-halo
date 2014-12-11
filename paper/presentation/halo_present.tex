@@ -110,7 +110,7 @@ The University of Chicago \\
 %----------------------------------------------------------------------------------------
 
 %------------------------------------------------
-\section{Halo Exchange - Intro} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+\section{Intro to Halo Exchange and Blue Gene/Q} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 
 %------------------------------------------------
 \begin{frame}
@@ -204,7 +204,7 @@ The University of Chicago \\
 %------------------------------------------------
 
 %------------------------------------------------
-\section{Contributions}
+\section{Overview of modeling approach}
 \begin{frame}[fragile]
 \frametitle{Goals}
 \begin{itemize}
@@ -255,7 +255,7 @@ A B C D E T
 %------------------------------------------------
 
 %------------------------------------------------
-\section{Experiments}
+\section{Model development}
 \begin{frame}
 \frametitle{Experiment Setup}
 \begin{itemize}
@@ -274,14 +274,14 @@ A B C D E T
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Understanding Halo Exchange Performance}
+\frametitle{Understanding halo exchange performance}
 \begin{itemize}
-  \item Some hypotheses we evaluated:
+  \item Potentially important factors:
   \begin{itemize}
-    \item Longer distances resulting in higher latency?
-    \item Caching effects when message buffers do not fit in L3 cache?
     \item Different network protocols/routing algorithms
-    \item Network congestion from increased traffic limits performance?
+    \item Longer distances resulting in higher latency?
+    \item Cache effects when message buffers do not fit in L3 cache?
+    \item Contention for network link bandwidth limits performance?
     \item TODO: multiple network paths?
   \end{itemize}
 \end{itemize}
@@ -291,35 +291,6 @@ TODO: basic time vs. data size plot
 \end{figure}
 \end{frame}
 
-%------------------------------------------------
-
-%================================================
-%\section{Experiment Plots}
-%------------------------------------------------
-\begin{frame}
-\frametitle{Maximum distance and latency experiment}
-\begin{itemize}
-    \item Move one rank to furthest point in network from neighbor
-    \item Do longer distances result in higher latency? Surprisingly, no!
-\end{itemize}
-\begin{figure}
-%\caption{Latency effects}
-\includegraphics[width=0.8\linewidth]{../regular_vs_maxdist.png}
-\end{figure}
-\end{frame}
-%------------------------------------------------
-
-%------------------------------------------------
-\begin{frame}
-\frametitle{Caching effect experiments}
-\begin{itemize}
-    \item Caching effects when message buffers do not fit in L3 cache? No!
-\end{itemize}
-\begin{figure}
-%\caption{Caching effects}
-\includegraphics[width=0.8\linewidth]{../cache_duplicates_vs_regular.png}
-\end{figure}
-\end{frame}
 %------------------------------------------------
 
 %------------------------------------------------
@@ -341,9 +312,38 @@ TODO: basic time vs. data size plot
 \end{frame}
 %------------------------------------------------
 
+%------------------------------------------------
+\begin{frame}
+\frametitle{Maximum distance and latency experiment}
+\begin{itemize}
+    \item Move one rank to furthest point in network from neighbor
+    \item Do longer distances result in higher latency? Surprisingly, no!a
+    \item Point-to-point latency not important to model
+\end{itemize}
+\begin{figure}
+%\caption{Latency effects}
+\includegraphics[width=0.8\linewidth]{../regular_vs_maxdist.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Cache effect experiments}
+\begin{itemize}
+    \item Cache effects when message buffers do not fit in L3 cache? No!
+    \item Cache effects not important to model
+\end{itemize}
+\begin{figure}
+%\caption{Caching effects}
+\includegraphics[width=0.8\linewidth]{../cache_duplicates_vs_regular.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
 %================================================
 %------------------------------------------------
-\section{Performance models}
+%\section{Performance models}
 \begin{frame}
 \frametitle{Analytical model for Halo exchange performance}
 \begin{itemize}
@@ -387,7 +387,7 @@ TODO: basic time vs. data size plot
 
 
 %================================================
-\section{Plots of Analytical Model and Experimental Data}
+\section{Model evaluation}
 
 %------------------------------------------------
 \begin{frame}
