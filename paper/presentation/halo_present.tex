@@ -110,7 +110,7 @@ The University of Chicago \\
 %----------------------------------------------------------------------------------------
 
 %------------------------------------------------
-\section{Halo Exchange - Intro} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+\section{Intro to Halo Exchange and Blue Gene/Q} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 
 %------------------------------------------------
 \begin{frame}
@@ -154,14 +154,14 @@ The University of Chicago \\
 \frametitle{Blue Gene/Q Mira}
 \begin{itemize}
 \item Argonne National Laboratory's flagship supercomputer
-\item 48 racks, 49,152 nodes, 786,432 cores
+\item 48 racks, 49,152 nodes, 786,432 cores, 16 cores per node
 \item 5-dimensional torus network
   \begin{itemize}
-    \item Max 3$\mu$s latency, typically less
     \item Each node has (A, B, C, D, E) coordinates
-    \item 10 network links to neighbours per node
-    \item Messages for non-neighbours routed via multiple links
+    \item Max 3$\mu$s latency, typically less
+    \item 10 network links to neighbors per node
     \item 1.8 GB/s usable bandwidth per direction per link
+    \item Messages for non-neighbors routed via multiple links
   \end{itemize}
 \end{itemize}
 \vspace{-1.0em}
@@ -187,9 +187,9 @@ The University of Chicago \\
 \begin{itemize}
 \item Problem setup:
   \begin{itemize}
-    \item Application domain decomposed with cartesian grid, e.g. 32x32x8
+    \item Cartesian domain decomposition, e.g. 32x32x8 for 3D
     \item Network topology - 5D torus, e.g. 4x4x4x4x2 nodes, 16 cores/node
-    \item Task mapping from application rank to network coordinate
+    \item Task mapping from application subdomain/rank to network coordinate
   \end{itemize}
 \item Easy optimization - no algorithmic or code changes required
 \item Up to 7.5x difference in halo exchange time between mappings
@@ -204,7 +204,7 @@ The University of Chicago \\
 %------------------------------------------------
 
 %------------------------------------------------
-\section{Contributions}
+\section{Overview of modeling approach}
 \begin{frame}[fragile]
 \frametitle{Goals}
 \begin{itemize}
@@ -214,9 +214,10 @@ The University of Chicago \\
   \end{itemize}
   \item Discover good (and bad) task mapping strategies
 \end{itemize}
+\vspace{-1em}
 \begin{figure}
   \centering
-  \caption{Blue Gene/Q mapping file sample}
+  \caption{Blue Gene/Q mapping file sample (one row per rank)}
   \begin{lstlisting}[basicstyle=\footnotesize\ttfamily, frame=lines,columns=fixed]
 A B C D E T
 0 0 0 0 0 0
@@ -237,26 +238,33 @@ A B C D E T
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{What did we do?}
+\frametitle{Developing a model}
 \begin{itemize}
-\item We made an Analytical model from first principles to model the performance.
-\item Introduced a reasonably effective metric for mappings
-\item Experiments to study what factors affect performance
-\item Made nearly optimal and pessimal mappings
-\item Analysis and Plots!
+  \item Initial experimental investigation
+  \begin{itemize}
+    \item What factors impact performance of halo exchange task mappings?
+  \end{itemize}
+  \item Analytical model 
+  \begin{itemize}
+    \item Based on first principles, incorporating those factors
+  \end{itemize}
+  \item Calibrated model parameters from experiments with default mapping
+  \item Evaluated model on other task mappings
 \end{itemize}
 \end{frame}
 %------------------------------------------------
 
 %------------------------------------------------
-\section{Experiments}
+\section{Model development}
 \begin{frame}
 \frametitle{Experiment Setup}
 \begin{itemize}
-  \item 512 node partition of Blue Gene/Q Mira at Argonne - 4x4x4x4x2
-  \item 3D (32x32x8) and 5D (8x8x8x8x2) application domains with wraparound
+  \item 512 node (8192 core) partition of Blue Gene/Q Mira - 4x4x4x4x2
+  \item 3D and 5D application domains with wraparound
+        divided into 32x32x8 and 8x8x8x8x2 subdomains
   \item Message sizes from 8 bytes to 16MB
-  \item Measured time for 6/10 concurrent sends and receives for 3D/5D
+  \item Measured time for 6/10 concurrent sends and receives required 
+        for 3D/5D halo exchange
 \end{itemize}
 
 \centering
@@ -267,15 +275,12 @@ A B C D E T
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Impact of Message Size on Performance}
+\frametitle{Understanding halo exchange performance}
 \begin{itemize}
-  \item Some hypotheses we evaluated:
-  \begin{itemize}
-    \item Longer distances resulting in higher latency?
-    \item Caching effects when message buffers do not fit in L3 cache?
-    \item Different network protocols/routing algorithms
-    \item Network congestion from increased traffic limits performance?
-  \end{itemize}
+  \item Different network protocols/routing algorithms
+  \item Longer distances resulting in higher latency?
+  \item Cache effects when message buffers do not fit in L3 cache?
+  \item Contention for network link bandwidth limits performance?
 \end{itemize}
 
 \begin{figure}
@@ -285,40 +290,11 @@ TODO: basic time vs. data size plot
 
 %------------------------------------------------
 
-%================================================
-%\section{Experiment Plots}
-%------------------------------------------------
-\begin{frame}
-\frametitle{Maximum distance and latency experiment}
-\begin{itemize}
-    \item Move one rank to furthest point in network from neighbor
-    \item Do longer distances result in higher latency? Surprisingly, no!
-\end{itemize}
-\begin{figure}
-%\caption{Latency effects}
-\includegraphics[width=0.8\linewidth]{../regular_vs_maxdist.png}
-\end{figure}
-\end{frame}
-%------------------------------------------------
-
-%------------------------------------------------
-\begin{frame}
-\frametitle{Caching effect experiments}
-\begin{itemize}
-    \item Caching effects when message buffers do not fit in L3 cache? No!
-\end{itemize}
-\begin{figure}
-%\caption{Caching effects}
-\includegraphics[width=0.8\linewidth]{../cache_duplicates_vs_regular.png}
-\end{figure}
-\end{frame}
-%------------------------------------------------
-
 %------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Blue Gene/Q Network protocols}
 \begin{itemize}
-    \item MPI protocol threshold values match experimental data
+    \item MPI protocol threshold values explain first bump in chart
 \end{itemize}
 \begin{table}
   \caption{MPI Protocol default thresholds
@@ -333,10 +309,61 @@ TODO: basic time vs. data size plot
 \end{frame}
 %------------------------------------------------
 
+%------------------------------------------------
+\begin{frame}
+\frametitle{Maximum distance and latency experiment}
+\begin{itemize}
+    \item Move one rank to furthest point in network from neighbor
+    \item Do longer distances result in higher latency? Surprisingly, no!
+    \item Point-to-point latency not important to model
+\end{itemize}
+\vspace{-1em}
+\begin{figure}
+%\caption{Latency effects}
+\includegraphics[width=0.8\linewidth]{../regular_vs_maxdist.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Cache effect experiment}
+\begin{itemize}
+    \item Cache effects when message buffers do not fit in L3 cache? No!
+    \item Cache effects not important to model
+\end{itemize}
+\begin{figure}
+%\caption{Caching effects}
+\includegraphics[width=0.8\linewidth]{../cache_duplicates_vs_regular.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{What is left?}
+\begin{itemize}
+  \item Contention for network link bandwidth limits performance?
+  \begin{itemize}
+    \item \textbf{Average distance between neighbors $\rightarrow$ \\*
+          overall network utilization during halo exchange}
+    \item Multiple network paths between neighbors $\rightarrow$
+           more usable bandwidth?
+    \item Network hotspots - would require modeling undocumented
+          adaptive routing algorithm
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+TODO: basic time vs. data size plot
+\end{figure}
+\end{frame}
+
+
 %================================================
 %------------------------------------------------
-\section{Performance models}
-\begin{frame}
+%\section{Performance models}
+\begin{frame}[shrink=5]
 \frametitle{Analytical model for Halo exchange performance}
 \begin{itemize}
 \item Total number of neighbors $T_{neighbors}$, D dimensionality of application.
@@ -379,7 +406,7 @@ TODO: basic time vs. data size plot
 
 
 %================================================
-\section{Plots of Analytical Model and Experimental Data}
+\section{Model evaluation}
 
 %------------------------------------------------
 \begin{frame}
