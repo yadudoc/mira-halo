@@ -344,13 +344,18 @@ A B C D E T
 \begin{frame}
 \frametitle{What is left?}
 \begin{itemize}
-  \item Contention for network link bandwidth limits performance?
+  \item \textbf{Contention for network link bandwidth limits performance?}
+  \item First approximation (in model):
   \begin{itemize}
     \item \textbf{Average distance between neighbors $\rightarrow$ \\*
           overall network utilization during halo exchange}
+  \end{itemize}
+  \item Possible additional effects (not in model):
+  \begin{itemize}
     \item Multiple network paths between neighbors $\rightarrow$
            more usable bandwidth?
-    \item Bottlenecks on individual links - model routing and individual messages?
+    \item Bottlenecks on specific links - interactions
+          between individual messages?
   \end{itemize}
 \end{itemize}
 
