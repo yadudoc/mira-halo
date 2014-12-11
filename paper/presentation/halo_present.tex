@@ -192,9 +192,9 @@ The University of Chicago \\
     \item Task mapping from application subdomain/rank to network coordinate
   \end{itemize}
 \item Easy optimization - no algorithmic or code changes required
-\item Up to 7.5x difference in halo exchange time between optimal vs pessimal mappings
+\item Best \& worst mappings - up to 7.5x difference in halo exchange time
 \end{itemize}
-\vspace{-1.0em}
+\vspace{-0.75em}
 \begin{figure}
   \centering
 %  \caption{Task mapping for halo exchange}
@@ -238,7 +238,7 @@ A B C D E T
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Developing a model}
+\frametitle{Methodology}
 \begin{itemize}
   \item Initial experimental investigation
   \begin{itemize}
@@ -257,7 +257,7 @@ A B C D E T
 %------------------------------------------------
 \section{Model development}
 \begin{frame}
-\frametitle{Experiment Setup}
+\frametitle{Experimental setup}
 \begin{itemize}
   \item 512 node (8192 core) partition of Blue Gene/Q Mira - 4x4x4x4x2
   \item 3D and 5D application domains with wraparound
@@ -280,7 +280,7 @@ A B C D E T
   \item Different network protocols/routing algorithms
   \item Longer distances resulting in higher latency?
   \item Cache effects when message buffers do not fit in L3 cache?
-  \item Contention for network link bandwidth limits performance?
+  \item Multiple transfers contending for network links bandwidth?
 \end{itemize}
 
 \begin{figure}
@@ -329,9 +329,9 @@ A B C D E T
 \begin{frame}
 \frametitle{Cache effect experiment}
 \begin{itemize}
+    \item Experiment: 1 message of $N$ bytes vs 8 duplicate messages of $\frac{N}{8}$ bytes
     \item Cache effects when message buffers do not fit in L3 cache? No!
     \item Cache effects not important to model
-    \item Experiment: Send 8 duplicate messages on N/8 Bytes vs 1 message of N Bytes
 \end{itemize}
 \begin{figure}
 %\caption{Caching effects}
@@ -344,19 +344,23 @@ A B C D E T
 \begin{frame}
 \frametitle{What is left?}
 \begin{itemize}
-  \item Contention for network link bandwidth limits performance?
+  \item \textbf{Contention for network link bandwidth limits performance?}
+  \item First approximation (in model):
   \begin{itemize}
     \item \textbf{Average distance between neighbors $\rightarrow$ \\*
           overall network utilization during halo exchange}
+  \end{itemize}
+  \item Possible additional effects (not in model):
+  \begin{itemize}
     \item Multiple network paths between neighbors $\rightarrow$
            more usable bandwidth?
-    \item Network hotspots - would require modeling undocumented
-          adaptive routing algorithm
+    \item Bottlenecks on specific links - interactions
+          between individual messages?
   \end{itemize}
 \end{itemize}
 
 \begin{figure}
-\includegraphics[width=0.5\linewidth]{time_vs_data_regular.png}
+%\includegraphics[width=0.5\linewidth]{time_vs_data_regular.png}
 \end{figure}
 \end{frame}
 
