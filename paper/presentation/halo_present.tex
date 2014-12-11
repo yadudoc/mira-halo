@@ -189,7 +189,8 @@ The University of Chicago \\
   \begin{itemize}
     \item Cartesian domain decomposition, e.g. 32x32x8 = 8196 nodes representing sub-domains for a 3D Application
     \item Network topology - 5D torus, e.g. 4x4x4x4x2 nodes, 16 cores/node
-    \item Task mapping from application subdomain/rank to network coordinate
+    \item Task mapping: application subdomain/rank $\rightarrow$ A,B,C,D,E,T
+          coords
   \end{itemize}
 \item Easy optimization - no algorithmic or code changes required
 \item Best \& worst mappings - up to 7.5x difference in halo exchange time
@@ -209,9 +210,9 @@ The University of Chicago \\
 \frametitle{Goals}
 \begin{itemize}
   \item Predict task mapping performance for halo exchange on Blue Gene/Q
-  \begin{itemize}
-    \item Map application rank to (A, B, C, D, E, T) network coordinates
-  \end{itemize}
+%  \begin{itemize}
+%    \item Mappings of application rank to 
+%  \end{itemize}
   \item Discover good (and bad) task mapping strategies
 \end{itemize}
 \vspace{-1em}
