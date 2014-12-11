@@ -293,7 +293,7 @@ TODO: basic time vs. data size plot
 \begin{frame}[fragile]
 \frametitle{Blue Gene/Q Network protocols}
 \begin{itemize}
-    \item MPI protocol threshold values match experimental data
+    \item MPI protocol threshold values explain first bump in chart
 \end{itemize}
 \begin{table}
   \caption{MPI Protocol default thresholds
@@ -316,6 +316,7 @@ TODO: basic time vs. data size plot
     \item Do longer distances result in higher latency? Surprisingly, no!
     \item Point-to-point latency not important to model
 \end{itemize}
+\vspace{-1em}
 \begin{figure}
 %\caption{Latency effects}
 \includegraphics[width=0.8\linewidth]{../regular_vs_maxdist.png}
@@ -325,7 +326,7 @@ TODO: basic time vs. data size plot
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Cache effect experiments}
+\frametitle{Cache effect experiment}
 \begin{itemize}
     \item Cache effects when message buffers do not fit in L3 cache? No!
     \item Cache effects not important to model
@@ -347,7 +348,8 @@ TODO: basic time vs. data size plot
           overall network utilization during halo exchange}
     \item Multiple network paths between neighbors $\rightarrow$
            more usable bandwidth?
-    \item Network hotspots - difficult to model routing algorithms
+    \item Network hotspots - would require modeling undocumented
+          adaptive routing algorithm
   \end{itemize}
 \end{itemize}
 
@@ -360,7 +362,7 @@ TODO: basic time vs. data size plot
 %================================================
 %------------------------------------------------
 %\section{Performance models}
-\begin{frame}
+\begin{frame}[shrink=5]
 \frametitle{Analytical model for Halo exchange performance}
 \begin{itemize}
 \item Total number of neighbors $T_{neighbors}$, D dimensionality of application.
