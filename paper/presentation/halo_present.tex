@@ -187,12 +187,12 @@ The University of Chicago \\
 \begin{itemize}
 \item Problem setup:
   \begin{itemize}
-    \item Cartesian domain decomposition, e.g. 32x32x8 for 3D
+    \item Cartesian domain decomposition, e.g. 32x32x8 = 8196 nodes representing sub-domains for a 3D Application
     \item Network topology - 5D torus, e.g. 4x4x4x4x2 nodes, 16 cores/node
     \item Task mapping from application subdomain/rank to network coordinate
   \end{itemize}
 \item Easy optimization - no algorithmic or code changes required
-\item Up to 7.5x difference in halo exchange time between mappings
+\item Up to 7.5x difference in halo exchange time between optimal vs pessimal mappings
 \end{itemize}
 \vspace{-1.0em}
 \begin{figure}
@@ -262,8 +262,8 @@ A B C D E T
   \item 512 node (8192 core) partition of Blue Gene/Q Mira - 4x4x4x4x2
   \item 3D and 5D application domains with wraparound
         divided into 32x32x8 and 8x8x8x8x2 subdomains
-  \item Message sizes from 8 bytes to 16MB
-  \item Measured time for 6/10 concurrent sends and receives required 
+  \item Message size per exchange from 8 bytes to 16MB
+  \item Measured time for 6/10 concurrent sends and receives required
         for 3D/5D halo exchange
 \end{itemize}
 
@@ -284,7 +284,7 @@ A B C D E T
 \end{itemize}
 
 \begin{figure}
-TODO: basic time vs. data size plot
+%  \includegraphics[width=0.45\linewidth]{time_vs_data_regular.png}
 \end{figure}
 \end{frame}
 
@@ -320,7 +320,7 @@ TODO: basic time vs. data size plot
 \vspace{-1em}
 \begin{figure}
 %\caption{Latency effects}
-\includegraphics[width=0.8\linewidth]{../regular_vs_maxdist.png}
+\includegraphics[width=0.6\linewidth]{../regular_vs_maxdist.png}
 \end{figure}
 \end{frame}
 %------------------------------------------------
@@ -331,10 +331,11 @@ TODO: basic time vs. data size plot
 \begin{itemize}
     \item Cache effects when message buffers do not fit in L3 cache? No!
     \item Cache effects not important to model
+    \item Experiment: Send 8 duplicate messages on N/8 Bytes vs 1 message of N Bytes
 \end{itemize}
 \begin{figure}
 %\caption{Caching effects}
-\includegraphics[width=0.8\linewidth]{../cache_duplicates_vs_regular.png}
+\includegraphics[width=0.6\linewidth]{../cache_duplicates_vs_regular.png}
 \end{figure}
 \end{frame}
 %------------------------------------------------
@@ -355,7 +356,7 @@ TODO: basic time vs. data size plot
 \end{itemize}
 
 \begin{figure}
-TODO: basic time vs. data size plot
+\includegraphics[width=0.5\linewidth]{time_vs_data_regular.png}
 \end{figure}
 \end{frame}
 
@@ -366,13 +367,13 @@ TODO: basic time vs. data size plot
 \begin{frame}[shrink=5]
 \frametitle{Analytical model for Halo exchange performance}
 \begin{itemize}
-\item Total number of neighbors $T_{neighbors}$, D dimensionality of application.
+\item Total number of neighbors $N_{neighbors}$, D dimensionality of application.
 \begin{equation}
-  T_{neighbors} = N_{ranks} * 2 * D
+  N_{neighbors} = N_{procs} * 2 * D
 \end{equation} \\
-\item Average steps a message travels $N_{steps}$
+\item Average steps a message travels $N_{steps}$, for every pair of neighbors {u,v}
 \begin{equation}
-  N_{steps} = \frac{ \sum\limits_{u,v} dist_{u,v} } {T_{neighbors}}
+  N_{steps} = \frac{ \sum\limits_{u,v} dist_{u,v} } {N_{neighbors}}
 \end{equation} \\
 \item Time to complete a halo exchange T with N bytes per message
 \begin{equation}
@@ -725,7 +726,7 @@ TODO: basic time vs. data size plot
   {\footnotesize
     \begin{tabular}{ | l | l | l | p{1.5cm} |}
     \hline
-    Mapping    &    Min Error\% &    Max Error\% & Avg abs Error\%\\ \hline
+    Mapping    &    Max. under-prediction\% &    Max. over-prediction\% & Avg. abs Error\%\\ \hline
     Optimal    &         -16.63 &          30.88 &         13.17\\ \hline
     Regular    &          -0.49 &          36.68 &         15.31\\ \hline
     Linear     &         -24.12 &          14.00 &         10.91\\ \hline
@@ -751,7 +752,7 @@ TODO: basic time vs. data size plot
   {\footnotesize
     \begin{tabular}{ | l | l | l | p{1.5cm} |}
     \hline
-    Mapping         &    Min Error\% &   Max Error\% & Avg abs Error\%\\ \hline
+    Mapping    &    Max. under-prediction\% &    Max. over-prediction\% & Avg. abs Error\%\\ \hline
     Optimal         &         -44.12 & 16.01 & 15.88\\ \hline
     Regular         &         -0.41  & 32.42 & 17.07\\ \hline
     Linear          &         -9.44  & 17.20 & 6.71\\ \hline
