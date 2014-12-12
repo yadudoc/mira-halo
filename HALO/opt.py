@@ -176,7 +176,8 @@ def calc_temp(i, n):
  
 
 def average_distance(logical, network, neighbour_lists):
-  max_neighbour_dist, sum_neighbour_dist, sum_neighbour_paths, total_neighbours = \
+  max_neighbour_dist, sum_neighbour_dist, sum_network_paths, \
+              total_neighbours, total_network_neighbours = \
               mapping.compute_distances(logical, network, neighbour_lists)
 
   return sum_neighbour_dist / float(total_neighbours)

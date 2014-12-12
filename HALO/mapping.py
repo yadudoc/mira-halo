@@ -297,8 +297,9 @@ def compute_distances(logical, network, neighbour_lists):
 
   max_neighbour_dist = 0.0
   sum_neighbour_dist = 0.0
-  sum_neighbour_paths = 0.0
   total_neighbours = 0
+  sum_network_paths = 0.0
+  total_network_neighbours = 0 # Neighbours at least a hop away
   
   net_dims = network.dims
   net_wrap_dims = network.wrap_dims
@@ -318,14 +319,17 @@ def compute_distances(logical, network, neighbour_lists):
 
       max_neighbour_dist = max(max_neighbour_dist, dist)
       sum_neighbour_dist += dist
-      sum_neighbour_paths += path_count(coords, n_coords, net_dims,
-                                        net_wrap_dims, net_include_dims)
       total_neighbours += 1
+
+      if dist > 0:
+        sum_network_paths += path_count(coords, n_coords, net_dims,
+                                        net_wrap_dims, net_include_dims)
+        total_network_neighbours += 1
 
     #if DEBUG and False:
     #  print "%d %s neighbours: %s" % (rank, str(cs), str(ns))
 
-  return max_neighbour_dist, sum_neighbour_dist, sum_neighbour_paths, total_neighbours
+  return max_neighbour_dist, sum_neighbour_dist, sum_network_paths, total_neighbours, total_network_neighbours
 
 
 def usage():
@@ -386,16 +390,18 @@ def main():
 
   neighbour_lists = compute_neighbour_lists(logical, False)
 
-  max_neighbour_dist, sum_neighbour_dist, sum_neighbour_paths, total_neighbours = \
+  max_neighbour_dist, sum_neighbour_dist, sum_network_paths, \
+      total_neighbours, total_network_neighbours = \
                             compute_distances(logical, network, neighbour_lists)
 
   print "Max Neighbour Distance: %f" % max_neighbour_dist
   print "Sum of Neighbour Distances: %f" % (sum_neighbour_dist)
   print "Average Neighbour Distance: %f" % (
         sum_neighbour_dist / total_neighbours)
-  print "Average Neighbour Path Count: %f" % (
-        float(sum_neighbour_paths) / total_neighbours)
+  print "Average Neighbour Network Path Count: %f" % (
+        float(sum_network_paths) / total_network_neighbours)
   print "Total Neighbours: %d" % total_neighbours
+  print "Total Network Neighbours: %d" % total_network_neighbours
 
 if __name__ == "__main__":
     main()
