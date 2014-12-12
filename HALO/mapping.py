@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import math
 import os
 import sys
 
@@ -233,7 +234,6 @@ def coord_dist(coord1, coord2, dims, wrap_dims, dist_include_dims):
   #assert len(wrap_dims) == len(dims)
   #assert len(ignore_dims) == len(dims)
 
-  # Ignore last dimension (core)
   for dim in dist_include_dims:
     c1 = coord1[dim]
     c2 = coord2[dim]
@@ -254,11 +254,50 @@ def coord_dist(coord1, coord2, dims, wrap_dims, dist_include_dims):
 
   return dist
 
+def path_count(coord1, coord2, dims, wrap_dims, dist_include_dims):
+  """
+  Compute number of manhattan paths of minimum distance between coords.
+
+  wrap_dims: whether dims wrap
+  dist_include_dims: list of the dim indices to include 
+  """
+  dist = 0
+  paths_numerator = 1
+  paths_denominator = 1
+
+  for dim in dist_include_dims:
+    c1 = coord1[dim]
+    c2 = coord2[dim]
+    dim_dist = c1 - c2
+    
+    if dim_dist == 0:
+      continue
+    elif dim_dist < 0:
+      dim_dist = -dim_dist
+
+    if wrap_dims[dim]:
+      # compute wraparound distance, take minimum
+      wrap_dist = dims[dim] - dim_dist
+      if wrap_dist == dim_dist:
+        # Same distance in either direction - can go either way
+        paths_numerator *= 2
+      elif wrap_dist < dim_dist:
+        dim_dist = wrap_dist
+
+    dist += dim_dist
+    # Account for orderings of steps in same direction
+    paths_denominator *= math.factorial(dim_dist)
+ 
+  # Account for number of ways we can take different steps
+  paths_numerator *= math.factorial(dist)
+  return paths_numerator / paths_denominator
+
 def compute_distances(logical, network, neighbour_lists):
   #assert logical.nranks == network.nranks
 
   max_neighbour_dist = 0.0
   sum_neighbour_dist = 0.0
+  sum_neighbour_paths = 0.0
   total_neighbours = 0
   
   net_dims = network.dims
@@ -271,19 +310,22 @@ def compute_distances(logical, network, neighbour_lists):
     coords = net_rank2coord[rank]
     for n_rank in neighbour_lists[rank]:
       #assert rank != n_rank
-      dist = coord_dist(coords, net_rank2coord[n_rank], net_dims,
+      n_coords = net_rank2coord[n_rank]
+      dist = coord_dist(coords, n_coords, net_dims,
                         net_wrap_dims, net_include_dims)
                       
       #ns.append((n_rank, ncs, dist))
 
       max_neighbour_dist = max(max_neighbour_dist, dist)
       sum_neighbour_dist += dist
+      sum_neighbour_paths += path_count(coords, n_coords, net_dims,
+                                        net_wrap_dims, net_include_dims)
       total_neighbours += 1
 
     #if DEBUG and False:
     #  print "%d %s neighbours: %s" % (rank, str(cs), str(ns))
 
-  return max_neighbour_dist, sum_neighbour_dist, total_neighbours
+  return max_neighbour_dist, sum_neighbour_dist, sum_neighbour_paths, total_neighbours
 
 
 def usage():
@@ -344,13 +386,15 @@ def main():
 
   neighbour_lists = compute_neighbour_lists(logical, False)
 
-  max_neighbour_dist, sum_neighbour_dist, total_neighbours = \
+  max_neighbour_dist, sum_neighbour_dist, sum_neighbour_paths, total_neighbours = \
                             compute_distances(logical, network, neighbour_lists)
 
   print "Max Neighbour Distance: %f" % max_neighbour_dist
   print "Sum of Neighbour Distances: %f" % (sum_neighbour_dist)
   print "Average Neighbour Distance: %f" % (
         sum_neighbour_dist / total_neighbours)
+  print "Average Neighbour Path Count: %f" % (
+        float(sum_neighbour_paths) / total_neighbours)
   print "Total Neighbours: %d" % total_neighbours
 
 if __name__ == "__main__":
