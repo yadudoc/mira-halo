@@ -37,7 +37,7 @@
 \newcommand{\todo}[1]{ {\textcolor{red} { TODO: #1 }}}
 
 %\title{How low can you halo?}
-\title{Modeling halo exchange on multi-dimensional torus networks}
+\title{Modeling Halo Exchange on Multi-dimensional Torus Networks}
 
 \numberofauthors{2}
 
@@ -145,7 +145,7 @@ patterns of the application.
 % Routing protocols on the BG/Q
 % Direct routing
 % Adaptive routing
-\subsection{Blue Gene/Q 5D torus network}
+\subsection{Blue Gene/Q 5D Torus Network}
 
 The BlueGene/Q is a massively parallel supercomputer from IBM, the third
 generation of the BlueGene series of supercomputers.
@@ -182,7 +182,7 @@ This routing mechanism better balances the network load but imposes a
 penalty in start-up time and therefore latency for a message.
 
 
-\subsection{Message Passing Interface(MPI)}
+\subsection{Message Passing Interface (MPI)}
 The Message Passing Interface (MPI) is a standard for message-passing in HPC applications.
 We use MPI to implement the messaging and synchronization aspects of the HALO exchange code,
 and hence the performance observed from running the application would be influenced by the behavior of MPI due to its various protocols on the BlueGene/Q.
@@ -241,13 +241,13 @@ With the focus on BlueGene/Q systems we will outline a range of different mappin
 The default mapping involves ranks being assigned in increasing order along the dimensions T, E, D, C, B, A.
 Assuming that we assign 16 ranks with one rank per core, the first 16 ranks from the application domain will
 be on the node with address (0 0 0 0 0) and so on. Since the ranks in the application domain are assigned in
-some increasing order, nodes along a particular dimension will be grouped on each node. This mapping works
+some increasing order, nodes along a particular dimension will be grouped on each node. This mapping should work
 very well when the dimensionality of the application domain and that of the partition match. For eg, if the
 application domain were 4x4x4x4x2 and we were running one rank per node, there is a one to one mapping to the
 network where this mapping would retain nearness between all neighbors. However when the length of dimensions
-in the application domain and network or the dimensionality do not match, this mapping scheme will not perform as well.
+in the application domain and network or the dimensionality do not match, we do not expect this mapping scheme to perform as well.
 
-Sample from the mapping file :
+Sample from the mapping file:
 \begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 0 0 0 0 0 0
     ...
@@ -261,11 +261,11 @@ Sample from the mapping file :
 \end{lstlisting}
 
 \subsection{Linear Mapping}
-Linear mapping ers to placing ranks along nodes in the increasing order of dimensions A, B, C, D, E, T.
+Linear mapping places ranks along nodes in the increasing order of dimensions A, B, C, D, E, T.
 As a result the neighboring ranks in the application domain along a dimension are placed on nodes at least
 one hop away.
 
-Sample from the mapping file :
+Sample from the mapping file:
 \begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 0 0 0 0 0 0
 1 0 0 0 0 0
@@ -334,7 +334,11 @@ dimensions 4x4x4x4x2 with 16 ranks per node have an average distance of 4.5. The
 distance possible between any two nodes in the topology and is the sum of the halves of the length of each dimension: 9.
 The maximum distance measured for the mapping file generated is 9.
 Despite the increased average distance, the neighbor pairs in a random mapping are randomly distributed over the 5 dimensions and in +/- directions.
-This could have the unusual effect of higher effective bandwidth utilization than if neighbors were placed along the same dimensions, resulting in congested links.
+While we expect the longer average distance to overall have a negative
+effect on performance, the distribution of neighbors along multiple
+dimensions could have somewhat of a compensating positive effect
+because of the high number of alternative routes between neighbors
+and the ability to distribute traffic across all dimensions of the network.
 
 \subsection{Deoptimized Mappings from Simulated Annealing}
 In order to cover an even wider range of mappings, we tried to
@@ -346,7 +350,7 @@ mappings with average distance of $9$ exist, and under what
 circumstances they might exist: we were unsuccessful in
 attempts to reduce this upper bound.  We were also
 unsuccessful in directly devising mappings
-with average distance significantly greater than the $~4.5$ average
+with average distance significantly greater than the $\sim4.5$ average
 distance obtained with random mapping.
 
 In order to discover mappings with high average distance, we used
@@ -423,10 +427,10 @@ higher than the randomized mapping, although still short of our upper
 bound of $9$.  We obtained an average distance of 6.10 and 6.03 for the 5D application and
 3D application respectively.
 
-\subsection{Topology aware box partitioned Mapping}
+\subsection{Topology-aware Box Partitioned Mapping}
 
 The box partitioned mapping is designed with the goal of placing N-dimensional slices of the application domain on nodes such that
-intranode halo messaging is maximised. This should in-turn reduce network traffic and increase overall performance.
+intranode messaging is maximised. This should in turn reduce network traffic and increase overall performance.
 We break down the application domain to multi-dimensional slices and place them on adjacent nodes in the network so that that the
 overall distance the traffic that exits the node has to travel is minimised. The size and dimensionality of the box is informed
 by the network topology and the application domain.
@@ -435,7 +439,7 @@ For an application with a 3D domain decomposition of 32x32x8, the box is determi
 into 512 contiguous 3D slices of dimensions 4x2x2. Now, there are 512 boxes arranged as 8x16x4 (32x32x8/4x2x2).
 The 512 slices are then mapped on to the 4x4x4x4x2 network topology of the BlueGene/Q.
 
-Sample from the mapping for 3D application of dimensions 32x32x8 to network of dimension 4x4x4x4x2x16
+Sample from the mapping for 3D application of dimensions 32x32x8 to network of dimension 4x4x4x4x2x16:
 \begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 0 0 0 0 0 0
 0 0 0 0 0 1
@@ -447,14 +451,14 @@ Sample from the mapping for 3D application of dimensions 32x32x8 to network of d
 0 0 3 0 0 1
 \end{lstlisting}
 
-For an application with a 5D domain decomposition of 8x8x8x8x2, the box is determined to be 2x2x2x2. Similar to the 3D case, we
-partition the application domain into 512 contiguous into  slices of dimensions 2x2x2x2.
-Now, there are 512 boxes arranged as 4x4x4x4x2 (8x8x8x8x2/2x2x2x2). There is a simple one to one mapping from the
+For an application with a 5D domain decomposition of 8x8x8x8x2, the box is determined to be 2x2x2x2x1. Similar to the 3D case, we
+partition the application domain into 512 contiguous into  slices of dimensions 2x2x2x2x1.
+Now, there are 512 boxes arranged as 4x4x4x4x2 (8x8x8x8x2/2x2x2x2x1). There is a simple one to one mapping from the
 to that of the 4x4x4x4x2 network topology since the dimensionality matches exactly. The difference between the mapping
 generated by this method and the regular mapping stems from the mismatch of dimensions in the application domain to that
 of the network topology.
 
-Sample from the mapping for 5D application of dimensions 8x8x8x8x2 to network of dimension 4x4x4x4x2x16
+Sample from the mapping for 5D application of dimensions 8x8x8x8x2 to network of dimension 4x4x4x4x2x16:
 \begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 0 0 0 0 0 0
 0 0 0 0 1 0
@@ -466,23 +470,31 @@ Sample from the mapping for 5D application of dimensions 8x8x8x8x2 to network of
 0 0 0 1 1 1
 \end{lstlisting}
 
-\subsection{Metrics for measuring a mapping}
+\subsection{Metrics for Measuring a Mapping}
 
 In the earlier sections we have introduced several different mapping strategies, each with different characteristics which could
 impact the network performance. To relate the impact of a mapping on network performance it is important to device a metric that
 captures the aspects of a mapping that could affect the network. Mappings determine the amount of intranode communication versus
 the communication that must go over the network, and over what links these communication occurs.
 
-While a direct path with the manhattan distance between neighbors would be chosen when message sizes are small and deterministic routing
-protocol are in place, more interesting network effect become apparent only when message sizes increase. Once message sizes exceed 4Kb
-rendezvous protocol is used by the network which involves complex routing logic to avoid hot-spots, and increase network utilization for
-a penalty in latency. Since it is difficult to model these dynamic systems, we will assume that the rendezvous protocol will balance
-the network load evenly such that the messages flowing over every link is similar.
+When message sizes are small and deterministic routing
+protocol are in place, a deterministic path with the manhattan distance
+between neighbors is chosen.  More interesting network effects become apparent only when message sizes increase. Once message sizes exceed 4Kb, the
+rendezvous protocol is used by the network which selects dynamically between
+multiple network paths in an attempt to avoid hot-spots.  This can improve load balance between links and
+increase network utilization at the cost of
+increased latency.
+%Since it is difficult to model these dynamic systems, we will not attempt
+%to exactly model the routing protocol, but instead assume that it
+%balances the network load somewhat evenly such that the number of
+%messages flowing over every link does not diverge too much from
+%the average.
 
-The latency data available for the Blue Gene/Q from ~\cite{BGQ_RedBook_2013} and ~\cite{BGQ_Interconnect_2012} indicate that latency
-is negligible compared to the total time to completion of a halo exchange operation. As a result the idea raised in ~\cite{Bhanot_2005}
-that hop counts matter to the bandwidth can atleast be ruled out on the Blue Gene/Q.
-
+In all cases, the number of network hops between neighbors has a
+direct effect on the probability that a message sent between the
+neighbors will contend for a link with another message.
+Average distance is thus a way of summarizing a mapping that will
+directly influence its performance.
 The average distance between neighbors can easily be calculated by taking the average of the manhattan distance of all pairs of neighbors.
 We assume that the distance between two ranks on the same node is 0, since intranode messaging does not contribute to network traffic.
 This average distance \textbf{N\textsubscript{steps}}, can now be treated as a proxy for average network traffic flowing over any particular.
@@ -494,12 +506,12 @@ The total logical neighbors involved in halo exchange is :
   N_{neighbors} = N_{ranks} * 2 * D
 \end{equation}
 
-For every rank \textbf{u} in \textbf{N\textsubscript{ranks}}, the neighbors of u are \textbf{neighbors(u)},then the manhattan distance
+For every rank 0 $<$ \textbf{u} $<$ \textbf{N\textsubscript{ranks}}, the neighbors of u are \textbf{neighbors(u)},then the manhattan distance
 between every pair of neighbors is calculated by the distance function \textbf{dist\textsubscript{(u,v)}}.
 The average number of messages flowing through any link is given by:
 
 \begin{equation}
-  N_{steps} = \frac{ \sum\limits^{N_{ranks}}_{u \mathop =1} \sum\limits_{v\in{neighbors(u)}} dist_{u,v}  }  {N_{neighbors}}
+  N_{steps} = \frac{ \sum\limits^{N_{ranks} - 1}_{u \mathop =0} \sum\limits_{v\in{neighbors(u)}} dist_{u,v}  }  {N_{neighbors}}
   %N_{steps} = \frac{ \sum_{u \mathop =1}^{N_{ranks}} \sum\limits_{v\in{neighbors(u)}} dist_{u,v} } {N_{neighbors}}
 \end{equation}
 
@@ -587,13 +599,18 @@ If the application on every node attempts to exchange messages with every neighb
 every link on the network will see similar traffic. Thus we, consider a single link and it's bandwidth
 to determine \textbf{t\textsubscript{b}} the time required to send a Byte along the link.
 Assume that there are \textbf{N\textsubscript{procs}} number of identical processes all of which will attempt to utilize the same links.
-To capture the differences between different mappings we use a simple program to calculate the average distance between neighbors,
-\textbf{N\textsubscript{steps}}. The current MPI implementation on leadership class systems like Mira (Bluegene/Q) utilizes
+To capture the differences between different mappings we calculate the average distance between neighbors,
+\textbf{N\textsubscript{steps}}. We have implemented a program in Python that
+takes a BlueGene/Q mapping file and computes the average distance in
+a halo exchange computation based on the application domain decomposition
+and the network topology of a Blue Gene/Q partition.
+
+The current MPI implementation on leadership class systems like Mira (Bluegene/Q) utilizes
 shared memory for intranode communication. When a neighbor is present within the same node, the link
 is weighted as zero, and every network link or hop is weighted as one. Since it is possible to place
 neighboring tasks from the application domain on the same node there are mappings possible which
 minimize N\textsubscript{steps} below one. There are constant costs involved in startup, acquiring a buffer etc,
-and t\textsubscript{c} is an experimentally calibrated constant that is a catch-all for the various constant costs
+and t\textsubscript{c} represents the various constant costs
 of network communication using MPI.  N is the message size in bytes that are exchanged between neighbors.
 
 From our understanding of the constant consts of communication involved in different of MPI messaging protocols,
@@ -602,10 +619,9 @@ be calibrated from a halo exchange workload at datasizes close to the thresholds
 The models will be required to use the t\textsubscript{c} for the protocol which would be used for the datasizes
 being sent. The thresholds for the protocols are listed in Table~\ref{table:bgq_protocols}.
 
-The network load balancing provided by the rendezvous protocol comes with an added cost, which has to be
-accounted for from experimental data. The memory reads, cache misses that occur as the message buffers exceed
-the sizes of the caches etc are not accounted for. We will use an experimentally calibrated constant \textbf{$\alpha$}
-which will represent the additional costs of messaging that has not been taken into account in the model.
+The network load balancing provided by the rendezvous protocol is expected to
+be imperfect, and will be unable to saturate all network links.  We will use an experimentally calibrated constant \textbf{$\alpha$}
+to account for this unused network capacity.
 
 A simple analytical model determines the time to completion, T of a complete halo exchange operation,
 from the variables defined above as follows:
@@ -616,11 +632,13 @@ from the variables defined above as follows:
 
 \section{Experimental Design}\label{sect:experimental design}
 
-Empirical studies are necessary to gauge the effectiveness validity of models. Considerable efforts have
+Empirical studies are necessary to gauge the accuracy of models. Considerable efforts have
 been taken to ensure that the experiments are fair and are an accurate reproduction of the Halo exchange pattern
-in real world scenarios. The experiments have been repeated multiple time on different partitions on the machine
-to ensure that partition specific effects do not influence results, however we have not been able to reproduce
-results on different machines of the same architecture due to time limitations.
+in real world scenarios. The experiments have been repeated multiple times on different partitions on the machine
+to ensure that partition-specific effects do not influence results.
+We have not attempted to reproduce results on different machines
+of the same architecture due to time limitations, but we have no
+reason to expect significantly different results.
 
 \begin{figure*}[ht]
   {\footnotesize
@@ -655,17 +673,26 @@ halo_timer(end)
 \end{figure*}
 
 Since we are only interested in the network performance aspect of the halo exchange code, we only measure
-the time taken to complete halo exchanges. The pseudocode for the halo exchange is listed in Figure~\ref{fig:halo_pseudocode}.
+the time taken to complete the halo exchange communication. The pseudocode for the halo exchange is listed in Figure~\ref{fig:halo_pseudocode}.
 
 \subsection{Latency}
-On the BlueGene/Q, the latency between the closest node and the farthest node is estimated to be under 3$\mu$s\cite{BGQ_Interconnect_2012}.
-Since halo exchange is a collective operation, the entire operation is only as fast as the worst performer in the entire operation.
-In the analytical model described in Section~\ref{sect:model}, we assume that latency does not play a role.
-This assumption is experimentally tested by comparing the time to completion of halo exchanged between the default mapping and a modified
-mapping which has just two ranks interchanged to nodes that span the diameter of the torus. This results in the an increase in maximum distance
-from 3.0 to 9.0 and increase of 0.003 for the average distance between neighbors.
+On the BlueGene/Q, the latency between the closest node and the farthest node is estimated to be under 3$\mu$s\cite{BGQ_Interconnect_2012,BGQ_RedBook_2013}.
+This latency
+is negligible compared to the total time to completion of a halo exchange operation. Other authors~\cite{Bhanot_2005} working on Blue Gene/L have suggested
+that hop count has a significant effect on latency, but we do not expect
+that latency from increased hop count will significantly affect the
+performance of halo exchange on the Blue Gene/Q.
 
-\subsection{Cache effects}
+Therefore, in the analytical model described in Section~\ref{sect:model}, we assumed that latency does not play a role.
+This assumption was experimentally tested by comparing the time to completion of halo exchanged between the default mapping and a modified
+mapping which has just two ranks interchanged to nodes that span the diameter of the torus. 
+This results in the an increase in maximum distance
+from 3.0 to 9.0 and increase of 0.003 for the average distance between neighbors.
+Since our halo exchange timings measure the time until all communications
+are completed, the entire operation is only as fast as the slowest pairwise
+exchange.
+
+\subsection{Cache Effects}
 To determine whether the network performance is affected by the send/receive message buffers overflowing from the
 L3 caches, we designed an experiment which sent \textbf{DUPES} number of messages each with $\frac{datalength}{DUPES}$
 message size. The runs were compared against a run with DUPES=1. 
@@ -676,12 +703,14 @@ If L3 cache overflow was limiting halo exchange performance at higher data
 sizes, then we would expect that the Halo runs with $DUPES>1$ should outperform
 the runs with $DUPES=1$ because of the lower memory footprint.
 
-\subsection{Task placement within Mappings for 3D and 5D application domains}
+\subsection{Task Placement within Mappings for 3D and 5D Application Domains}
 We've described eight different mapping schemes in Section~\ref{sect:mapping}.
 To study the network performance of the halo exchange codes, they are exercised using varying levels of data lengths for message exchanged between neighbors.
-Multiples of 2 ranging from 8B to 32Mb,  are chosen as data sizes as they are representative of the various phases of MPI messaging protocols, and cover
-a reasonable swath of data sizes that real world application might use. The hardware partitions chosen are 512 Node partitions of 4x4x4x4x2 shape. This
-is one rack on the BlueGene/Q, and is comparable to partition sizes used by HPC applications.
+Powers of 2 ranging from 8B to 32MB are chosen as data sizes.  This range
+covers all Blue Gene/Q MPI messaging protocols and covers
+a reasonable swath of data sizes that real world application might use. The hardware partitions chosen are 512 node partitions of 4x4x4x4x2 shape. This
+is one rack on the BlueGene/Q, and is large enough to be representative of
+real halo exchange applications.
 
 The Halo exchange code itself measures the performance of various blocking and non-blocking MPI send and recv primitives and combinations.
 For our experiments we will only consider MPI\_Isend and MPI\_Irecv primitives with no artificial delay introduced after the barrier.
