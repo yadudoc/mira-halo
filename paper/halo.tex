@@ -119,9 +119,9 @@ which are used to evaluate our model.
 Within these are nearly optimal and pessimal mapping strategies, with
 the optimal strategy yielding 2x improvement in performance over the default mapping.
 
-The rest of the paper is organised as follows :
+The rest of the paper is organized as follows:
 % Guidance
-The rest of the paper is organised as follows: Section 2, provides background information on
+The rest of the paper is organized as follows: Section 2, provides background information on
 the HPC system topologies and BlueGene/Q in particular. Section 3, describes mapping strategies.
 Section 4, develops the analytical model and Section 5, details the experiment design for empirical
 validation of the model.
@@ -130,7 +130,7 @@ validation of the model.
 
 \section{High-Performance Computer Networks}
 
-The state of the art in High Performance Computing(HPC) infrastructure, demands high-performance networks
+The state of the art in High Performance Computing (HPC) infrastructure, demands high-performance networks
 to support the movement of data between the nodes as well as to-and-from disk-arrays. HPC systems are
 increasingly architected with high radix interconnects such as hypercubes and N-dimensional tori.
 For HPC applications which involve fine-grained communication,
@@ -430,9 +430,9 @@ bound of $9$.  We obtained an average distance of 6.10 and 6.03 for the 5D appli
 \subsection{Topology-aware Box Partitioned Mapping}
 
 The box partitioned mapping is designed with the goal of placing N-dimensional slices of the application domain on nodes such that
-intranode messaging is maximised. This should in turn reduce network traffic and increase overall performance.
+intranode messaging is maximized. This should in turn reduce network traffic and increase overall performance.
 We break down the application domain to multi-dimensional slices and place them on adjacent nodes in the network so that that the
-overall distance the traffic that exits the node has to travel is minimised. The size and dimensionality of the box is informed
+overall distance the traffic that exits the node has to travel is minimized. The size and dimensionality of the box is informed
 by the network topology and the application domain.
 
 For an application with a 3D domain decomposition of 32x32x8, the box is determined to be 4x2x2. We partition the application domain
@@ -501,7 +501,7 @@ This average distance \textbf{N\textsubscript{steps}}, can now be treated as a p
 
 
 Let the torus network be of \textbf{D} dimensions, and let \textbf{N\textsubscript{ranks}} be the number of ranks in the partition.
-The total logical neighbors involved in halo exchange is :
+The total logical neighbors involved in halo exchange is:
 \begin{equation}
   N_{neighbors} = N_{ranks} * 2 * D
 \end{equation}
@@ -715,7 +715,7 @@ real halo exchange applications.
 The Halo exchange code itself measures the performance of various blocking and non-blocking MPI send and recv primitives and combinations.
 For our experiments we will only consider MPI\_Isend and MPI\_Irecv primitives with no artificial delay introduced after the barrier.
 The pseudocode for the halo exchange is listed in Figure~\ref{fig:halo_pseudocode}.
-Evaluating the performance of the different MPI primitives with randomised delay options is beyond the scope of this paper.
+Evaluating the performance of the different MPI primitives with randomized delay options is beyond the scope of this paper.
 
 
 \begin{figure}
@@ -761,6 +761,13 @@ The insights gained from the experiments outlined in Section~\ref{sect:experimen
 has guided the development of the Analytical model for the performance of halo exchange.
 The results from these experiments are described below:
 
+The latency experiments used a modified regular mapping in which two ranks were transposed to
+nodes that are diametrically apart. This introduced a negligible increase in average distance but
+increased the maximum distance between neighbors from 3 to 9. The results from this experiment
+in Figure~\ref{fig:regular_vs_maxdist} show that increasing the distance does not add any measurable
+latency penalty. The results from this experiment contradicts the assumptions used in prior work ~\cite{Bhanot_2005}
+that the number of hops involved affect performance directly through increased latency.
+
 The experiments to study caching effects, show that at higher data sizes the time to completion
 is unaffected by using duplicate messages of smaller sizes. If caching effects played any significant
 role in performance sending multiple duplicate messages that fit in the L3 cache would have
@@ -769,41 +776,25 @@ in Figure~\ref{fig:caching_figure_vs_without}. We see that sending duplicate mes
 size has added startup costs but at higher data sizes cache optimized  duplicate messages do not
 perform better, from this we conclude that caching effects are negligible and can be ignored.
 
-The latency experiments used a modified regular mapping in which two ranks were transposed to
-nodes that are diametrically apart. This introduced a negligible increase in average distance but
-increased the maximum distance between neighbors from 3 to 9. The results from this experiment
-in Figure~\ref{fig:regular_vs_maxdist} show that increasing the distance does not add any measurable
-latency penalty. The results from this experiment contradicts the assumptions used in prior work ~\cite{Bhanot_2005}
-that the number of hops involved affect performance directly through increased latency.
-
 Plots of the different mappings discussed in Section~\ref{sect:mapping} indicate that increasing
 the halo exchange message length consistently affects performance.
-Figure~\ref{fig:5D halo exchange on 512 nodes with 16 RPN} and figure~\ref{fig:3D halo exchange on 512 nodes with 16 RPN}
+Figure~\ref{fig:5D halo exchange on 512 nodes with 16 RPN} and Figure~\ref{fig:3D halo exchange on 512 nodes with 16 RPN}
 are plots of all mappings for the 5D application and 3D application respectively.
 
-Analysis of the \% difference between the predictions by the Analytical model and empirical data
+Analysis of the percentage differences between the predictions by the analytical model and empirical data
 for the experiments using 3D and 5D application matrices are shown in Table~\ref{table:data vs model 3d}
 and Table~\ref{table:data vs model 5d} respectively. The tables show the minimum and maximum error
 as well as the average of the absolute error percentages for message sizes from 8B to 16Mb. For the
 3D application, the experimental results differ from the analytical model by 53.60\% in the worst case,
 while the average absolute error is under 30\%. The average absolute error is under 20\% with the
 maximum divergence being 44.12\% for the 5D application.
+We have also included detailed plots with error analysis for each mapping at the end
+of the paper: Figures~\ref{fig:5D_linear_mapping}--\ref{fig:5D_skewed_reversed_mapping} for 5D mappings and 
+Figures~\ref{fig:3D_linear_mapping}--\ref{fig:3D_skewed_reversed} for 3D mappings.
 
 Table~\ref{table:optimized vs deoptimized} shows a comparison between the optimized mappings and the
 regular mapping, and de-optimized mappings. The optimized mapping yields a 2x performance advantage
 over the regular mapping in both the 3D and 5D applications.
-
-\begin{table}
-  \caption{Optimized vs De-optimized mapping comparison
-    \label{table:optimized vs deoptimized}}
-  {\footnotesize
-    \begin{tabular}{ | l | l | l | p{1.5cm} |}
-    \hline
-    \input tables/regular_vs_optimal.tex
-    \hline
-    \end{tabular}
-  }
-\end{table}
 
 \begin{table}
   \caption{3D Experimental data vs Analytical model
@@ -846,62 +837,18 @@ over the regular mapping in both the 3D and 5D applications.
   }
 \end{table}
 
-\begin{figure}
-  \center
-  \includegraphics[width=0.45\textwidth]{mappings/5d_linear_model.png}
-  \caption{Analytic model vs Experimental data for Linear mapping(5D)}
-    \label{fig:5D_linear_mapping}
-\end{figure}
+\begin{table}[!t]
+  \caption{Optimized vs De-optimized mapping comparison
+    \label{table:optimized vs deoptimized}}
+  {\footnotesize
+    \begin{tabular}{ | l | l | l | p{1.5cm} |}
+    \hline
+    \input tables/regular_vs_optimal.tex
+    \hline
+    \end{tabular}
+  }
+\end{table}
 
-
-\begin{figure}
-  \center
-  \includegraphics[width=0.45\textwidth]{mappings/5d_optimal_model.png}
-  \caption{Analytic model vs Experimental data for Optimal mapping(5D)}
-    \label{fig:5D_optimal_mapping}
-\end{figure}
-
-\begin{figure}
-  \center
-  \includegraphics[width=0.45\textwidth]{mappings/5d_random_model.png}
-  \caption{Analytic model vs Experimental data for Random mapping(5D)}
-    \label{fig:5D_random_mapping}
-\end{figure}
-
-\begin{figure}
-  \center
-  \includegraphics[width=0.45\textwidth]{mappings/5d_pessimal.png}
-  \caption{Analytic model vs Experimental data for De-optimized mapping(5D)}
-    \label{fig:5D_pessimal_mapping}
-\end{figure}
-
-\begin{figure}
-  \center
-  \includegraphics[width=0.45\textwidth]{mappings/5d_regular_model.png}
-  \caption{Analytic model vs Experimental data for Regular mapping(5D)}
-    \label{fig:5D_regular_mapping}
-\end{figure}
-
-\begin{figure}
-  \center
-  \includegraphics[width=0.45\textwidth]{mappings/5d_reversed_model.png}
-  \caption{Analytic model vs Experimental data for Reversed mapping(5D)}
-    \label{fig:5D_reversed_mapping}
-\end{figure}
-
-\begin{figure}
-  \center
-  \includegraphics[width=0.45\textwidth]{mappings/5d_skewed_regular.png}
-  \caption{Analytic model vs Experimental data for Skewed regular mapping(5D)}
-    \label{fig:5D_skewed_regular_mapping}
-\end{figure}
-
-\begin{figure}
-  \center
-  \includegraphics[width=0.45\textwidth]{mappings/5d_skewed_reversed.png}
-  \caption{Analytic model vs Experimental data for Skewed reversed mapping(5D)}
-    \label{fig:5D_skewed_reversed_mapping}
-\end{figure}
 
 \section{Conclusion}
 
@@ -915,7 +862,7 @@ We explored several different mapping strategies, and compared results against t
 These mappings include an optimized mapping which is close to the theoretical optimum,
 and a de-optimized mapping generated using simulated annealing. The results from these
 different mappings show that performance can vary widely, with the optimized mapping
-being 7.5 times faster than the de-optimezed mapping. The optimized mapping also out-performs
+being up to 9.1x times faster than the de-optimized mapping. The optimized mapping also out-performs
 the default mapping scheme for the 3D application by 2.0x and the 5D application
 by 2.6x in the rendezvous protocol regime.
 
@@ -924,14 +871,14 @@ similar experiments must be conducted on other network architectures such as the
 We believe that experiments on other architectures will yield a better understanding of the model
 as well as ensure the applicability of the model in different environment. Our tests show that
 latency does not impact performance on the Blue Gene/Q, but this might not be true on other networks
-and architectures. Currently we have very little understanding of the experimentally calibrated
+and architectures. Currently we have little understanding of the experimentally calibrated
 link utilization parameter $\alpha$. Further experiments and studies would help understand what
 contributes to this parameter which reduces network utilization considerably.
 
 Improving the model beyond using average distance, which captures the average flow, rather than
 the traffic flow over the most congested links can possibly improve error percentages. The average
 distance does not capture network hotspots and communication patterns that heavily congest certain
-links which effectively reduces available bandwidth. This is a limitation of the model that can be
+links, thereby effectively reducing available bandwidth. This is a limitation of the model that can be
 improved upon.
 
 When halo exchanges involve more complex communication patterns, such as when the neighbors
@@ -939,40 +886,96 @@ are a graph pattern, the method discussed using simulated annealing could be use
 optimized mappings. Using simulated annealing to generate optimized mapping for our current applications
 is also another area where future work is warranted.
 
+%\begin{figure}
+%  \center
+%  \includegraphics[width=0.45\textwidth]{fig/TEST_RPN_16_NODE_512_5D_LINK_UTIL}
+%  \caption{Average link utilization during 5D Halo exchange for different
+%          mappings
+%    \label{fig:TEST_RPN_16_NODE_512_5D_LINK_UTIL}}
+%\end{figure}
+
 \begin{figure}
   \center
-  \includegraphics[width=0.45\textwidth]{fig/TEST_RPN_16_NODE_512_5D_LINK_UTIL}
-  \caption{Average link utilization during 5D Halo exchange for different
-          mappings
-    \label{fig:TEST_RPN_16_NODE_512_5D_LINK_UTIL}}
+  \includegraphics[width=0.45\textwidth]{mappings/5d_linear_model.png}
+  \caption{Analytic model vs Experimental data for Linear mapping (5D)}
+    \label{fig:5D_linear_mapping}
 \end{figure}
 
 
 \begin{figure}
   \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_optimal_model.png}
+  \caption{Analytic model vs Experimental data for Optimal mapping (5D)}
+    \label{fig:5D_optimal_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_random_model.png}
+  \caption{Analytic model vs Experimental data for Random mapping (5D)}
+    \label{fig:5D_random_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_pessimal.png}
+  \caption{Analytic model vs Experimental data for De-optimized mapping (5D)}
+    \label{fig:5D_pessimal_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_regular_model.png}
+  \caption{Analytic model vs Experimental data for Regular mapping (5D)}
+    \label{fig:5D_regular_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_reversed_model.png}
+  \caption{Analytic model vs Experimental data for Reversed mapping (5D)}
+    \label{fig:5D_reversed_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_skewed_regular.png}
+  \caption{Analytic model vs Experimental data for Skewed regular mapping (5D)}
+    \label{fig:5D_skewed_regular_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_skewed_reversed.png}
+  \caption{Analytic model vs Experimental data for Skewed reversed mapping (5D)}
+    \label{fig:5D_skewed_reversed_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
   \includegraphics[width=0.45\textwidth]{mappings/3d_linear.png}
-  \caption{Analytic model vs Experimental data for Linear mapping(3D)}
+  \caption{Analytic model vs Experimental data for Linear mapping (3D)}
     \label{fig:3D_linear_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/3d_optimal.png}
-  \caption{Analytic model vs Experimental data for Optimal mapping(3D)}
+  \caption{Analytic model vs Experimental data for Optimal mapping (3D)}
     \label{fig:3D_optimal_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/3d_pessimal.png}
-  \caption{Analytic model vs Experimental data for Pessimal mapping(3D)}
+  \caption{Analytic model vs Experimental data for Pessimal mapping (3D)}
     \label{fig:3D_pessimal_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/3d_random.png}
-  \caption{Analytic model vs Experimental data for Random mapping(3D)}
+  \caption{Analytic model vs Experimental data for Random mapping (3D)}
     \label{fig:3D_random_mapping}
 \end{figure}
 
@@ -980,27 +983,27 @@ is also another area where future work is warranted.
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/3d_regular.png}
-  \caption{Analytic model vs Experimental data for Regular mapping(3D)}
+  \caption{Analytic model vs Experimental data for Regular mapping (3D)}
     \label{fig:3D_regular_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/3d_reversed.png}
-  \caption{Analytic model vs Experimental data for Reversed mapping(3D)}
+  \caption{Analytic model vs Experimental data for Reversed mapping (3D)}
     \label{fig:3D_reversed_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/3d_skewed_regular.png}
-  \caption{Analytic model vs Experimental data for Skewed regular mapping(3D)}
+  \caption{Analytic model vs Experimental data for Skewed regular mapping (3D)}
     \label{fig:3D_skewed_regular}
 \end{figure}
 
 \begin{figure}
   \includegraphics[width=0.45\textwidth]{mappings/3d_skewed_reversed.png}
-  \caption{Analytic model vs Experimental data for Skewed reversed mapping(3D)}
+  \caption{Analytic model vs Experimental data for Skewed reversed mapping (3D)}
     \label{fig:3D_skewed_reversed}
 \end{figure}
 
