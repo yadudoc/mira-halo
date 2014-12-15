@@ -44,14 +44,14 @@
 \author{
 % 1st. author
 \alignauthor
-Yadu Nand Babuji\titlenote{todo}\\
+Yadu Nand Babuji\titlenote{}\\
        \affaddr{Dept. of Computer Science,}\\
        \affaddr{University of Chicago,}\\
        \affaddr{Chicago, IL, USA}\\
        \email{yadunand@uchicago.edu}
 % 2nd. author
 \alignauthor
-Timothy G. Armstrong\titlenote{todo}\\
+Timothy G. Armstrong\titlenote{}\\
        \affaddr{Dept. of Computer Science,}\\
        \affaddr{University of Chicago,}\\
        \affaddr{Chicago, IL, USA}\\
@@ -68,11 +68,9 @@ Empirical results show that different task placement strategies in Halo exchange
 We develop an analytical model to understand the impact of task placements within a network topology on performance and guide selection of
 optimal mappings.
 % Results
-Analytic model comes with x percentage of empirical results with a max error of E.
-Identified optimal and pessimal mappings.
+We have identified an optimized mapping which outperform the default mapping 2.68x and several sub-optimal mapping strategies.
+Our Analytic model performs within 30\% percentage average error of empirical results with a maximum of 53.6\% under-prediction.
 % Conclusions
-
-\todo{Complete the Abstract}
 
 \end{abstract}
 
@@ -104,7 +102,7 @@ utilize several hundreds to thousands of cores, as a result there are a large nu
 possible mappings to the physical hardware that could be chosen. We seek to understand
 what aspects of the mappings have an impact on performance and how to quantify them so
 that the impact these mappings have on performance can modelled. Mapping strategies
-are a very cheap optimisation which requires no code changes to the application
+are a cheap optimisation which requires no code changes to the application
 and as our empirical studies show, these mapping strategies have significantly
 different network performance characteristics. There are no studies to the best
 of our knowledge that attempts to model the impact of mapping performance on
@@ -397,7 +395,8 @@ $$temp * (0.5 - (1.0 - new\_dist/dist) * 25) > p$$
 Using this approach for upwards of 1 million iterations,
 we were able to produce mappings that had average distance substantially
 higher than the randomized mapping, although still short of our upper
-bound of $9$.  We obtained...  \timnote{Yadu - fill in numbers}
+bound of $9$.  We obtained an average distance of 6.10 and 6.03 for the 5D application and
+3D application respectively.
 
 \subsection{Topology aware box partitioned Mapping}
 
@@ -455,26 +454,31 @@ rendezvous protocol is used by the network which involves complex routing logic 
 a penalty in latency. Since it is difficult to model these dynamic systems, we will assume that the rendezvous protocol will balance
 the network load evenly such that the messages flowing over every link is similar.
 
-\timnote{TODO: mention that Bhanot paper is misguided - hop count matters for bandwidth}~\cite{Bhanot_2005}
+The latency data available for the Blue Gene/Q from ~\cite{BGQ_RedBook_2013} and ~\cite{BGQ_Interconnect_2012} indicate that latency
+is negligible compared to the total time to completion of a halo exchange operation. As a result the idea raised in ~\cite{Bhanot_2005}
+that hop counts matter to the bandwidth can atleast be ruled out on the Blue Gene/Q.
 
 The average distance between neighbors can easily be calculated by taking the average of the manhattan distance of all pairs of neighbors.
 We assume that the distance between two ranks on the same node is 0, since intranode messaging does not contribute to network traffic.
-This average distance \textbf{N\textsubscript{steps}}, can now be treated as a proxy for average network traffic flowing over any particular 
-
+This average distance \textbf{N\textsubscript{steps}}, can now be treated as a proxy for average network traffic flowing over any particular.
 
 
 Let the torus network be of \textbf{D} dimensions, and let \textbf{N\textsubscript{ranks}} be the number of ranks in the partition.
 The total logical neighbors involved in halo exchange is :
 \begin{equation}
-  T_{neighbors} = N_{ranks} * 2 * D
+  N_{neighbors} = N_{ranks} * 2 * D
 \end{equation}
 
-Consider every pair of neighbor nodes (u,v), the manhattan distance between nodes u,v is calculated by the distance function \textbf{dist\textsubscript{(u,v)}}.
+For every rank \textbf{u} in \textbf{N\textsubscript{ranks}}, the neighbors of u are \textbf{neighbors(u)},then the manhattan distance
+between every pair of neighbors is calculated by the distance function \textbf{dist\textsubscript{(u,v)}}.
 The average number of messages flowing through any link is given by:
 
 \begin{equation}
-  N_{steps} = \frac{ \sum\limits_{u,v} dist_{u,v} } {T_{neighbors}}
+  N_{steps} = \frac{ \sum\limits^{N_{ranks}}_{u \mathop =1} \sum\limits_{v\in{neighbors(u)}} dist_{u,v}  }  {N_{neighbors}}
+  %N_{steps} = \frac{ \sum_{u \mathop =1}^{N_{ranks}} \sum\limits_{v\in{neighbors(u)}} dist_{u,v} } {N_{neighbors}}
 \end{equation}
+
+
 
 The average distance for the various mappings for the 3D and 5D case are provided in table
 
@@ -491,8 +495,8 @@ The average distance for the various mappings for the 3D and 5D case are provide
     random          & 4.504980 & 9.000000\\ \hline
     skewed regular  & 1.100000 & 3.000000\\ \hline
     skewed reversed & 1.450000 & 3.000000\\ \hline
-    optimal         & 0.600000 & 1.000000\\ \hline
-    de-optimized    & --       & --      \\ \hline
+    optimized       & 0.600000 & 1.000000\\ \hline
+    de-optimized    & 6.106348 & 9.000000\\ \hline
     \hline
     \end{tabular}
   }
@@ -511,7 +515,7 @@ The average distance for the various mappings for the 3D and 5D case are provide
     random          & 4.499023 & 9.000000\\ \hline
     skewed regular  & 0.979167 & 4.000000\\ \hline
     skewed reversed & 1.645833 & 4.000000\\ \hline
-    optimal         & 0.479167 & 2.000000\\ \hline
+    optimized       & 0.479167 & 2.000000\\ \hline
     de-optimized    & 6.530436 & 9.000000\\ \hline
     \hline
     \end{tabular}
@@ -521,15 +525,11 @@ The average distance for the various mappings for the 3D and 5D case are provide
 
 \section{Analytical Model for Network Communication}\label{sect:model}
 
-\timnote{Maybe this discussion should be moved further down -
-it mainly pertains to $t_b$?  Do we also need to discuss the startup
-time/different protocols here?}
-
 There are a wide range of possible models that could be used to
 estimate network communication performance for a complex network
 such as those on BlueGene/Q or Cray XE6.  These models range from
 full-fidelity simulations that directly simulate packet routing, to
-simplified models that estimate performance based on simplifying
+simplified models that estimate performance based on simplified
 assumptions.  These simplified models are often very useful for
 understanding and prediction, but typically have a limited domain
 of applicability.  For example, network models that ignore congestion
@@ -541,12 +541,12 @@ simultaneous data transfers contending for shared resources: we
 expect that many of these messages will need to transit the
 same network links.  We can, however, simplify the model by exploiting the
 symmetry of the communication pattern, in which each MPI rank sends
-and receives the same amount of data. For this reason, we chose to
-use a model that assumes that traffic is distributed fairly evenly
+and receives the same amount of data. For this reason, we choose a
+model that assumes that traffic is distributed fairly evenly
 throughout the network and that communication throughput is limited
-by the aggregate capacity of the network's links. 
+by the aggregate capacity of the network's links.
 
-We arrived at our model for \textbf{t\textsubscript{b}} based on two assumptions.
+We arrived at our model for Time to completion \textbf{T} based on two assumptions.
 We first assume that the limiting factor on transfer throughput will be
 the most trafficked link on the network - the one that the most bytes
 must transit during the halo exchange.  Finding the most trafficked
@@ -569,7 +569,13 @@ is weighted as zero, and every network link or hop is weighted as one. Since it 
 neighboring tasks from the application domain on the same node there are mappings possible which
 minimize N\textsubscript{steps} below one. There are constant costs involved in startup, acquiring a buffer etc,
 and t\textsubscript{c} is an experimentally calibrated constant that is a catch-all for the various constant costs
-of network communication using MPI. N is the message size in bytes that are exchanged between neighbors.
+of network communication using MPI.  N is the message size in bytes that are exchanged between neighbors.
+
+From our understanding of the constant consts of communication involved in different of MPI messaging protocols,
+we can consider t\textsubscript{c} will vary for different message sizes. As a result t\textsubscript{c} will
+be calibrated from a halo exchange workload at datasizes close to the thresholds between the 4 protocols.
+The models will be required to use the t\textsubscript{c} for the protocol which would be used for the datasizes
+being sent. The thresholds for the protocols are listed in Table~\ref{table:bgq_protocols}.
 
 The network load balancing provided by the rendezvous protocol comes with an added cost, which has to be
 accounted for from experimental data. The memory reads, cache misses that occur as the message buffers exceed
@@ -681,7 +687,7 @@ results from
 
 \begin{figure}
   \center
-  \includegraphics[width=0.45\textwidth]{5D_512_most_mappings_2.png}
+  \includegraphics[width=0.45\textwidth]{5D_512_all_mappings.png}
   \caption{5D halo exchange on 512 nodes with 16 RPN}
     \label{fig:5D halo exchange on 512 nodes with 16 RPN}
 \end{figure}
@@ -696,8 +702,6 @@ results from
 
 
 \section{Results}
-
-\todo{Mention how data contradict the assumptions of paper http://www.maths.tcd.ie/~eoin/bluegene-task.pdf}
 
 The insights gained from the experiments outlined in Section~\ref{sect:experimental design}
 has guided the development of the Analytical model for the performance of halo exchange.
@@ -715,7 +719,8 @@ The latency experiments used a modified regular mapping in which two ranks were 
 nodes that are diametrically apart. This introduced a negligible increase in average distance but
 increased the maximum distance between neighbors from 3 to 9. The results from this experiment
 in Figure~\ref{fig:regular_vs_maxdist} show that increasing the distance does not add any measurable
-latency penalty.
+latency penalty. The results from this experiment contradicts the assumptions used in prior work ~\cite{Bhanot_2005}
+that the number of hops involved affect performance directly through increased latency.
 
 Plots of the different mappings discussed in Section~\ref{sect:mapping} indicate that increasing
 the halo exchange message length consistently affects performance.
@@ -730,6 +735,21 @@ as well as the average of the absolute error percentages for message sizes from 
 while the average absolute error is under 30\%. The average absolute error is under 20\% with the
 maximum divergence being 44.12\% for the 5D application.
 
+Table~\ref{table:optimized vs deoptimized} shows a comparison between the optimized mappings and the
+regular mapping, and de-optimized mappings. The optimized mapping yields a 2x performance advantage
+over the regular mapping in both the 3D and 5D applications.
+
+\begin{table}
+  \caption{Optimized vs De-optimized mapping comparison
+    \label{table:optimized vs deoptimized}}
+  {\footnotesize
+    \begin{tabular}{ | l | l | l | p{1.5cm} |}
+    \hline
+    \input tables/regular_vs_optimal.tex
+    \hline
+    \end{tabular}
+  }
+\end{table}
 
 \begin{table}
   \caption{3D Experimental data vs Analytical model
@@ -738,14 +758,14 @@ maximum divergence being 44.12\% for the 5D application.
     \begin{tabular}{ | l | l | l | p{1.5cm} |}
     \hline
     Mapping    &    Min Error\% &    Max Error\% & Avg abs Error\%\\ \hline
-    Optimal    &         -16.63 &          30.88 &         13.17\\ \hline
+    Optimized  &         -16.63 &          30.88 &         13.17\\ \hline
     Regular    &          -0.49 &          36.68 &         15.31\\ \hline
     Linear     &         -24.12 &          14.00 &         10.91\\ \hline
     Reversed   &         -24.13 &          13.93 &         11.00\\ \hline
     Skewed regular &      -0.39 &          39.57 &         19.81\\ \hline
     Skewed reversed&     -20.52 &          18.44 &          7.04\\ \hline
     Random  &            -53.60 &          23.63 &         27.41\\ \hline
-    Pessimal &           -50.07 &          38.67 &         28.79\\ \hline
+    De-optimized &       -50.07 &          38.67 &         28.79\\ \hline
     \hline
     \end{tabular}
   }
@@ -759,29 +779,18 @@ maximum divergence being 44.12\% for the 5D application.
     \begin{tabular}{ | l | l | l | p{1.5cm} |}
     \hline
     Mapping         &    Min Error\% &   Max Error\% & Avg abs Error\%\\ \hline
-    Optimal         &         -44.12 & 16.01 & 15.88\\ \hline
+    Optimized       &         -44.12 & 16.01 & 15.88\\ \hline
     Regular         &         -0.41  & 32.42 & 17.07\\ \hline
     Skewed regular  &         -0.68  & 30.98 & 16.96\\ \hline
     Skewed reversed &         -9.31  & 17.69 & 8.99\\ \hline
     Linear          &         -9.44  & 17.20 & 6.71\\ \hline
     Reversed        &         -9.36  & 17.12 & 6.64\\ \hline
     Random          &         -35.86 & 35.19 & 15.69\\ \hline
-
+    De-optimized    &         -27.84 & 50.24 & 14.96\\ \hline
     \hline
     \end{tabular}
   }
 \end{table}
-
-
-
-% Limitation of the model
-% We use the average distance which does not capture the worst performing link.
-% Determining the worst performing link is hard.
-% Our pessimal results need not be the absolute worst mapping, the simulated annealing could be stuck on a local maxima.
-% We have not verified the model on a different network topology or a different machine.
-
-
-\todo{Discuss how well the analytical model matches the experimental data}
 
 \begin{figure}
   \center
@@ -803,6 +812,13 @@ maximum divergence being 44.12\% for the 5D application.
   \includegraphics[width=0.45\textwidth]{mappings/5d_random_model.png}
   \caption{Analytic model vs Experimental data for Random mapping(5D)}
     \label{fig:5D_random_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/5d_pessimal.png}
+  \caption{Analytic model vs Experimental data for De-optimized mapping(5D)}
+    \label{fig:5D_pessimal_mapping}
 \end{figure}
 
 \begin{figure}
@@ -833,6 +849,42 @@ maximum divergence being 44.12\% for the 5D application.
     \label{fig:5D_skewed_reversed_mapping}
 \end{figure}
 
+\section{Conclusion}
+
+We have conducted a detailed study of the impact of task placements on Halo exchange
+style operations on the Blue Gene/Q. From the insights gained from these experiments
+we developed an analytical model and a metric to compare different mapping schemes.
+The experimental studies show that the average prediction error of the model for any
+given mapping is under 30\%.
+
+We explored several different mapping strategies, and compared results against the model.
+These mappings include an optimized mapping which is close to the theoretical optimum,
+and a de-optimized mapping generated using simulated annealing. The results from these
+different mappings show that performance can vary widely, with the optimized mapping
+being 7.5 times faster than the de-optimezed mapping. The optimized mapping also out-performs
+the default mapping scheme for the 3D application by 2.0x and the 5D application
+by 2.6x in the rendezvous protocol regime.
+
+To further the understanding of this model and to validate the effectiveness of the model,
+similar experiments must be conducted on other network architectures such as the Cray XE6, a 3D torus.
+We believe that experiments on other architectures will yield a better understanding of the model
+as well as ensure the applicability of the model in different environment. Our tests show that
+latency does not impact performance on the Blue Gene/Q, but this might not be true on other networks
+and architectures. Currently we have very little understanding of the experimentally calibrated
+link utilization parameter $\alpha$. Further experiments and studies would help understand what
+contributes to this parameter which reduces network utilization considerably.
+
+Improving the model beyond using average distance, which captures the average flow, rather than
+the traffic flow over the most congested links can possibly improve error percentages. The average
+distance does not capture network hotspots and communication patterns that heavily congest certain
+links which effectively reduces available bandwidth. This is a limitation of the model that can be
+improved upon.
+
+When halo exchanges involve more complex communication patterns, such as when the neighbors
+are a graph pattern, the method discussed using simulated annealing could be used to generate
+optimized mappings. Using simulated annealing to generate optimized mapping for our current applications
+is also another area where future work is warranted.
+
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{fig/TEST_RPN_16_NODE_512_5D_LINK_UTIL}
@@ -841,7 +893,7 @@ maximum divergence being 44.12\% for the 5D application.
     \label{fig:TEST_RPN_16_NODE_512_5D_LINK_UTIL}}
 \end{figure}
 
-\clearpage
+
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/3d_linear.png}
@@ -870,6 +922,7 @@ maximum divergence being 44.12\% for the 5D application.
     \label{fig:3D_random_mapping}
 \end{figure}
 
+%\clearpage
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/3d_regular.png}
@@ -896,33 +949,6 @@ maximum divergence being 44.12\% for the 5D application.
   \caption{Analytic model vs Experimental data for Skewed reversed mapping(3D)}
     \label{fig:3D_skewed_reversed}
 \end{figure}
-
-\section{Conclusion}
-% What we did in the paper
-\begin{itemize}
-  \item Developed analytical model for halo exchange on multi-dimensional torus networks
-  \item Prediction error of model under 30\%
-  \item Developed optimal mapping with 2x performance improvement over default
-  \item Explored several sub-optimal mapping strategies
-\end{itemize}
-
-
-% Future work
-\begin{itemize}
-\item Validate on other machines
-
-\item Other network architectures, e.g. Cray XE6 3D Torus
-\item Larger data sizes
-\item Improve model beyond average distance
-  \begin{itemize}
-    \item Better understanding of $\alpha$ link utilization parameter
-    \item Network hotspots
-    \item Ability to use links in all directions
-  \end{itemize}
-\item Simulated annealing for optimized mapping of complex communication patterns
-\end{itemize}
-
-
 
 \bibliographystyle{abbrv}
 \bibliography{halo}
