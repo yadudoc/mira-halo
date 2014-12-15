@@ -36,22 +36,22 @@
 \newcommand{\timnote}[1]{ {\textcolor{maroon} { Tim: #1 }}}
 \newcommand{\todo}[1]{ {\textcolor{red} { TODO: #1 }}}
 
-\title{How low can you halo?}
-\subtitle{Modeling halo exchange on multi-dimensional torus networks}
+%\title{How low can you halo?}
+\title{Modeling halo exchange on multi-dimensional torus networks}
 
 \numberofauthors{2}
 
 \author{
 % 1st. author
 \alignauthor
-Yadu Nand Babuji\titlenote{}\\
+Yadu Nand Babuji\\
        \affaddr{Dept. of Computer Science,}\\
        \affaddr{University of Chicago,}\\
        \affaddr{Chicago, IL, USA}\\
        \email{yadunand@uchicago.edu}
 % 2nd. author
 \alignauthor
-Timothy G. Armstrong\titlenote{}\\
+Timothy G. Armstrong\\
        \affaddr{Dept. of Computer Science,}\\
        \affaddr{University of Chicago,}\\
        \affaddr{Chicago, IL, USA}\\
@@ -62,7 +62,8 @@ Timothy G. Armstrong\titlenote{}\\
 \begin{abstract}
 % Motivation
 Many High Performance Computing (HPC) applications involve application domain decompositions that involve nearest neighbor communication.
-Halo exchange is a common nearest neighbor communication pattern used for solving PDE's and thus applying to a wide range of HPC applications.
+Halo exchange is a common nearest neighbor communication pattern that arises
+as a result of domain decomposition and occurs in a wide range of HPC applications.
 % Problem statement % Approach
 Empirical results show that different task placement strategies in Halo exchange codes can have as much as 7.5x performance difference.
 We develop an analytical model to understand the impact of task placements within a network topology on performance and guide selection of
@@ -83,8 +84,8 @@ communicate with other processors that have neighboring subdomains to
 update information about the state of the boundary between subdomains~\cite{Kjolstad_2010}.
 A common special case is when a multi-dimensional cartesian space is
 decomposed into subdomains of equal size.  For example, in the three-dimensional
-case, a 8x8x8 cube might be decomposed into 256 2x1x1 cubes for execution on 256 processors.
-Figure~\ref{fig:halo-illustration} illustrates the two-dimensional case on 8
+(3D) case, a 8x8x8 cube might be decomposed into 256 2x1x1 cubes for execution on 256 processors.
+Figure~\ref{fig:halo-illustration} illustrates the two-dimensional (2D) case on 8
 processors.
 
 \begin{figure}
@@ -100,20 +101,23 @@ halo exchange communications onto parallel computers with hypercube or
 torus networks. A typical computation job on a leadership class machine would
 utilize several hundreds to thousands of cores, as a result there are a large number of
 possible mappings to the physical hardware that could be chosen. We seek to understand
-what aspects of the mappings have an impact on performance and how to quantify them so
-that the impact these mappings have on performance can modelled. Mapping strategies
-are a cheap optimisation which requires no code changes to the application
-and as our empirical studies show, these mapping strategies have significantly
-different network performance characteristics. There are no studies to the best
-of our knowledge that attempts to model the impact of mapping performance on
-HPC systems.
+what aspects of the mappings have an impact on performance and how to quantify the the impact of the mappings on performance. Mapping strategies
+are an easy and effective optimization, which require no code changes to the application.  Our empirical studies show that these mapping strategies have significantly
+different performance characteristics for network communication.
+
+% Tim: I don't think this is entirely true:
+%There are no studies to the best
+%of our knowledge that attempts to model the impact of mapping performance on
+%HPC systems.
 
 % What does this paper contribute:
-The contributions of this paper are the following. We've identified average distance as
+The contributions of this paper are the following. We have identified average distance as
 a simple yet useful metric by which task placement strategies or mappings can be quantified.
 An analytical model for the performance of halo exchange operation is developed which is accurate
-to within 30\% error rate. We identify nearly optimal and pessimal mapping strategies, of which
-the optimal strategies yield 2x improvement in performance over the default mapping.
+to within 30\% error rate. We have also identified eight distinct mapping strategies
+which are used to evaluate our model.
+Within these are nearly optimal and pessimal mapping strategies, with
+the optimal strategy yielding 2x improvement in performance over the default mapping.
 
 The rest of the paper is organised as follows :
 % Guidance
@@ -129,24 +133,33 @@ validation of the model.
 The state of the art in High Performance Computing(HPC) infrastructure, demands high-performance networks
 to support the movement of data between the nodes as well as to-and-from disk-arrays. HPC systems are
 increasingly architected with high radix interconnects such as hypercubes and N-dimensional tori.
-Parallel applications have a wide range of task placements options to exploit the network topology of
-these HPC systems. These networks have evolved to several different network topologies in order to support
-different requirements, and data movement patterns. For HPC applications which involve fine-grained communication,
+For HPC applications which involve fine-grained communication,
 high-radix networks provide low latency, smaller diameter, and large bandwidth as multiple links along the multiple
 dimensions supported.
+Parallel applications have a wide range of task placement options that can
+exploit the network topology of these HPC systems based on the communication
+patterns of the application.
+%These networks have evolved to several different network topologies in order to support
+%different requirements, and data movement patterns.
 
 % Routing protocols on the BG/Q
 % Direct routing
 % Adaptive routing
 \subsection{Blue Gene/Q 5D torus network}
 
-The BlueGene/Q is a 3rd generation massively parallel supercomputer from IBM. The BlueGene/Q implements a 5 dimensional torus with up to 16K nodes.
-To support the 5 dimensional torus each compute node has 10 bi-directional duplex links. There is a separate 11th link for IO. Each of the 10 links
+The BlueGene/Q is a massively parallel supercomputer from IBM, the third
+generation of the BlueGene series of supercomputers.
+The first two generations of BlueGene systems used a three-dimensional
+torus network, while the BlueGene/Q uses a five-dimensional (5D) torus with up
+to 16K nodes.  
+To support the five-dimensional torus each compute node has 10 bi-directional full-duplex links. There is a separate 11th link for IO. Each of the 10 links
 operate at a bandwidth of 2GB/s \cite{BGQ_RedBook_2013}. After accounting for 10\% overhead in message headers 1.8GB/s is available for raw data per link in one-direction.
-The 5D torus network provides high nearest neighbor bandwidth as well bisection bandwidth while decreasing the maximum number of hops to reach
-the furthest nodes. The five dimensions on the network are labelled as
+The 5D torus network provides high nearest neighbor and bisection bandwidth
+while limiting the maximum number of hops to reach the furthest nodes of
+the network and therefore reducing latency. The five dimensions on the
+network are labelled as
 A,B,C,D,E.  The location of a compute node in a job can be specified
-by its A,B,C,D,E coordinates, while the location of a core is specified
+by its A,B,C,D,E coordinates, while an individual core is identified
 with an additional dimension, T. The E dimension is limited to a length
 of 2, while A,B,C,D dimensions can be multiples of 4 to remain torus.
 One rack on the BlueGene/Q is a torus network of dimensions 4x4x4x4x2.
@@ -712,7 +725,7 @@ is unaffected by using duplicate messages of smaller sizes. If caching effects p
 role in performance sending multiple duplicate messages that fit in the L3 cache would have
 outperformed larger messages that do not fit in L3 cache. The plots of these two cases are shown
 in Figure~\ref{fig:caching_figure_vs_without}. We see that sending duplicate messages of smaller
-size has added startup costs but at higher data sizes cache optimised  duplicate messages do not
+size has added startup costs but at higher data sizes cache optimized  duplicate messages do not
 perform better, from this we conclude that caching effects are negligible and can be ignored.
 
 The latency experiments used a modified regular mapping in which two ranks were transposed to
