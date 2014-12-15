@@ -125,7 +125,7 @@ The University of Chicago \\
 \vspace{-1.0em}
 \begin{figure}
   \centering
-  \caption{Hurricane simulation using WRF software}
+  \caption{Hurricane simulation using WRF weather simulation}
     %\animategraphics[loop,autoplay,width=0.45\linewidth]{12}{img/Typhoon_Mawar_2005_computer_simulation-frame}{0}{48}
     \includegraphics[width=0.45\linewidth]{img/Typhoon_Mawar_2005_computer_simulation-frame24}
 
@@ -189,7 +189,8 @@ The University of Chicago \\
   \begin{itemize}
     \item Cartesian domain decomposition, e.g. 32x32x8 = 8196 nodes representing sub-domains for a 3D Application
     \item Network topology - 5D torus, e.g. 4x4x4x4x2 nodes, 16 cores/node
-    \item Task mapping from application subdomain/rank to network coordinate
+    \item Task mapping: application subdomain/rank $\rightarrow$ A,B,C,D,E,T
+          coords
   \end{itemize}
 \item Easy optimization - no algorithmic or code changes required
 \item Best \& worst mappings - up to 7.5x difference in halo exchange time
@@ -209,9 +210,9 @@ The University of Chicago \\
 \frametitle{Goals}
 \begin{itemize}
   \item Predict task mapping performance for halo exchange on Blue Gene/Q
-  \begin{itemize}
-    \item Map application rank to (A, B, C, D, E, T) network coordinates
-  \end{itemize}
+%  \begin{itemize}
+%    \item Mappings of application rank to 
+%  \end{itemize}
   \item Discover good (and bad) task mapping strategies
 \end{itemize}
 \vspace{-1em}
@@ -260,15 +261,16 @@ A B C D E T
 \frametitle{Experimental setup}
 \begin{itemize}
   \item 512 node (8192 core) partition of Blue Gene/Q Mira - 4x4x4x4x2
+  \item Halo exchange benchmark in C/MPI
   \item 3D and 5D application domains with wraparound
         divided into 32x32x8 and 8x8x8x8x2 subdomains
-  \item Message size per exchange from 8 bytes to 16MB
   \item Measured time for 6/10 concurrent sends and receives required
         for 3D/5D halo exchange
+  \item Message size per exchange from 8 bytes to 16MB
 \end{itemize}
 
 \centering
-\includegraphics[width=0.45\linewidth]{mira}
+\includegraphics[width=0.4\linewidth]{mira}
 
 \end{frame}
 %------------------------------------------------
@@ -278,8 +280,9 @@ A B C D E T
 \frametitle{Understanding halo exchange performance}
 \begin{itemize}
   \item Different network protocols/routing algorithms
-  \item Longer distances resulting in higher latency?
+  \item Neighbour-to-neighbour network latency?
   \item Cache effects when message buffers do not fit in L3 cache?
+  \item Point-to-point bandwidth without contention?
   \item Multiple transfers contending for network link bandwidth?
 \end{itemize}
 \vspace{-0.5em}
@@ -314,7 +317,7 @@ A B C D E T
 \frametitle{Maximum distance and latency experiment}
 \begin{itemize}
     \item Move one rank to furthest point in network from neighbor
-    \item Do longer distances result in higher latency? Surprisingly, no!
+    \item Does maximum neighbour distance affect latency? Surprisingly, no!
     \item Point-to-point latency not important to model
 \end{itemize}
 \vspace{-1em}
