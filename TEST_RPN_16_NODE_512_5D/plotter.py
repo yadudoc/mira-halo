@@ -120,7 +120,9 @@ def node_model(logdata, Nsteps ):
         Ts = Ts_Short # Eager
     elif N > 4096 :
         Ts = Ts_Rendz
-        Const = 7.57874801074
+        #Const = 7.57874801074
+        Const = 1
+        Const = 6.33485471122
 
     return  Ts + Nsteps * N*16*Tb * Const
     #return Nsteps * (Ts + N*16*Tb)
@@ -159,10 +161,10 @@ def plotter (kind, experimental, steps):
     data_axes = ['8B','16B','32B','64B','128B','256B', '512B', '1KB', '2KB', '4KB', '8KB', '16KB','32KB','64KB','128KB','256KB', '512KB', '1MB',
                  '2MB', '4MB', '8MB', '16MB','32MB']
 
-    model         = plt.plot(maxdist_data, model_node(steps) ,  '-cd',  label="Analytical model")
+    model         = plt.plot(maxdist_data, model_node(steps) ,  '-cd',  label="Model")
     plt.setp(model, alpha=0.8, antialiased=True, linewidth=2.0)
 
-    line           = plt.plot(maxdist_data, experimental      ,  '-ro', label=kind)
+    line           = plt.plot(maxdist_data, experimental      ,  '-ro', label="Experiment")
     plt.setp(line, alpha=1.0, antialiased=True,  linewidth=2.0)
 
 
@@ -180,10 +182,16 @@ def plotter (kind, experimental, steps):
                      alpha=0.2,
                      color='r',
                      label='Error %')
+
+    plt.ylim(-50,50)
+    errors =  err(experimental, [node_model(d, steps) for d in maxdist_data])
+    avg_error = sum( [abs(i) for i in errors ] ) / len(errors)
+    print "ERRORS {0} {1} {2} {3}".format(kind, min(errors), max(errors), avg_error)
+
     #err_plot.plot(maxdist_data, err(experimental, [no_congestion_model(d, steps) for d in maxdist_data]) , '-bs', label="Error %")
     #err_plot.plot(maxdist_data, err(experimental, [congestion_model(d, steps) for d in maxdist_data]) , 'b-')
     #err_plot.plot(maxdist_data, err(linear_data, [no_congestion_model(d, steps) for d in maxdist_data]) , 'y-')
-    plt.title('Time to complete halo exchange - 512 Nodes, RPN 16, 5D application matrix')
+    plt.title(kind + ' - 512 Nodes, RPN 16, 5D application matrix')
 
     err_plot.set_ylabel('Error %')
     plt.show()
@@ -197,8 +205,8 @@ def mappings_plotter ():
     data_axes = ['8B','16B','32B','64B','128B','256B', '512B', '1KB', '2KB', '4KB', '8KB', '16KB','32KB','64KB','128KB','256KB', '512KB', '1MB',
                  '2MB', '4MB', '8MB', '16MB','32MB']
 
-    line_optimal   = plt.plot(maxdist_data, optimal_mapping , '-gd', label="Optimal mapping")
-    plt.setp(line_optimal, alpha=0.8, antialiased=True, linewidth=2.0)
+    #line_optimal   = plt.plot(maxdist_data, optimal_mapping , '-gd', label="Optimal mapping")
+    #plt.setp(line_optimal, alpha=0.8, antialiased=True, linewidth=2.0)
     line_regular   = plt.plot(maxdist_data, regular_mapping , '-bd', label="Regular mapping")
     plt.setp(line_regular, alpha=0.8, antialiased=True, linewidth=2.0)
     line_skewed1   = plt.plot(maxdist_data, skewed1_mapping , '--c*', label="Skewed mapping1")
@@ -218,6 +226,7 @@ def mappings_plotter ():
     #plt.setp(line_worst, alpha=1.0, antialiased=True,  linewidth=2.0)
     #err_plot.set_xlabel('time (s)')
     # Make the y-axis label and tick labels match the line color.
+
     plt.xticks(maxdist_data, data_axes, rotation=45)
     plt.title('Time to complete halo exchange - 512 Nodes, RPN 16, 5D application matrix')
     #plt.legend(bbox_to_anchor=(0., 1.02, 1., .202), loc=3, ncol=2, mode="expand", borderaxespad=0.5)
@@ -226,10 +235,18 @@ def mappings_plotter ():
 
 #print  [ float(row[2]) for row in mod_list(optimal_data) ]
 #print  [ float(row[2]) for row in mod_list(random1_data) ]
+def gm(seq):
+    prod  = 1
+    items = 0
+    for d in seq:
+        prod *= d
+        items += 1
+    gmean = math.pow(2, math.log(prod, 2) * float(1.0/items))
+    return gmean
 
-def calculate_alpha():
-    regular = [ float(row[2]) for row in mod_list(regular_data) ]
-    model_res = model_node(float(regular_data[0][3]))
+def calculate_alpha(data):
+    regular = [ float(row[2]) for row in mod_list(data) ]
+    model_res = model_node(float(data[0][3]))
     print model_res
     print regular
 
@@ -239,13 +256,40 @@ def calculate_alpha():
                                                    regular[i] / math.pow(2,model_res[i]) )
 
     devs=[ d/math.pow(2,m) for (m,d) in zip(model_res[9:], regular[9:]) ]
+    geometric_mean = gm(devs)
+    print "geometric_mean : ",geometric_mean
     average = sum(devs)/len(devs)
     print "devs    : ", devs
     print "average : ", average
 
-calculate_alpha()
+
+calculate_alpha(regular_data)
+calculate_alpha(random1_data)
+
+print "Ts_Immed : ", Ts_Immed
+print "Ts_Short : ", Ts_Short
+print "Ts_Eager : ", Ts_Eager
+print "Ts_Rendz : ", Ts_Rendz
+
+optimal =[ float(row[2]) for row in mod_list(optimal_data) ]
+regular =[ float(row[2]) for row in mod_list(pessimal_data) ]
+print [ (a,b) for (a,b) in zip(optimal, regular) ]
+
+print "data   | optimal  |  regular   | regular/optimal"
+i = 8
+total = 0
+count = 0
+for (a,b) in zip(optimal,regular):
+    if i >= 4096:
+        print "{0}    {1}    {2}   {3}".format(math.log(i,2), float(a), float(b), float(b)/float(a))
+        total += float(b)/float(a)
+        count += 1
+    i *= 2
+print "average : ", total/count
+
 
 #mappings_plotter()
+exit()
 plotter("Optimal mapping", optimal_mapping, float(optimal_data[0][3]))
 plotter("Regular mapping", regular_mapping, float(regular_data[0][3]))
 plotter("Skewed regular", skewed1_mapping, float(skewed1_data[0][3]))
@@ -255,10 +299,10 @@ plotter("Linear mapping", linear_mapping, float(linear_data[0][3]))
 plotter("Reversed mapping", reversed_mapping, float(reversed_data[0][3]))
 plotter("Random mapping", random1_mapping, float(random1_data[0][3]))
 
-
 #plotter("Random mapping 2", random2_mapping, float(random2_data[0][3]))
 #plotter("Random mapping 3", random3_mapping, float(random3_data[0][3]))
 #plotter("Random mapping 4", random4_mapping, float(random4_data[0][3]))
+
 #plotter("Reversed mapping", reversed_mapping, float(reversed_data[0][3]))
 
 
