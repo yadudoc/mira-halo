@@ -14,6 +14,7 @@
 \usepackage{xspace}
 \usepackage{url}
 \usepackage{listings}
+\usepackage[all]{nowidow}
 
 \begin{document}
 
@@ -64,7 +65,7 @@ Many High Performance Computing (HPC) applications involve application domain de
 Halo exchange is a common nearest neighbor communication pattern used for solving PDE's and thus applying to a wide range of HPC applications.
 % Problem statement % Approach
 Empirical results show that different task placement strategies in Halo exchange codes can have as much as 7.5x performance difference.
-We develop an analytical model to understand the impact of task placements withing a network topology on performance and guide selection of
+We develop an analytical model to understand the impact of task placements within a network topology on performance and guide selection of
 optimal mappings.
 % Results
 Analytic model comes with x percentage of empirical results with a max error of E.
@@ -81,10 +82,19 @@ Identified optimal and pessimal mappings.
 Halo exchange is a common communication pattern in parallel codes, where
 each process is assigned an application subdomain and must periodically
 communicate with other processors that have neighboring subdomains to
-update information about the state of the boundary between subdomains.
+update information about the state of the boundary between subdomains~\cite{Kjolstad_2010}.
 A common special case is when a multi-dimensional cartesian space is
 decomposed into subdomains of equal size.  For example, in the three-dimensional
 case, a 8x8x8 cube might be decomposed into 256 2x1x1 cubes for execution on 256 processors.
+Figure~\ref{fig:halo-illustration} illustrates the two-dimensional case on 8
+processors.
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.475\textwidth]{fig/halo-illustration}
+  \caption{Halo exchange for a 2D cartesian domain with wraparound on 8 processors}
+    \label{fig:halo-illustration}
+\end{figure}
 
 % Objective
 This paper explores the problem of mapping such multi-dimensional cartesian
@@ -95,15 +105,17 @@ possible mappings to the physical hardware that could be chosen. We seek to unde
 what aspects of the mappings have an impact on performance and how to quantify them so
 that the impact these mappings have on performance can modelled. Mapping strategies
 are a very cheap optimisation which requires no code changes to the application
-and as our empirical studies show, these mapping stategies have significantly
+and as our empirical studies show, these mapping strategies have significantly
 different network performance characteristics. There are no studies to the best
 of our knowledge that attempts to model the impact of mapping performance on
 HPC systems.
 
 % What does this paper contribute:
-\todo{Add following points with text}\\
-1. An analytical model that describes the perfomance on Halo exchange with different mappings\\
-2. A nearly worst and optimal mapping.\\
+The contributions of this paper are the following. We've identified average distance as
+a simple yet useful metric by which task placement strategies or mappings can be quantified.
+An analytical model for the performance of halo exchange operation is developed which is accurate
+to within 30\% error rate. We identify nearly optimal and pessimal mapping strategies, of which
+the optimal strategies yield 2x improvement in performance over the default mapping.
 
 The rest of the paper is organised as follows :
 % Guidance
@@ -123,7 +135,7 @@ Parallel applications have a wide range of task placements options to exploit th
 these HPC systems. These networks have evolved to several different network topologies in order to support
 different requirements, and data movement patterns. For HPC applications which involve fine-grained communication,
 high-radix networks provide low latency, smaller diameter, and large bandwidth as multiple links along the multiple
-dimensions supprted.
+dimensions supported.
 
 % Routing protocols on the BG/Q
 % Direct routing
@@ -141,7 +153,7 @@ with an additional dimension, T. The E dimension is limited to a length
 of 2, while A,B,C,D dimensions can be multiples of 4 to remain torus.
 One rack on the BlueGene/Q is a torus network of dimensions 4x4x4x4x2.
 Larger torus networks are formed by combining these 4x4x4x4x2 racks.
-The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}
+The intranode per hop latency is approximately 40ns BGQ \cite{BGQ_Interconnect_2012}, 
 while the worst point-to-point network latency is expected to be under 3$\mu$s. 
 
 % The BGQ routing protocols
@@ -178,20 +190,15 @@ MPICH2 Nemesis.
     \label{table:bgq_protocols}}
   {\footnotesize
     \begin{tabular}{ | l | l | l | p{1.5cm} |}
-    \hline
-    Protocol   & Min Msg Size   & Max Msg Size  & Routing\\ \hline
-    Immediate  &             0B &           112B & Direct\\ \hline
-    Short      &           113B &           496B & Direct\\ \hline
-    Eager      &           497B &          4096B & Direct\\ \hline
-    Rendezvous &          4096B &      unlimited & Adaptive\\ \hline
-    \hline
+    \hline 
+    \input tables/protocols.tex
     \end{tabular}
   }
 \end{table}
 
-\section{Mapping Strategies}
+\section{Mapping Strategies}\label{sect:mapping}
 Different classes of HPC systems provide different mechanisms and varying levels of control on task placement.
-The MPI framework gives finegrained control of placement of tasks via a mapping file when such functionality
+The MPI framework gives fine grained control of placement of tasks via a mapping file when such functionality
 is supported by the hardware. On BlueGene/Q systems from IBM, the mapping files allow you to determine where
 each MPI rank is placed within a machine partition. On Cray XE6 machines, which do not have the notion of
 isolated machine partitions, the mapping functionalities only give the flexibility of choosing the node on
@@ -231,8 +238,8 @@ Sample from the mapping file :
 \end{lstlisting}
 
 \subsection{Linear Mapping}
-Linear mapping refers to placing ranks along nodes in the increasing order of dimensions A, B, C, D, E, T.
-As a result the neighboring ranks in the application domain along a dimension are places on nodes atleast
+Linear mapping ers to placing ranks along nodes in the increasing order of dimensions A, B, C, D, E, T.
+As a result the neighboring ranks in the application domain along a dimension are placed on nodes at least
 one hop away.
 
 Sample from the mapping file :
@@ -252,8 +259,8 @@ Sample from the mapping file :
 
 Skewed mapping uses a modified order of task placement along a dimension.
 With linear mapping the nearest neighbors along, say dimension A are only one hop away along A+ or A-.
-Skewed mapping uses an alternate ordering on task placement to ensure that one of the neighbors is atleast
-2 hops away. This alternate ordering is shown in Fig. \ref{fig:Skewed layout for 4 Nodes in 1D}.
+Skewed mapping uses an alternate ordering on task placement to ensure that one of the neighbors is at least
+2 hops away. This alternate ordering is shown in Figure~\ref{fig:Skewed_layout_for_4_Nodes_in_1D}.
 Since the network is torus, the maximum distance possible along any dimension is the length along
 the dimension divided by two. However, since there are 5 dimensions on a Blue Gene/Q creating a skew along different
 dimensions can create mappings in which the nearest neighbors are not only separated by hops along a dimension but
@@ -287,23 +294,24 @@ Sample from the mapping for reversed ordering:
 \end{lstlisting}
 
 
-\label{sect:Skewed mapping in 1D}
 \begin{figure}
   \center
   \includegraphics[width=0.475\textwidth]{skewed_layout_cropped.pdf}
   \caption{Skewed layout for 4 Nodes in 1D}
-    \label{fig:Skewed layout for 4 Nodes in 1D}
+    \label{fig:Skewed_layout_for_4_Nodes_in_1D}
 \end{figure}
 
 \subsection{Random Mapping}
 \label{sect:random}
 
-Random mappings are generated by using the linux shuf utility to shuffle the mapping file from regular mapping.
+Random mappings are generated by using the linux shuf utility to shuffle a regular mapping file.
 Since the mappings are random we would expect the average distance between nodes to be close to half the diameter
 or the maximum distance between any two nodes in the network. The random mappings generated for a partition of
-dimensions 4x4x4x4x2 with 16 ranks per node have an average distance of 4.0035 \todo{Update with corrected average distance}.
-The diameter of network is the sum of the halves of the length of each dimension : 9.
-
+dimensions 4x4x4x4x2 with 16 ranks per node have an average distance of 4.5. The diameter of network, is the maximum
+distance possible between any two nodes in the topology and is the sum of the halves of the length of each dimension: 9.
+The maximum distance measured for the mapping file generated is 9.
+Despite the increased average distance, the neighbor pairs in a random mapping are randomly distributed over the 5 dimensions and in +/- directions.
+This could have the unusual effect of higher effective bandwidth utilization than if neighbors were placed along the same dimensions, resulting in congested links.
 
 \subsection{Deoptimized Mappings from Simulated Annealing}
 In order to cover an even wider range of mappings, we tried to
@@ -356,7 +364,7 @@ end
     \label{fig:anneal_pseudocode}
 \end{figure}
 
-The algorithm has several inputs and has several subprocedures,
+The algorithm has several inputs and has several sub-procedures,
 which we will describe informally.
 \texttt{niters} is the number of annealing iterations to attempt, while
 \texttt{app\_topo} and \texttt{net\_topo} are data structures
@@ -404,7 +412,7 @@ into 512 contiguous 3D slices of dimensions 4x2x2. Now, there are 512 boxes arra
 The 512 slices are then mapped on to the 4x4x4x4x2 network topology of the BlueGene/Q.
 
 Sample from the mapping for 3D application of dimensions 32x32x8 to network of dimension 4x4x4x4x2x16
-\begin{lstlisting}
+\begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 0 0 0 0 0 0
 0 0 0 0 0 1
 0 0 1 0 0 0
@@ -418,12 +426,12 @@ Sample from the mapping for 3D application of dimensions 32x32x8 to network of d
 For an application with a 5D domain decomposition of 8x8x8x8x2, the box is determined to be 2x2x2x2. Similar to the 3D case, we
 partition the application domain into 512 contiguous into  slices of dimensions 2x2x2x2.
 Now, there are 512 boxes arranged as 4x4x4x4x2 (8x8x8x8x2/2x2x2x2). There is a simple one to one mapping from the
-to that of the 4x4x4x4x2 network topology since the dimentionality matches exactly. The difference between the mapping
+to that of the 4x4x4x4x2 network topology since the dimensionality matches exactly. The difference between the mapping
 generated by this method and the regular mapping stems from the mismatch of dimensions in the application domain to that
 of the network topology.
 
 Sample from the mapping for 5D application of dimensions 8x8x8x8x2 to network of dimension 4x4x4x4x2x16
-\begin{lstlisting}
+\begin{lstlisting}[frame=lines, basicstyle=\ttfamily,columns=fixed]
 0 0 0 0 0 0
 0 0 0 0 1 0
 0 0 0 0 0 1
@@ -443,10 +451,11 @@ the communication that must go over the network, and over what links these commu
 
 While a direct path with the manhattan distance between neighbors would be chosen when message sizes are small and deterministic routing
 protocol are in place, more interesting network effect become apparent only when message sizes increase. Once message sizes exceed 4Kb
-rendezvous protocol is used by the network which involves complex routing logic to avoid hotspots, and increase network utilization for
+rendezvous protocol is used by the network which involves complex routing logic to avoid hot-spots, and increase network utilization for
 a penalty in latency. Since it is difficult to model these dynamic systems, we will assume that the rendezvous protocol will balance
 the network load evenly such that the messages flowing over every link is similar.
 
+\timnote{TODO: mention that Bhanot paper is misguided - hop count matters for bandwidth}~\cite{Bhanot_2005}
 
 The average distance between neighbors can easily be calculated by taking the average of the manhattan distance of all pairs of neighbors.
 We assume that the distance between two ranks on the same node is 0, since intranode messaging does not contribute to network traffic.
@@ -464,7 +473,7 @@ Consider every pair of neighbor nodes (u,v), the manhattan distance between node
 The average number of messages flowing through any link is given by:
 
 \begin{equation}
-  N_{steps} = \frac{ \sum\limits_{u,v} dist_{u,v} } {T_neighbors}
+  N_{steps} = \frac{ \sum\limits_{u,v} dist_{u,v} } {T_{neighbors}}
 \end{equation}
 
 The average distance for the various mappings for the 3D and 5D case are provided in table
@@ -510,9 +519,7 @@ The average distance for the various mappings for the 3D and 5D case are provide
 \end{table}
 
 
-
-
-\section{Models for Network Communication}\label{model}
+\section{Analytical Model for Network Communication}\label{sect:model}
 
 \timnote{Maybe this discussion should be moved further down -
 it mainly pertains to $t_b$?  Do we also need to discuss the startup
@@ -555,7 +562,7 @@ If the application on every node attempts to exchange messages with every neighb
 every link on the network will see similar traffic. Thus we, consider a single link and it's bandwidth
 to determine \textbf{t\textsubscript{b}} the time required to send a Byte along the link.
 Assume that there are \textbf{N\textsubscript{procs}} number of identical processes all of which will attempt to utilize the same links.
-To capture the differences between different mappings we use a simple program to calculare the average distance between neighbors,
+To capture the differences between different mappings we use a simple program to calculate the average distance between neighbors,
 \textbf{N\textsubscript{steps}}. The current MPI implementation on leadership class systems like Mira (Bluegene/Q) utilizes
 shared memory for intranode communication. When a neighbor is present within the same node, the link
 is weighted as zero, and every network link or hop is weighted as one. Since it is possible to place
@@ -576,7 +583,7 @@ from the variables defined above as follows:
 \end{equation}
 
 
-\section{Experimental Design}
+\section{Experimental Design}\label{sect:experimental design}
 
 Empirical studies are necessary to gauge the effectiveness validity of models. Considerable efforts have
 been taken to ensure that the experiments are fair and are an accurate reproduction of the Halo exchange pattern
@@ -611,7 +618,7 @@ MPI_Barrier(comm_cart)
 halo_timer(end)
   \end{lstlisting}
   }
-  \caption{Pseudocode of halo exchange algorithm with concurrent sends and
+  \caption{Pseudocode halo exchange algorithm with concurrent sends and
            receives to all neighbours.}
     \label{fig:halo_pseudocode}
 \end{figure*}
@@ -619,27 +626,54 @@ halo_timer(end)
 Since we are only interested in the network performance aspect of the halo exchange code, we only measure
 the time taken to complete halo exchanges. The pseudocode for the halo exchange is listed in Figure~\ref{fig:halo_pseudocode}.
 
+\subsection{Latency}
+On the BlueGene/Q, the latency between the closest node and the farthest node is estimated to be under 3$\mu$s\cite{BGQ_Interconnect_2012}.
+Since halo exchange is a collective operation, the entire operation is only as fast as the worst performer in the entire operation.
+In the analytical model described in Section~\ref{sect:model}, we assume that latency does not play a role.
+This assumption is experimentally tested by comparing the time to completion of halo exchanged between the default mapping and a modified
+mapping which has just two ranks interchanged to nodes that span the diameter of the torus. This results in the an increase in maximum distance
+from 3.0 to 9.0 and increase of 0.003 for the average distance between neighbors.
 
+\subsection{Cache effects}
 To determine whether the network performance is affected by the send/receive message buffers overflowing from the
 L3 caches, we designed an experiment which sent \textbf{DUPES} number of messages each with $\frac{datalength}{DUPES}$
-message size. The runs were compared against a run with DUPES=1. The expected result is that for smaller datasizes
-the time to completion will be higher when duplicate messages are sent as there is the added startup cost for \textbf{DUPES} times the original messages.
-If the caches were indeed affecting the network performance, at higher data sizes, the Halo runs with duplicates should outperform
-a run without duplicates.
+message size. The runs were compared against a run with DUPES=1. 
+We expect that the added startup cost associated with the
+additional messages will lead to higher time to completion for short messages for
+$DUPES>1$.
+If L3 cache overflow was limiting halo exchange performance at higher data
+sizes, then we would expect that the Halo runs with $DUPES>1$ should outperform
+the runs with $DUPES=1$ because of the lower memory footprint.
+
+\subsection{Task placement within Mappings for 3D and 5D application domains}
+We've described eight different mapping schemes in Section~\ref{sect:mapping}.
+To study the network performance of the halo exchange codes, they are exercised using varying levels of data lengths for message exchanged between neighbors.
+Multiples of 2 ranging from 8B to 32Mb,  are chosen as data sizes as they are representative of the various phases of MPI messaging protocols, and cover
+a reasonable swath of data sizes that real world application might use. The hardware partitions chosen are 512 Node partitions of 4x4x4x4x2 shape. This
+is one rack on the BlueGene/Q, and is comparable to partition sizes used by HPC applications.
+
+The Halo exchange code itself measures the performance of various blocking and non-blocking MPI send and recv primitives and combinations.
+For our experiments we will only consider MPI\_Isend and MPI\_Irecv primitives with no artificial delay introduced after the barrier.
+The pseudocode for the halo exchange is listed in Figure~\ref{fig:halo_pseudocode}.
+Evaluating the performance of the different MPI primitives with randomised delay options is beyond the scope of this paper.
+
 
 \begin{figure}
   \center
-  \includegraphics[width=0.475\textwidth]{regular_vs_cache_duplicates.png}
+  \includegraphics[width=0.45\textwidth]{regular_vs_maxdist.png}
+  \caption{Regular mapping and Maxdist mapping}
+    \label{fig:regular_vs_maxdist}
+\end{figure}
+
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{regular_vs_cache_duplicates.png}
   \caption{Regular mapping with 8 duplicates and without}
     \label{fig:caching_figure_vs_without}
 \end{figure}
 
-The results show that at higher data sizes, the time to completion is unaffected by the using duplicate messages of smaller size to avoid caching effects.
-The plots of these two cases are shown in fig \ref{fig:caching_figure_vs_without}. From this we conclude that caching effects are negligible and can be ignored.
-
-
-
-The analytical model described in Section \ref{model}, is informed by the nature of the target system
+The analytical model described in Section~\ref{sect:model}, is informed by the nature of the target system
 and the domain decomposition of the application. The value of a model is in the ability to predict the
 results from
 % What machine do we run on
@@ -647,7 +681,7 @@ results from
 
 \begin{figure}
   \center
-  \includegraphics[width=0.475\textwidth]{5D_512_most_mappings_2.png}
+  \includegraphics[width=0.45\textwidth]{5D_512_most_mappings_2.png}
   \caption{5D halo exchange on 512 nodes with 16 RPN}
     \label{fig:5D halo exchange on 512 nodes with 16 RPN}
 \end{figure}
@@ -655,22 +689,104 @@ results from
 
 \begin{figure}
   \center
-  \includegraphics[width=0.51\textwidth]{3D_512_all_mappings.png}
+  \includegraphics[width=0.45\textwidth]{3D_512_all_mappings.png}
   \caption{3D halo exchange on 512 nodes with 16 RPN}
     \label{fig:3D halo exchange on 512 nodes with 16 RPN}
 \end{figure}
 
 
-
-
 \section{Results}
 
-The plots are  \ref{fig:5D_linear_mapping}, \ref{fig:5D_optimal_mapping}, foo
+\todo{Mention how data contradict the assumptions of paper http://www.maths.tcd.ie/~eoin/bluegene-task.pdf}
+
+The insights gained from the experiments outlined in Section~\ref{sect:experimental design}
+has guided the development of the Analytical model for the performance of halo exchange.
+The results from these experiments are described below:
+
+The experiments to study caching effects, show that at higher data sizes the time to completion
+is unaffected by using duplicate messages of smaller sizes. If caching effects played any significant
+role in performance sending multiple duplicate messages that fit in the L3 cache would have
+outperformed larger messages that do not fit in L3 cache. The plots of these two cases are shown
+in Figure~\ref{fig:caching_figure_vs_without}. We see that sending duplicate messages of smaller
+size has added startup costs but at higher data sizes cache optimised  duplicate messages do not
+perform better, from this we conclude that caching effects are negligible and can be ignored.
+
+The latency experiments used a modified regular mapping in which two ranks were transposed to
+nodes that are diametrically apart. This introduced a negligible increase in average distance but
+increased the maximum distance between neighbors from 3 to 9. The results from this experiment
+in Figure~\ref{fig:regular_vs_maxdist} show that increasing the distance does not add any measurable
+latency penalty.
+
+Plots of the different mappings discussed in Section~\ref{sect:mapping} indicate that increasing
+the halo exchange message length consistently affects performance.
+Figure~\ref{fig:5D halo exchange on 512 nodes with 16 RPN} and figure~\ref{fig:3D halo exchange on 512 nodes with 16 RPN}
+are plots of all mappings for the 5D application and 3D application respectively.
+
+Analysis of the \% difference between the predictions by the Analytical model and empirical data
+for the experiments using 3D and 5D application matrices are shown in Table~\ref{table:data vs model 3d}
+and Table~\ref{table:data vs model 5d} respectively. The tables show the minimum and maximum error
+as well as the average of the absolute error percentages for message sizes from 8B to 16Mb. For the
+3D application, the experimental results differ from the analytical model by 53.60\% in the worst case,
+while the average absolute error is under 30\%. The average absolute error is under 20\% with the
+maximum divergence being 44.12\% for the 5D application.
+
+
+\begin{table}
+  \caption{3D Experimental data vs Analytical model
+    \label{table:data vs model 3d}}
+  {\footnotesize
+    \begin{tabular}{ | l | l | l | p{1.5cm} |}
+    \hline
+    Mapping    &    Min Error\% &    Max Error\% & Avg abs Error\%\\ \hline
+    Optimal    &         -16.63 &          30.88 &         13.17\\ \hline
+    Regular    &          -0.49 &          36.68 &         15.31\\ \hline
+    Linear     &         -24.12 &          14.00 &         10.91\\ \hline
+    Reversed   &         -24.13 &          13.93 &         11.00\\ \hline
+    Skewed regular &      -0.39 &          39.57 &         19.81\\ \hline
+    Skewed reversed&     -20.52 &          18.44 &          7.04\\ \hline
+    Random  &            -53.60 &          23.63 &         27.41\\ \hline
+    Pessimal &           -50.07 &          38.67 &         28.79\\ \hline
+    \hline
+    \end{tabular}
+  }
+\end{table}
+
+
+\begin{table}
+  \caption{5D Experimental data vs Analytical model
+    \label{table:data vs model 5d}}
+  {\footnotesize
+    \begin{tabular}{ | l | l | l | p{1.5cm} |}
+    \hline
+    Mapping         &    Min Error\% &   Max Error\% & Avg abs Error\%\\ \hline
+    Optimal         &         -44.12 & 16.01 & 15.88\\ \hline
+    Regular         &         -0.41  & 32.42 & 17.07\\ \hline
+    Skewed regular  &         -0.68  & 30.98 & 16.96\\ \hline
+    Skewed reversed &         -9.31  & 17.69 & 8.99\\ \hline
+    Linear          &         -9.44  & 17.20 & 6.71\\ \hline
+    Reversed        &         -9.36  & 17.12 & 6.64\\ \hline
+    Random          &         -35.86 & 35.19 & 15.69\\ \hline
+
+    \hline
+    \end{tabular}
+  }
+\end{table}
+
+
+
+% Limitation of the model
+% We use the average distance which does not capture the worst performing link.
+% Determining the worst performing link is hard.
+% Our pessimal results need not be the absolute worst mapping, the simulated annealing could be stuck on a local maxima.
+% We have not verified the model on a different network topology or a different machine.
+
+
+\todo{Discuss how well the analytical model matches the experimental data}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_linear_model.png}
-  \caption{Analytic model vs Experimental data for Linear mapping}
+  \caption{Analytic model vs Experimental data for Linear mapping(5D)}
     \label{fig:5D_linear_mapping}
 \end{figure}
 
@@ -678,43 +794,43 @@ The plots are  \ref{fig:5D_linear_mapping}, \ref{fig:5D_optimal_mapping}, foo
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_optimal_model.png}
-  \caption{Analytic model vs Experimental data for Optimal mapping}
+  \caption{Analytic model vs Experimental data for Optimal mapping(5D)}
     \label{fig:5D_optimal_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_random_model.png}
-  \caption{Analytic model vs Experimental data for Random mapping}
-    \label{fig:5D_random _mapping}
+  \caption{Analytic model vs Experimental data for Random mapping(5D)}
+    \label{fig:5D_random_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_regular_model.png}
-  \caption{Analytic model vs Experimental data for Regular mapping}
-    \label{fig:5D regular mapping}
+  \caption{Analytic model vs Experimental data for Regular mapping(5D)}
+    \label{fig:5D_regular_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_reversed_model.png}
-  \caption{Analytic model vs Experimental data for Reversed mapping}
+  \caption{Analytic model vs Experimental data for Reversed mapping(5D)}
     \label{fig:5D_reversed_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_skewed_regular.png}
-  \caption{Analytic model vs Experimental data for Skewed regular mapping}
-    \label{fig:5D_skewed_regular_mapping }
+  \caption{Analytic model vs Experimental data for Skewed regular mapping(5D)}
+    \label{fig:5D_skewed_regular_mapping}
 \end{figure}
 
 \begin{figure}
   \center
   \includegraphics[width=0.45\textwidth]{mappings/5d_skewed_reversed.png}
-  \caption{Analytic model vs Experimental data for Skewed reversed mapping}
-    \label{fig:5D_skewed_reversed_mapping }
+  \caption{Analytic model vs Experimental data for Skewed reversed mapping(5D)}
+    \label{fig:5D_skewed_reversed_mapping}
 \end{figure}
 
 \begin{figure}
@@ -724,11 +840,88 @@ The plots are  \ref{fig:5D_linear_mapping}, \ref{fig:5D_optimal_mapping}, foo
           mappings
     \label{fig:TEST_RPN_16_NODE_512_5D_LINK_UTIL}}
 \end{figure}
-\usepackage[all]{nowidow}
 
+\clearpage
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_linear.png}
+  \caption{Analytic model vs Experimental data for Linear mapping(3D)}
+    \label{fig:3D_linear_mapping}
+\end{figure}
 
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_optimal.png}
+  \caption{Analytic model vs Experimental data for Optimal mapping(3D)}
+    \label{fig:3D_optimal_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_pessimal.png}
+  \caption{Analytic model vs Experimental data for Pessimal mapping(3D)}
+    \label{fig:3D_pessimal_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_random.png}
+  \caption{Analytic model vs Experimental data for Random mapping(3D)}
+    \label{fig:3D_random_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_regular.png}
+  \caption{Analytic model vs Experimental data for Regular mapping(3D)}
+    \label{fig:3D_regular_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_reversed.png}
+  \caption{Analytic model vs Experimental data for Reversed mapping(3D)}
+    \label{fig:3D_reversed_mapping}
+\end{figure}
+
+\begin{figure}
+  \center
+  \includegraphics[width=0.45\textwidth]{mappings/3d_skewed_regular.png}
+  \caption{Analytic model vs Experimental data for Skewed regular mapping(3D)}
+    \label{fig:3D_skewed_regular}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.45\textwidth]{mappings/3d_skewed_reversed.png}
+  \caption{Analytic model vs Experimental data for Skewed reversed mapping(3D)}
+    \label{fig:3D_skewed_reversed}
+\end{figure}
 
 \section{Conclusion}
+% What we did in the paper
+\begin{itemize}
+  \item Developed analytical model for halo exchange on multi-dimensional torus networks
+  \item Prediction error of model under 30\%
+  \item Developed optimal mapping with 2x performance improvement over default
+  \item Explored several sub-optimal mapping strategies
+\end{itemize}
+
+
+% Future work
+\begin{itemize}
+\item Validate on other machines
+
+\item Other network architectures, e.g. Cray XE6 3D Torus
+\item Larger data sizes
+\item Improve model beyond average distance
+  \begin{itemize}
+    \item Better understanding of $\alpha$ link utilization parameter
+    \item Network hotspots
+    \item Ability to use links in all directions
+  \end{itemize}
+\item Simulated annealing for optimized mapping of complex communication patterns
+\end{itemize}
+
 
 
 \bibliographystyle{abbrv}

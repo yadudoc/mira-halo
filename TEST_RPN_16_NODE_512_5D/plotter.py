@@ -120,7 +120,7 @@ def node_model(logdata, Nsteps ):
         Ts = Ts_Short # Eager
     elif N > 4096 :
         Ts = Ts_Rendz
-        Const = 7
+        Const = 7.57874801074
 
     return  Ts + Nsteps * N*16*Tb * Const
     #return Nsteps * (Ts + N*16*Tb)
@@ -159,12 +159,15 @@ def plotter (kind, experimental, steps):
     data_axes = ['8B','16B','32B','64B','128B','256B', '512B', '1KB', '2KB', '4KB', '8KB', '16KB','32KB','64KB','128KB','256KB', '512KB', '1MB',
                  '2MB', '4MB', '8MB', '16MB','32MB']
 
-    model1         = plt.plot(maxdist_data, model_no_congestion(steps) ,  '--gD',  label="Analytical model (link)")
-    model1         = plt.plot(maxdist_data, model_node(steps) ,  '--bD',  label="Analytical model (node)")
-    #model2         = plt.plot(maxdist_data, model_with_congestion(steps) ,  '--yD',  label="Analytical model (with congestion)")
-    line           = plt.plot(maxdist_data, experimental , '--r*', label=kind)
+    model         = plt.plot(maxdist_data, model_node(steps) ,  '-cd',  label="Analytical model")
+    plt.setp(model, alpha=0.8, antialiased=True, linewidth=2.0)
+
+    line           = plt.plot(maxdist_data, experimental      ,  '-ro', label=kind)
+    plt.setp(line, alpha=1.0, antialiased=True,  linewidth=2.0)
+
+
     plt.xticks(maxdist_data, data_axes, rotation=45)
-    plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=2, mode="expand", borderaxespad=0.5)
+    plt.legend(loc=2, ncol=1, borderaxespad=2)
     #duplicate_err = plt.plot(maxdist_data, err(experimental, [no_congestion_model(d, steps) for d in maxdist_data]) , '-bs', label="Error %")
     plt.ylabel("Time to completion in us (log2 scale)")
     plt.xlabel("Data per Halo exchange in Bytes(log2 scale)")
@@ -224,18 +227,39 @@ def mappings_plotter ():
 #print  [ float(row[2]) for row in mod_list(optimal_data) ]
 #print  [ float(row[2]) for row in mod_list(random1_data) ]
 
-mappings_plotter()
-exit()
+def calculate_alpha():
+    regular = [ float(row[2]) for row in mod_list(regular_data) ]
+    model_res = model_node(float(regular_data[0][3]))
+    print model_res
+    print regular
+
+    print "{0: <16} {1: <16} {2: <16}".format("model", "data", "dev")
+    for i in range(10,23):
+        print "{0: <16} {1: <16} {2: <16}".format( math.pow(2,model_res[i]), regular[i],
+                                                   regular[i] / math.pow(2,model_res[i]) )
+
+    devs=[ d/math.pow(2,m) for (m,d) in zip(model_res[9:], regular[9:]) ]
+    average = sum(devs)/len(devs)
+    print "devs    : ", devs
+    print "average : ", average
+
+calculate_alpha()
+
+#mappings_plotter()
 plotter("Optimal mapping", optimal_mapping, float(optimal_data[0][3]))
 plotter("Regular mapping", regular_mapping, float(regular_data[0][3]))
+plotter("Skewed regular", skewed1_mapping, float(skewed1_data[0][3]))
+plotter("Skewed reversed", skewed2_mapping, float(skewed2_data[0][3]))
+
 plotter("Linear mapping", linear_mapping, float(linear_data[0][3]))
-plotter("Random mapping 1", random1_mapping, float(random1_data[0][3]))
-plotter("Random mapping 2", random2_mapping, float(random2_data[0][3]))
+plotter("Reversed mapping", reversed_mapping, float(reversed_data[0][3]))
+plotter("Random mapping", random1_mapping, float(random1_data[0][3]))
+
+
+#plotter("Random mapping 2", random2_mapping, float(random2_data[0][3]))
 #plotter("Random mapping 3", random3_mapping, float(random3_data[0][3]))
 #plotter("Random mapping 4", random4_mapping, float(random4_data[0][3]))
-plotter("Skewed mapping 1", skewed1_mapping, float(skewed1_data[0][3]))
-#plotter("Skewed mapping 2", skewed2_mapping, float(skewed2_data[0][3]))
-plotter("Reversed mapping", reversed_mapping, float(reversed_data[0][3]))
+#plotter("Reversed mapping", reversed_mapping, float(reversed_data[0][3]))
 
 
 
